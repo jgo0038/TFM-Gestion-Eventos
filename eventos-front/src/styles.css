@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --main-bg-color: #43f79a;
+  }
+
+@layer base {
+  html {
+    font-family: Stencil Std, fantasy;
+  }
+}
+
+@layer utilities {
+  .arrow-image-right {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+  }
+
+  .arrow-image-left {
+    clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%);
+  }
+
+  .circle {
+    clip-path: circle(50% at 50% 50%);
+  }
+}
+

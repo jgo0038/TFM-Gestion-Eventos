@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head> -->
+
+<body>
+    <div class=" w-full flex ">
+        <div class="w-full flex items-center justify-start">
+            <a routerLink="/"> Aqui el logo</a></div>
+        <div class="w-full flex items-center justify-center">Aqui el titulo</div>
+        <div class="w-full max-h-80px flex items-center justify-end">
+            <div class="px-5 py-3">
+                <a routerLink="eventos">Eventos</a>
+            </div>
+            <div class="px-5 py-3">
+                <a routerLink="ciudades">Ciudades</a>
+            </div>
+            <div *ngIf="!logged" class="px-5 py-3">
+                <a routerLink="login">Inicio sesión</a>
+            </div>
+            <div *ngIf="logged" class="px-5 py-3">
+                <a routerLink="">Perfil</a>
+            </div>
+            <div *ngIf="logged" class="px-5 py-3">
+                <a (click)="cerrarSesion()" routerLink="">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- </html> -->
