@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<!-- <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head> -->
 
 <body>
     <div class=" w-full flex ">
@@ -18,13 +10,16 @@
                 <a routerLink="eventos">Eventos</a>
             </div>
             <div class="px-5 py-3">
-                <a routerLink="ciudades">Ciudades</a>
-            </div>
-            <div *ngIf="!logged" class="px-5 py-3">
-                <a routerLink="login">Inicio sesión</a>
+                <a routerLink="ciudades" routerLinkActive="active-link">Ciudades</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
-                <a routerLink="">Perfil</a>
+                <a routerLink="" routerLinkActive="active-link">Publicar</a>
+            </div>
+            <div *ngIf="!logged" class="px-5 py-3">
+                <a routerLink="/login" routerLinkActive="active-link">Inicio sesión</a>
+            </div>
+            <div *ngIf="logged" class="px-5 py-3">
+                <a routerLink="" routerLinkActive="active-link">Perfil</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
                 <a (click)="cerrarSesion()" routerLink="">Cerrar sesión</a>
@@ -32,5 +27,3 @@
         </div>
     </div>
 </body>
-
-<!-- </html> -->

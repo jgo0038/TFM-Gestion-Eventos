@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full min-h-full block">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+
+<body class="m-0 p-0 bg-gradient-to-b from-white to-blue-300">
+    <app-header></app-header>
+    <div>
+        <form [formGroup]="registerForm">
+
+        </form>
+    </div>
+    <div class="text-center">
+        <span class="text-2xl">Elige tu tipo de perfil</span>
+    </div>
+    <div class="rounded px-8 pt-6 pb-8 mx-40 my-5 flex flex-row justify-between">
+        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl">
+            <span class="text-white bg-black h-auto rounded-xl p-2">PARTICULAR</span>
+            <img (click)="selectParticular()" class="circle" src="../../../assets/ancestors.png" alt="gente">
+        </div>
+        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl">
+            <span class="text-white bg-black h-auto rounded-xl p-2">NEGOCIO</span>
+            <img (click)="selectNegocio()" class="circle" src="../../../assets/tienda.png" alt="tienda">
+        </div>
+    </div>
+    <div *ngIf="particular" class="text-center text-2xl">
+        Introduce los datos para crear un perfil de un particular
+    </div>
+    <div *ngIf="negocio" class="text-center text-2xl">
+        Introduce los datos para crear un perfil de tu negocio
+    </div>
+
+    <div class="flex  justify-center items-center">
+        <form *ngIf="particular" [formGroup]="registerFormParticular" (ngSubmit)="registerParticular()" class="w-full max-w-lg">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="nombreParticular">
+                        Nombre*
+                    </label>
+                    <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreParticular" type="text" placeholder="Nombre">
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('nombre')?.hasError('required') && registerFormParticular.get('nombre')?.touched">
+                        El nombre es obligatorio
+                    </span>
+                </div>
+                <div class="w-full tablet:w-1/2 px-3">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="apellidosParticular">
+                        Apellidos*
+                    </label>
+                    <input formControlName="apellidos" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="apellidosParticular" type="text" placeholder="Apellidos">
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('apellidos')?.hasError('required') && registerFormParticular.get('apellidos')?.touched">
+                        El apellido es obligatorio
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="emailParticular">
+                        Email*
+                    </label>
+                    <input formControlName="mail" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="emailParticular" type="email" placeholder="Email@email.com">
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('mail')?.hasError('required') && registerFormParticular.get('mail')?.touched">
+                        El correo es obligatorio
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('mail')?.hasError('email') && registerFormParticular.get('mail')?.touched">
+                        El correo es inválido
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="tfnoParticular">
+                        Telefono*
+                    </label>
+                    <input formControlName="telefono" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tfnoParticular" type="text" placeholder="Telefono">
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('telefono')?.hasError('required') && registerFormParticular.get('telefono')?.touched">
+                        El teléfono es obligatorio
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('telefono')?.hasError('pattern') && registerFormParticular.get('telefono')?.touched">
+                        El teléfono no es válido
+                    </span>
+                </div>
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="fechaNacParticular">
+                        Fecha de nacimiento*
+                    </label>
+                    <input formControlName="fecha_nac" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="fechaNacParticular" type="date" placeholder="Fecha nacimiento">
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('fecha_nac')?.hasError('pattern') && registerFormParticular.get('fecha_nac')?.touched">
+                        La fecha de nacimiento es obligatoria
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="generoParticular">
+                        Genero*
+                    </label>
+                    <input formControlName="genero" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="generoParticular" type="text" placeholder="H/M">
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('genero')?.hasError('required') && registerFormParticular.get('genero')?.touched">
+                        El genero es obligatorio
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('genero')?.hasError('pattern') && registerFormParticular.get('genero')?.touched">
+                        El genero no es válido (H/M)
+                    </span>
+                </div>
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="contraseñaParticular">
+                        Contraseña*
+                    </label>
+                    <input formControlName="contraseña" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contraseñaInput" type="password" placeholder="****************">
+                    <input type="checkbox" (click)="verPassword()">Ver contraseña <br>
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('contraseña')?.hasError('required') && registerFormParticular.get('contraseña')?.touched">
+                        La contraseña es obligatoria
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormParticular.get('contraseña')?.hasError('pattern') && registerFormParticular.get('contraseña')?.touched">
+                        La contraseña tiene que contener al menos 6 carácteres
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="descripcionParticular">
+                        Descripcion
+                    </label>
+                    <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descripcionParticular" placeholder="Escriba una descripción opcional para dar mas información sobre su perfil.">
+                        
+                    </textarea>
+                </div>
+            </div>
+            <div class="text-center mb-3">
+                <button *ngIf="registerFormParticular.invalid" class="bg-gray-400 text-black font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed" type="submit">Enviar</button>
+                <button *ngIf="registerFormParticular.valid" class="bg-gray-400 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="submit">Enviar</button>
+            </div>
+        </form>
+
+
+
+
+        <form *ngIf="negocio" [formGroup]="registerFormNegocio" (ngSubmit)="registerNegocio()" class="w-full max-w-lg">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="nombreNegocio">
+                        Nombre*
+                    </label>
+                    <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreNegocio" type="text" placeholder="Nombre">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('nombre')?.hasError('required') && registerFormNegocio.get('nombre')?.touched">
+                        El nombre es obligatorio
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="emailNegocio">
+                        Email*
+                    </label>
+                    <input formControlName="mail" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="emailNegocio" type="email" placeholder="Email@email.com">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('mail')?.hasError('required') && registerFormNegocio.get('mail')?.touched">
+                        El correo es obligatorio
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('mail')?.hasError('email') && registerFormNegocio.get('mail')?.touched">
+                        El correo es inválido
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="tfnoNegocio">
+                        Telefono*
+                    </label>
+                    <input formControlName="telefono" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tfnoNegocio" type="text" placeholder="Telefono">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('telefono')?.hasError('required') && registerFormNegocio.get('telefono')?.touched">
+                        El teléfono es obligatorio
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('telefono')?.hasError('pattern') && registerFormNegocio.get('telefono')?.touched">
+                        El teléfono no es válido
+                    </span>
+                </div>
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="fecha_nacNegocio">
+                        Fundación*
+                    </label>
+                    <input formControlName="fecha_nac" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="fecha_nacNegocio" type="date" placeholder="Fecha de fundacion">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('fecha_nac')?.hasError('pattern') && registerFormNegocio.get('fecha_nac')?.touched">
+                        La fecha de fundación es obligatoria
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="ubicacionNegocio">
+                        Ubicación*
+                    </label>
+                    <input formControlName="ubicacion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="ubicacionNegocio" type="text" placeholder="Ubicacion">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('ubicacion')?.hasError('required') && registerFormNegocio.get('ubicacion')?.touched">
+                        La ubicacion es obligatoria
+                    </span>
+                </div>
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="contraseñaNegocio">
+                        Contraseña*
+                    </label>
+                    <input formControlName="contraseña" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contraseñaInput" type="password" placeholder="****************">
+                    <input type="checkbox" (click)="verPassword()">Ver contraseña <br>
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('contraseña')?.hasError('required') && registerFormNegocio.get('contraseña')?.touched">
+                        La contraseña es obligatoria
+                    </span>
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get('contraseña')?.hasError('pattern') && registerFormNegocio.get('contraseña')?.touched">
+                        La contraseña tiene que contener al menos 6 carácteres
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s font-bold mb-2" for="descripcionNegocio">
+                        Descripcion
+                    </label>
+                    <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descripcionNegocio" placeholder="Escriba una descripción opcional para dar mas información sobre su perfil.">
+                        
+                    </textarea>
+                </div>
+            </div>
+            <div class="text-center mb-3">
+                <button *ngIf="registerFormNegocio.invalid" class="bg-gray-400 text-black font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed">Enviar</button>
+                <button *ngIf="registerFormNegocio.valid" class="bg-gray-400 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+<a href="https://www.flaticon.com/free-icons/people" title="people icons"></a>
+
+</html>

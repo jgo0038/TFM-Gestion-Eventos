@@ -38,12 +38,12 @@
                 Cuenta o contraseña incorrectas
             </span>
             <div class="flex items-center justify-between">
-                <a class="inline-block align-baseline text-sm text-blue hover:text-blue" href="registro">
-              Registrarse
-              </a>
-                <button class="bg-black hover:bg-blue-dark text-white py-2 px-4 rounded" type="submit" [disabled]="loginForm.invalid">
-                Iniciar sesión
-              </button>
+                <button class="bg-black hover:bg-blue-dark text-white py-2 px-4 rounded" type="submit">
+                    Iniciar sesión
+                  </button>
+                <button class="bg-black hover:bg-blue-dark text-white py-2 px-4 rounded" (click)="routeRegistro()">
+                    Registrarse
+                </button>
             </div>
         </form>
     </div>

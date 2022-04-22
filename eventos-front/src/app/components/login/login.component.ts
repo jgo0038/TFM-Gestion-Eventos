@@ -49,4 +49,8 @@ export class LoginComponent implements OnInit {
 
   }
 
+  routeRegistro() {
+    this.router.navigate(['/registro'])
+  }
+
 }

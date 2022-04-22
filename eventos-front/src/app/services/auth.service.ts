@@ -13,4 +13,37 @@ export class AuthService {
   login(usuario: string, contraseña: string){
     return this.httpClient.post<any>(this.baseURL + '/auth', {email: usuario, password: contraseña});
   }
+
+  registerNegocio(nombre: string, mail: string, telefono: number, fecha_nac: Date, contraseña: string,
+    ubicacion:string, descripcion?: string){
+    return this.httpClient.post<any>(this.baseURL + '/usuarios', 
+      {nombre: nombre,
+      mail: mail,
+      telefono: telefono,
+      fecha_nac: fecha_nac,
+      contraseña: contraseña,
+      negocio: true,
+      particular: false,
+      ubicacion: ubicacion,
+      descripcion: descripcion
+
+    });
+  }
+  
+  registerParticular(nombre: string, apellidos: string, mail: string, telefono: number, fecha_nac: Date,
+    genero: string, contraseña: string, descripcion?: string){
+    return this.httpClient.post<any>(this.baseURL + '/usuarios', 
+      {nombre: nombre,
+      apellidos: apellidos,
+      mail: mail,
+      telefono: telefono,
+      fecha_nac: fecha_nac,
+      contraseña: contraseña,
+      negocio: false,
+      particular: true,
+      genero: genero,
+      descripcion: descripcion
+    });
+  }
+ 
 }
