@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   registerNegocio(nombre: string, mail: string, telefono: number, fecha_nac: Date, contraseña: string,
-    ubicacion:string, descripcion?: string){
+    ubicacion:string, descripcion?: string, foto?: string){
     return this.httpClient.post<any>(this.baseURL + '/usuarios', 
       {nombre: nombre,
       mail: mail,
@@ -25,13 +25,13 @@ export class AuthService {
       negocio: true,
       particular: false,
       ubicacion: ubicacion,
-      descripcion: descripcion
-
+      descripcion: descripcion,
+      foto: foto
     });
   }
   
   registerParticular(nombre: string, apellidos: string, mail: string, telefono: number, fecha_nac: Date,
-    genero: string, contraseña: string, descripcion?: string){
+    genero: string, contraseña: string, descripcion?: string, foto?: string){
     return this.httpClient.post<any>(this.baseURL + '/usuarios', 
       {nombre: nombre,
       apellidos: apellidos,
@@ -42,7 +42,8 @@ export class AuthService {
       negocio: false,
       particular: true,
       genero: genero,
-      descripcion: descripcion
+      descripcion: descripcion,
+      foto: foto
     });
   }
  
