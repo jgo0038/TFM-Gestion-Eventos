@@ -13,6 +13,8 @@ export class ErrorsService {
         return 'Contraseña incorrecta'
       case 'Internal Server Error': 
         return 'Usuario no encontrado'
+      case 'Unkwnown error': 
+        return 'Error del servidor'
       default:
         return 'Error desconocido'
     }

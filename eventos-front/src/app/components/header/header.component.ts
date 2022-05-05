@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   cerrarSesion() {
     localStorage.removeItem('token');
-    window.location.reload();
+    this.logged = false;
+    this.router.navigate(['/']);
   }
 }

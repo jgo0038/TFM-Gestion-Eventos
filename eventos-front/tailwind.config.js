@@ -16,7 +16,8 @@ module.exports = {
         },
         extend: {
             backgroundImage: {
-                'bg-confeti': "url('./assets/confeti.jpg')"
+                'bg-confeti': "url('./assets/confeti.jpg')",
+                'bg-olly': "url('./assets/gente.webp')",
             },
             colors: {
                 cream: {

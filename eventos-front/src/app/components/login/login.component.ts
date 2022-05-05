@@ -38,19 +38,15 @@ export class LoginComponent implements OnInit {
     this.authService.login(usuario, contraseña).subscribe((res) => {
       if(res.access_token){
         authToken = res.access_token;
+        localStorage.setItem("email", usuario);
         localStorage.setItem("token", authToken);
+        // sessionStorage.setItem("authHttp", )
         this.router.navigate(['/'])
       }
     },
     error => {
-      console.log(error.statusText)
       this.toastr.error(this.errorService.errorCodes(error.statusText), 'Error');
     })
 
   }
-
-  routeRegistro() {
-    this.router.navigate(['/registro'])
-  }
-
 }

@@ -9,17 +9,14 @@
             <div class="px-5 py-3">
                 <a routerLink="eventos">Eventos</a>
             </div>
-            <div class="px-5 py-3">
-                <a routerLink="ciudades" routerLinkActive="active-link">Ciudades</a>
-            </div>
             <div *ngIf="logged" class="px-5 py-3">
-                <a routerLink="" routerLinkActive="active-link">Publicar</a>
+                <a routerLink="/publicar" routerLinkActive="active-link">Publicar</a>
             </div>
             <div *ngIf="!logged" class="px-5 py-3">
                 <a routerLink="/login" routerLinkActive="active-link">Inicio sesión</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
-                <a routerLink="" routerLinkActive="active-link">Perfil</a>
+                <a>Perfil</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
                 <a (click)="cerrarSesion()" routerLink="">Cerrar sesión</a>

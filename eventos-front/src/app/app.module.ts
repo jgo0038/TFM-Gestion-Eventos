@@ -5,12 +5,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegistroComponent } from './components/registro/registro.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { PublicarEventoComponent } from './components/publicar-evento/publicar-evento.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { RegistroComponent } from './components/registro/registro.component';
     HomeComponent,
     HeaderComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    PublicarEventoComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +31,13 @@ import { RegistroComponent } from './components/registro/registro.component';
     ReactiveFormsModule ,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    NgxDropzoneModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
