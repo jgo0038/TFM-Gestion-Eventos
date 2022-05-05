@@ -28,6 +28,9 @@ export class UsuariosMapper {
       }
     }
 
+    if(!usuario.foto)
+      usuario.foto = ''
+
     return new UsuariosEntity(
       usuario.usuarioID,
       usuario.mail,
@@ -40,6 +43,8 @@ export class UsuariosMapper {
       usuario.descripcion,
       usuario.ubicacion,
       usuario.contraseña,
+      usuario.genero,
+      usuario.foto,
       eventosCreados,
       eventosInscritos     
     );
@@ -58,6 +63,9 @@ export class UsuariosMapper {
         eventosCreados.push(usuariosEntity.eventosInscritos[i].eventoID);
     }
 
+    if(!usuariosEntity.foto)
+      usuariosEntity.foto = ''
+
     return new Usuario(
       usuariosEntity.usuarioID,
       usuariosEntity.mail,
@@ -70,6 +78,8 @@ export class UsuariosMapper {
       usuariosEntity.descripcion,
       usuariosEntity.ubicacion,
       usuariosEntity.contraseña,
+      usuariosEntity.genero,
+      usuariosEntity.foto,
       eventosCreados,
       eventosInscritos
     );

@@ -21,17 +21,32 @@ export class EventosService {
 
     async getAllEventos(): Promise<Evento[]> {
         const eventos: EventosEntity[] = await this.eventosRepository.getAllEventos();
-        return eventos.map((evento) => this.mapper.entityToDto(evento));
+        let evs: Evento[] = new Array<Evento>();
+        for(let i = 0; i < eventos.length; i++){
+            evs.push(await this.mapper.entityToDto(eventos[i]))
+        }
+        return evs;
+        // return eventos.map(async (evento) => await this.mapper.entityToDto(evento));
     }
 
     async getEventosByCategoria(ciudadID: number): Promise<Evento[]>{
         const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCategoria(ciudadID);
-        return eventos.map((evento) => this.mapper.entityToDto(evento));
+        let evs: Evento[] = new Array<Evento>();
+        for(let i = 0; i < eventos.length; i++){
+            evs.push(await this.mapper.entityToDto(eventos[i]))
+        }
+        return evs;
+        // return eventos.map((evento) => this.mapper.entityToDto(evento));
     }
 
     async getEventosByCiudad(ciudadID: number): Promise<Evento[]>{
         const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCiudad(ciudadID);
-        return eventos.map((evento) => this.mapper.entityToDto(evento));
+        let evs: Evento[] = new Array<Evento>();
+        for(let i = 0; i < eventos.length; i++){
+            evs.push(await this.mapper.entityToDto(eventos[i]))
+        }
+        return evs;
+        // return eventos.map((evento) => this.mapper.entityToDto(evento));
     }
 
     async getEventoById(eventoID: string): Promise<Evento> {

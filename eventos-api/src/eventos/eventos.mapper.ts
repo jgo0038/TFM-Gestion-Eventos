@@ -15,12 +15,24 @@ export class EventosMapper {
 
     const categoriasAsociadas: CategoriasEntity[] = new Array<CategoriasEntity>();
 
+    let fotoPortada = ''
+    let fotosEvento = []
+
     if (eventosDto.categorias) {
       for (let i = 0; i < eventosDto.categorias.length; i++) {
         const category = await CategoriasEntity.findOne(eventosDto.categorias[i].categoriaID);
         categoriasAsociadas.push(category);
       }
     }
+
+    if(eventosDto.fotoPortada){
+      fotoPortada = eventosDto.fotoPortada
+    }
+
+    if(eventosDto.fotosEvento){
+      fotosEvento = eventosDto.fotosEvento
+    }
+      
 
     return new EventosEntity(
       eventosDto.eventoID,
@@ -36,12 +48,17 @@ export class EventosMapper {
       usuarioAsociado,
       ciudadAsociada,
       categoriasAsociadas,
-      
+      fotoPortada,
+      fotosEvento,
     );
   }
 
-  entityToDto(eventosEntity: EventosEntity): Evento {
+  async entityToDto(eventosEntity: EventosEntity): Promise<Evento> {
     const categorias: Categoria[] = new Array<Categoria>();
+    const ciudad: CiudadesEntity = await CiudadesEntity.findOne(eventosEntity.ciudad)
+    const creador: UsuariosEntity = await UsuariosEntity.findOne(eventosEntity.creador)
+    let fotoPortada = ''
+    let fotosEvento = []
 
     for (let i = 0; i < eventosEntity.categorias.length; i++) {
       const categoria = new Categoria(
@@ -51,6 +68,14 @@ export class EventosMapper {
       );
 
       categorias.push(categoria);
+    }
+
+    if(eventosEntity.fotoPortada){
+      fotoPortada = eventosEntity.fotoPortada
+    }
+
+    if(eventosEntity.fotosEvento){
+      fotosEvento = eventosEntity.fotosEvento
     }
 
     return new Evento(
@@ -64,9 +89,11 @@ export class EventosMapper {
       eventosEntity.inscripcion,
       eventosEntity.cancelado,
       eventosEntity.duracion,
-      eventosEntity.creador.nombre,
-      eventosEntity.ciudad.nombre,
+      creador.nombre,
+      ciudad.nombre,
       categorias,
+      fotoPortada,
+      fotosEvento,
     );
   }
 }

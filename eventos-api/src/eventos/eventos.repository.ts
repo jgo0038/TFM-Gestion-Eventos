@@ -52,7 +52,7 @@ export class EventosRepository {
         // TODO - Devolver un array con los id de los usuarios que estan inscritos al evento
         let inscripciones: number[] = new Array<number>();
         const evento: EventosEntity = await EventosEntity.findOneOrFail(eventoID, {relations: ['categorias', 'creador', 'ciudad']});
-        const eventoDto: Evento = this.mapper.entityToDto(evento);
+        const eventoDto: Evento = await this.mapper.entityToDto(evento);
 
         if(eventoDto.inscripcion === true){
             inscripciones =  await getConnection()

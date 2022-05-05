@@ -35,10 +35,19 @@ export class UsuariosEntity extends BaseEntity{
     descripcion: string;
 
     @Column({nullable: true})
+    foto: string;
+
+    @Column({nullable: true})
     ubicacion: string;
 
     @Column({ type: 'varchar', length: 70 })
     contraseña: string;
+
+    @Column({
+        type: "enum",
+        enum: ["hombre", "mujer"],
+        nullable: true})
+    genero: string;
 
     @BeforeInsert()
     async hashPassword() {
@@ -74,6 +83,8 @@ export class UsuariosEntity extends BaseEntity{
         descripcion: string,
         ubicacion: string,
         contraseña: string,
+        genero: string,
+        foto: string,
         eventosCreados?: EventosEntity[],
         eventosInscritos?: EventosEntity[]
     ){
@@ -89,6 +100,8 @@ export class UsuariosEntity extends BaseEntity{
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
         this.contraseña = contraseña;
+        this.genero = genero;
+        this.foto = foto;
         this.eventosCreados = eventosCreados;
         this.eventosInscritos = eventosInscritos;
     }

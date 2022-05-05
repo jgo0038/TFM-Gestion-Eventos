@@ -37,6 +37,12 @@ export class EventosEntity extends BaseEntity{
     @Column()
     duracion: number;
 
+    @Column({nullable: true})
+    fotoPortada: string;
+
+    @Column("text", { array: true, nullable: true })
+    fotosEvento: string[];
+
     @ManyToOne(() => UsuariosEntity, usuario => usuario.eventosCreados, { onDelete: 'CASCADE' })
     creador: UsuariosEntity;
 
@@ -66,6 +72,8 @@ export class EventosEntity extends BaseEntity{
         creador: UsuariosEntity,
         ciudad: CiudadesEntity,
         categorias: CategoriasEntity[],
+        fotoPortada?: string,
+        fotosEvento?: string[],
       ) {
         super();
         this.eventoID = eventoID;
@@ -81,5 +89,7 @@ export class EventosEntity extends BaseEntity{
         this.creador = creador;
         this.ciudad = ciudad;
         this.categorias = categorias;
+        this.fotoPortada = fotoPortada;
+        this.fotosEvento = fotosEvento;
       }
 }

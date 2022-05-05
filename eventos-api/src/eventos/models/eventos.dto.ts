@@ -13,6 +13,8 @@ export class Evento {
     readonly duracion: number;
     readonly creador: string;
     readonly ciudad: string;
+    readonly fotoPortada: string;
+    readonly fotosEvento: string[];
     readonly categorias: Categoria[];
     readonly comentarios: number[];
 
@@ -30,8 +32,8 @@ export class Evento {
         creador: string,
         ciudad: string,
         categorias: Categoria[],
-        
-        
+        fotoPortada?: string,
+        fotosEvento?: string[]
       ) {
         this.eventoID = eventoID;
         this.nombre = nombre;
@@ -46,5 +48,7 @@ export class Evento {
         this.creador = creador;
         this.ciudad = ciudad;
         this.categorias = categorias;
+        this.fotoPortada = fotoPortada;
+        this.fotosEvento = fotosEvento;
       }
 }

@@ -13,6 +13,8 @@ export class Usuario {
     descripcion?: string;
     ubicacion?: string;
     contraseña: string;
+    genero?: string;
+    foto?: string;
     eventosCreados?: string[];
     eventosInscritos?: string[];
     // eventosCreados?: Evento[];
@@ -30,6 +32,8 @@ export class Usuario {
         descripcion: string,
         ubicacion: string,
         contraseña: string,
+        genero?: string,
+        foto?: string,
         eventosCreados?: string[],
         eventosInscritos?: string[]
         // eventosCreados?: Evento[],
@@ -46,6 +50,8 @@ export class Usuario {
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
         this.contraseña = contraseña;
+        this.genero = genero;
+        this.foto = foto;
         this.eventosCreados = eventosCreados;
         this.eventosInscritos = eventosInscritos;
     }

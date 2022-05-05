@@ -9,9 +9,9 @@ export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post()
-    login(@Body() loginDto: LoginDto): Observable<{ access_token: string }> {
-        const valid = this.authService.validateUser(loginDto.email, loginDto.password);
-        if (!valid) {
+    async login(@Body() loginDto: LoginDto): Promise<Observable<{ access_token: string; }>> {
+        const valid = await this.authService.validateUser(loginDto.email, loginDto.password);
+        if (valid === false) {
             throw new UnauthorizedException();
         }
         return from(this.authService.generateAccessToken(loginDto.email));
