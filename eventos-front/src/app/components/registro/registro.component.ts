@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { ErrorsService } from 'src/app/services/errors.service';
+import { ImagesService } from 'src/app/services/images.service';
 
 @Component({
   selector: 'app-registro',
@@ -17,12 +18,16 @@ export class RegistroComponent implements OnInit {
   registerFormNegocio: FormGroup;
   negocio: boolean = false;
   particular: boolean = false;
+  foto: string = '';
+  files: File[] = [];
+  reader = new FileReader();
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private authService: AuthService,
               private toastr: ToastrService,
-              private errorService: ErrorsService) {
+              private errorService: ErrorsService,
+              private imagenesService: ImagesService) {
     this.registerForm = this.fb.group({
       negocio: ['', [Validators.required]],
       particular: ['', [Validators.required]]
@@ -51,6 +56,40 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onUploadImage() {
+    // Error subida sin imagenes
+    if(!this.files[0]){
+      this.toastr.error('Añade una imagen primero :)')
+    }
+    // Subida a cloudinary
+    const file_data = this.files[0];
+    const data = new FormData();
+    data.append('file', file_data);
+    data.append('upload_preset', 'usuarios_cloudinary');
+    data.append('cloud_name', 'dopt5keee');
+
+    if(this.files.length > 1){
+      this.toastr.error('Suba una única foto de perfil')
+    } else {
+      this.imagenesService.uploadImagen(data).subscribe((res: any)=>{
+        if(res)
+          this.foto = res.secure_url;
+          this.toastr.success('Imagen subida correctamente');
+      }, error => {
+        console.log(error);
+        this.toastr.error('No se pudo subir la imagen')
+      });
+    }
+  }
+
+  onSelect(event: any) {
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event: any) {
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
   selectNegocio() {
     this.negocio = true;
     this.particular = false;
@@ -69,10 +108,9 @@ export class RegistroComponent implements OnInit {
     const contraseña = this.registerFormNegocio.get('contraseña')?.value;
     const ubicacion = this.registerFormNegocio.get('ubicacion')?.value;
     const descripcion = this.registerFormNegocio.get('descripcion')?.value;
-    console.log(fecha_nac)
+
     this.authService.registerNegocio(
-      nombre, mail, telefono, fecha_nac, contraseña, ubicacion, descripcion).subscribe((res) => {
-        console.log(res)
+      nombre, mail, telefono, fecha_nac, contraseña, ubicacion, descripcion, this.foto).subscribe((res) => {
         this.toastr.success('Usuario creado correctamente');
         this.router.navigate(['/login']);
       },
@@ -94,7 +132,7 @@ export class RegistroComponent implements OnInit {
     (genero === 'H') ? genero = 'hombre' : genero = 'mujer'
 
     this.authService.registerParticular(
-      nombre, apellidos, mail, telefono, fecha_nac, genero, contraseña, descripcion).subscribe((res) => {
+      nombre, apellidos, mail, telefono, fecha_nac, genero, contraseña, descripcion, this.foto).subscribe((res) => {
         this.toastr.success('Usuario creado correctamente');
         this.router.navigate(['/login']);
       },

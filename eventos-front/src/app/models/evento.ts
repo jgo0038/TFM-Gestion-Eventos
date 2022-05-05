@@ -13,6 +13,7 @@ export interface Evento {
     duracion: number;
     creador: string;
     ciudad: string;
+    foto: string;
     categorias: Categoria[];
     comentarios: number[];
 }

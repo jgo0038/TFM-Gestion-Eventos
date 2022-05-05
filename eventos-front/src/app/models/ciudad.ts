@@ -4,5 +4,5 @@ export interface Ciudad {
     ciudadID: number;
     nombre: string;
     descripcion: string;
-    eventos: Evento[];
+    eventos?: Evento[];
 }

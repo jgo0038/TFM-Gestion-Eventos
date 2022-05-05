@@ -10,6 +10,7 @@ export interface Usuario {
     descripcion?: string;
     ubicacion?: string;
     contraseña: string;
+    foto?: string;
     eventosCreados?: string[];
     eventosInscritos?: string[];
 }
