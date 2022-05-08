@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UsuariosEntity } from 'src/usuarios/models/usuarios.entity';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult} from 'typeorm';
 import { EventosMapper } from '../eventos.mapper';
 import { EventosRepository } from '../eventos.repository';
 import { Evento } from '../models/eventos.dto';
@@ -21,32 +19,33 @@ export class EventosService {
 
     async getAllEventos(): Promise<Evento[]> {
         const eventos: EventosEntity[] = await this.eventosRepository.getAllEventos();
-        let evs: Evento[] = new Array<Evento>();
-        for(let i = 0; i < eventos.length; i++){
-            evs.push(await this.mapper.entityToDto(eventos[i]))
-        }
-        return evs;
-        // return eventos.map(async (evento) => await this.mapper.entityToDto(evento));
+        // let evs: Evento[] = new Array<Evento>();
+        // for(let i = 0; i < eventos.length; i++){
+        //     evs.push(await this.mapper.entityToDto(eventos[i]))
+        // }
+        // return evs;
+        return eventos.map((evento) => this.mapper.entityToDto(evento));
     }
 
     async getEventosByCategoria(ciudadID: number): Promise<Evento[]>{
         const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCategoria(ciudadID);
-        let evs: Evento[] = new Array<Evento>();
-        for(let i = 0; i < eventos.length; i++){
-            evs.push(await this.mapper.entityToDto(eventos[i]))
-        }
-        return evs;
-        // return eventos.map((evento) => this.mapper.entityToDto(evento));
+        // let evs: Evento[] = new Array<Evento>();
+        // for(let i = 0; i < eventos.length; i++){
+        //     evs.push(await this.mapper.entityToDto(eventos[i]))
+        // }
+        // return evs;
+        return eventos.map((evento) => this.mapper.entityToDto(evento));
     }
 
     async getEventosByCiudad(ciudadID: number): Promise<Evento[]>{
         const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCiudad(ciudadID);
-        let evs: Evento[] = new Array<Evento>();
-        for(let i = 0; i < eventos.length; i++){
-            evs.push(await this.mapper.entityToDto(eventos[i]))
-        }
-        return evs;
-        // return eventos.map((evento) => this.mapper.entityToDto(evento));
+        // let evs: Evento[] = new Array<Evento>();
+        // for(let i = 0; i < eventos.length; i++){
+        //     evs.push(await this.mapper.entityToDto(eventos[i]))
+        // }
+        // return evs;
+        return eventos.map((evento) => this.mapper.entityToDto(evento));
+
     }
 
     async getEventoById(eventoID: string): Promise<Evento> {

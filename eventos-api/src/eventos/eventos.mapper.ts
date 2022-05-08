@@ -53,10 +53,9 @@ export class EventosMapper {
     );
   }
 
-  async entityToDto(eventosEntity: EventosEntity): Promise<Evento> {
+  entityToDto(eventosEntity: EventosEntity): Evento {
     const categorias: Categoria[] = new Array<Categoria>();
-    const ciudad: CiudadesEntity = await CiudadesEntity.findOne(eventosEntity.ciudad)
-    const creador: UsuariosEntity = await UsuariosEntity.findOne(eventosEntity.creador)
+    
     let fotoPortada = ''
     let fotosEvento = []
 
@@ -89,8 +88,8 @@ export class EventosMapper {
       eventosEntity.inscripcion,
       eventosEntity.cancelado,
       eventosEntity.duracion,
-      creador.nombre,
-      ciudad.nombre,
+      eventosEntity.creador.nombre,
+      eventosEntity.ciudad.nombre,
       categorias,
       fotoPortada,
       fotosEvento,
