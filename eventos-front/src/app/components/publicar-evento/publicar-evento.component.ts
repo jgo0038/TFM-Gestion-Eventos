@@ -96,6 +96,7 @@ export class PublicarEventoComponent implements OnInit {
     .subscribe((res: any) => {
       if (res) {
         this.toastr.success('Evento creado correctamente')
+        this.router.navigate(['/eventos'])
       } else {
         this.toastr.error('Error al crear el evento')
       }

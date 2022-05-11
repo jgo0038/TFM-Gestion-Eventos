@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class ImagesService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private handler: HttpBackend) {
+    this.httpClient = new HttpClient(handler)
+   }
   
   uploadImagen(vals: any){
     let data = vals;
