@@ -14,7 +14,7 @@ export interface Evento {
     creador: string;
     ciudad: string;
     fotoPortada: string;
-    fotosEvento: string;
+    fotosEvento: string[];
     categorias: Categoria[];
     comentarios: number[];
 }

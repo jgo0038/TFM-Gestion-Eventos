@@ -13,4 +13,12 @@ export class UsuariosService {
   getUserByMail(email: string) {
     return this.httpClient.get<any>(this.baseURL + '/mail/'+ email)
   }
+  
+  inscribirse(eventoID: string, usuarioID: number) {
+    return this.httpClient.put<any>(this.baseURL + '/inscribir/'+ eventoID + '/' + usuarioID, {})
+  }
+  
+  getInscripciones(usuarioID: number) {
+    return this.httpClient.get<any>(this.baseURL + '/inscripciones/' + usuarioID)
+  }
 }

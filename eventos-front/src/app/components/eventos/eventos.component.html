@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full block m-0 p-0 bg-bg-objetos bg-cover">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+</head>
+
+
+<body class="h-full min-h-full ">
+    <app-header></app-header>
+
+    <div class="flex flex-col flex-wrap justify-center items-center my-3 py-5">
+        <form [formGroup]="formCiudad">
+            <div class="flex flex-col flex-wrap justify-center items-center my-3 py-5">
+                <span class="text-white text-center text-2xl tablet:text-3xl">Busca eventos según tu ciudad</span>
+                <select formControlName="ciudad" id="selectCiudad" class="text-center bg-gray-200 mx-2 p-2 rounded tablet:p-4">
+                    <option disabled selected value>----------</option>
+                    <option *ngFor="let ciudad of ciudades" [value]="ciudad.ciudadID">{{ ciudad.nombre }}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+        <div class="text-center"><span class="text-white text-2xl tablet:text-3xl laptop:text-4xl"> Selecciona las categorías para
+                filtrar</span></div>
+        <div class="grid grid-cols-2 auto-cols-auto my-8 mr-20 mobile:grid-cols-2 tablet:grid-cols-4">
+            <span *ngFor="let categoria of categorias" class="cursor-pointer m-5">
+                <span (click)="addCategoria($event)" id="{{categoria.categoriaID}}"
+                    class="bg-gray-300 rounded-full text-xl mx-4 p-5 whitespace-nowrap">{{ categoria.nombre }}</span>
+            </span>
+
+        </div>
+        <button (click)="showEventos()" type="button" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white">Buscar</button>
+    </div>
+
+    <div id="eventosContainer" *ngIf="eventosEncontrados">
+        <div class="flex flex-col justify-center items-center">
+            <a *ngFor="let evento of listaEventos" (click)="showEventoDetail(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:max-w-1/2 bg-white rounded-lg border shadow-xl hover:bg-gray-300">
+                <img *ngIf="evento.fotoPortada; else elseBlock" class="object-cover max-w-full max-h-full rounded-t-lg" src='{{evento.fotoPortada}}' alt="fotoPortada">
+                <ng-template #elseBlock>
+                    <img src="../../../assets/noImage.png" alt="Sin imagen">
+                </ng-template>
+                <div class="flex flex-col justify-center items-center p-4 leading-normal">
+                    <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
+                    </h5>
+                    <p class="mb-3 font-normal text-gray-700">{{ evento.descripcion | slice:0:80}}...
+                    </p>
+                    <span> Ubicacion: {{evento.ubicacion}}</span>
+                    <span>Precio: {{evento.precio}} €</span>
+                </div>
+                <div class="flex flex-row justify-start items-start w-full px-6">
+                    <span class="text-xs">Organizado por {{ evento.creador }}</span>
+                </div>
+                <div class="flex flex-col justify-center items-center tablet:flex-row tablet:justify-between w-full px-6 rounded-b-lg bg-gray-500 text-white">
+                    <span>{{ evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
+                    <span>Duración: {{ evento.duracion }} mins</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div id="sinEventos" *ngIf="!eventosEncontrados && busquedaTouched">
+        <div class="flex flex-col justify-center items-center">
+            <img src="../../../assets/alone.png" alt="noEventos">
+            <span class="text-xl text-white tablet:text-4xl">No se encontraron eventos</span>
+        </div>
+    </div>
+
+</body>
+
+</html>

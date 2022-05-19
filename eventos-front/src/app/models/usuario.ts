@@ -1,3 +1,5 @@
+import { Evento } from "./evento";
+
 export interface Usuario {
     usuarioID?: number;
     mail: string;
@@ -12,5 +14,5 @@ export interface Usuario {
     contraseña: string;
     foto?: string;
     eventosCreados?: string[];
-    eventosInscritos?: string[];
+    eventosInscritos?: Evento[];
 }

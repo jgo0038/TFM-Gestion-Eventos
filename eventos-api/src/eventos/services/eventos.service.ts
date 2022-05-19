@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { DeleteResult} from 'typeorm';
 import { EventosMapper } from '../eventos.mapper';
 import { EventosRepository } from '../eventos.repository';
@@ -19,31 +19,24 @@ export class EventosService {
 
     async getAllEventos(): Promise<Evento[]> {
         const eventos: EventosEntity[] = await this.eventosRepository.getAllEventos();
-        // let evs: Evento[] = new Array<Evento>();
-        // for(let i = 0; i < eventos.length; i++){
-        //     evs.push(await this.mapper.entityToDto(eventos[i]))
-        // }
-        // return evs;
         return eventos.map((evento) => this.mapper.entityToDto(evento));
     }
 
     async getEventosByCategoria(ciudadID: number): Promise<Evento[]>{
         const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCategoria(ciudadID);
-        // let evs: Evento[] = new Array<Evento>();
-        // for(let i = 0; i < eventos.length; i++){
-        //     evs.push(await this.mapper.entityToDto(eventos[i]))
-        // }
-        // return evs;
-        return eventos.map((evento) => this.mapper.entityToDto(evento));
+        if(eventos){
+            return eventos.map((evento) => this.mapper.entityToDto(evento));
+        }
     }
 
     async getEventosByCiudad(ciudadID: number): Promise<Evento[]>{
         const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCiudad(ciudadID);
-        // let evs: Evento[] = new Array<Evento>();
-        // for(let i = 0; i < eventos.length; i++){
-        //     evs.push(await this.mapper.entityToDto(eventos[i]))
-        // }
-        // return evs;
+        return eventos.map((evento) => this.mapper.entityToDto(evento));
+
+    }
+
+    async getEventosByCiudadCategoria(ciudadID: number, categoriaID: number): Promise<Evento[]>{
+        const eventos: EventosEntity[] = await this.eventosRepository.getEventosByCiudadCategoria(ciudadID, categoriaID);
         return eventos.map((evento) => this.mapper.entityToDto(evento));
 
     }

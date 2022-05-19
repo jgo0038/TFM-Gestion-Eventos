@@ -13,4 +13,8 @@ export class CategoriasService {
   getAllCategorias() {
     return this.httpClient.get<any>(this.baseURL + '/categorias')
   }
+
+  getCategoriaByID(categoriaID: number) {
+    return this.httpClient.get<any>(this.baseURL + '/categorias/' + categoriaID)
+  }
 }

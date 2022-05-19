@@ -15,7 +15,7 @@ export class Evento {
     readonly ciudad: string;
     readonly fotoPortada: string;
     readonly fotosEvento: string[];
-    readonly categorias: Categoria[];
+    readonly categorias: number[];
     readonly comentarios: number[];
 
     constructor(
@@ -31,7 +31,7 @@ export class Evento {
         duracion: number,
         creador: string,
         ciudad: string,
-        categorias: Categoria[],
+        categorias: number[],
         fotoPortada?: string,
         fotosEvento?: string[]
       ) {

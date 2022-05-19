@@ -34,7 +34,6 @@ export class UsuariosRepository {
         const user: UsuariosEntity = await UsuariosEntity.findOneOrFail(usuarioID, { relations: ['eventosCreados', 'eventosInscritos'] });
         if(evento.inscripcion === true){
           user.eventosInscritos.push(evento);
-          Logger.log(user.eventosInscritos[0].eventoID)
           return await getConnection()
           .createQueryBuilder()
           .insert()

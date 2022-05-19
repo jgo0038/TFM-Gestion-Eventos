@@ -20,7 +20,7 @@ export class EventosMapper {
 
     if (eventosDto.categorias) {
       for (let i = 0; i < eventosDto.categorias.length; i++) {
-        const category = await CategoriasEntity.findOne(eventosDto.categorias[i].categoriaID);
+        const category = await CategoriasEntity.findOne(eventosDto.categorias[i]);
         categoriasAsociadas.push(category);
       }
     }
@@ -54,19 +54,20 @@ export class EventosMapper {
   }
 
   entityToDto(eventosEntity: EventosEntity): Evento {
-    const categorias: Categoria[] = new Array<Categoria>();
+    const categorias: number[] = new Array<number>();
     
     let fotoPortada = ''
     let fotosEvento = []
 
     for (let i = 0; i < eventosEntity.categorias.length; i++) {
-      const categoria = new Categoria(
-        eventosEntity.categorias[i].categoriaID,
-        eventosEntity.categorias[i].nombre,
-        eventosEntity.categorias[i].descripcion
-      );
+      // const categoria = new Categoria(
+      //   eventosEntity.categorias[i].categoriaID,
+      //   eventosEntity.categorias[i].nombre,
+      //   eventosEntity.categorias[i].descripcion
+      // );
 
-      categorias.push(categoria);
+      // categorias.push(categoria);
+      categorias.push(eventosEntity.categorias[i].categoriaID)
     }
 
     if(eventosEntity.fotoPortada){
@@ -88,7 +89,7 @@ export class EventosMapper {
       eventosEntity.inscripcion,
       eventosEntity.cancelado,
       eventosEntity.duracion,
-      eventosEntity.creador.nombre,
+      eventosEntity.creador.mail,
       eventosEntity.ciudad.nombre,
       categorias,
       fotoPortada,

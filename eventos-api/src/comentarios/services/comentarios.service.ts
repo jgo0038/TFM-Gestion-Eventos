@@ -28,7 +28,6 @@ export class ComentariosService {
             where: { evento: eventoID },
             relations: ['creador', 'evento'],
           });
-          Logger.log(comentarios)
         return comentarios.map((coment) => this.mapper.entityToDto(coment));
     }
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { from, Observable } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -32,6 +32,11 @@ export class EventosController {
     @Get('eventoCategoria/:categoriaID')
     getEventosByCategoria(@Param('categoriaID') categoriaID: number): Observable<Evento[]>{
         return from(this.eventosService.getEventosByCategoria(categoriaID));
+    }
+
+    @Get('eventoCiudadCategoria/:ciudadID/:categoriaID')
+    getEventosByCiudadYCategoria(@Param('ciudadID') ciudadID: number, @Param('categoriaID') categoriaID: number): Observable<Evento[]>{
+        return from(this.eventosService.getEventosByCiudadCategoria(ciudadID, categoriaID));
     }
 
     @Get('eventoInscripciones/:eventoID')

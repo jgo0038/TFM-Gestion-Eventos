@@ -1,6 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { createQueryBuilder, DeleteResult, getConnection, Repository, UpdateResult } from "typeorm";
+import { createQueryBuilder, DeleteResult, getConnection, getRepository, Repository, UpdateResult } from "typeorm";
 import { EventosMapper } from "./eventos.mapper";
 import { Evento } from "./models/eventos.dto";
 import { EventosEntity } from "./models/eventos.entity";
@@ -23,15 +23,20 @@ export class EventosRepository {
         .from('eventos_categorias_categorias', 'eventosCategorias')
         .where('eventosCategorias.categoriasCategoriaID = :categoriasCategoriaID', { categoriasCategoriaID: categoriaID })
         .execute();
-
-        let eventos: EventosEntity[] = new Array<EventosEntity>();
-        if(eventosIDs[0].eventosEventoID){
-            for(let i = 0; i< eventosIDs.length; i++){
-                let id = eventosIDs[i].eventosEventoID;
-                eventos.push(await this.eventosRepository.findOne(id, { relations: ['creador', 'categorias', 'ciudad'] }))
+        if(eventosIDs.length > 0){
+            let eventos: EventosEntity[] = new Array<EventosEntity>();
+            if(eventosIDs[0].eventosEventoID){
+                for(let i = 0; i< eventosIDs.length; i++){
+                    let id = eventosIDs[i].eventosEventoID;
+                    eventos.push(await this.eventosRepository.findOne(id, { relations: ['creador', 'categorias', 'ciudad'] }))
+                }
             }
+            return eventos;
+        } else {
+            return null
         }
-        return eventos;
+        
+        
     }
 
     async getEventosByCiudad(ciudadID: number): Promise<EventosEntity[]> {
@@ -39,6 +44,21 @@ export class EventosRepository {
             where: { ciudad: ciudadID },
             relations: ['creador', 'categorias', 'ciudad'],
           });
+        return eventos;
+    }
+    
+    async getEventosByCiudadCategoria(ciudadID: number, categoriaID: number): Promise<EventosEntity[]> {
+        let eventos: EventosEntity[] = await getConnection()
+        .createQueryBuilder()
+        .from('eventos_categorias_categorias', 'eventosCategorias')
+        .leftJoin('eventos','eventos')
+        .where('eventosCategorias.categoriasCategoriaID = :categoriasCategoriaID AND eventos.ciudadID = :ciudadID', { categoriasCategoriaID: categoriaID, ciudadID: ciudadID })
+        .execute();
+        // let eventos: EventosEntity[] = await getRepository(EventosEntity)
+        // .createQueryBuilder('eventos')
+        // .leftJoin('eventos.eventoID','categorias.eventosEventoID')
+        // .where('eventosCategorias.categoriasCategoriaID = :categoriasCategoriaID AND eventos.ciudadID = :ciudadID', { categoriasCategoriaID: categoriaID, ciudadID: ciudadID })
+        // .execute();
         return eventos;
     }
 
@@ -61,7 +81,6 @@ export class EventosRepository {
             .from('usuarios_eventos_inscritos_eventos', 'eventosInscritos')
             .where("eventosInscritos.eventosEventoID = :eventoID", { eventoID: eventoID })
             .execute();
-            Logger.log(inscripciones)
         }
         
         return inscripciones;

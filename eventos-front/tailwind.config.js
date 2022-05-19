@@ -4,28 +4,34 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         screens: {
-            'mobile': { 'max': '400px' },
-            'tablet': { 'max': '700px' },
-            // => @media (max-width: 640px) { ... }
-
-            'laptop': { 'max': '1000px' },
-            // => @media (max-width: 1024px) { ... }
-
+            'mobile': '400px',
+            'tablet': '750px',
+            'laptop': '1000px',
             'desktop': '1280px',
-            // => @media (min-width: 1280px) { ... }
         },
         extend: {
             backgroundImage: {
+                'bg-atraccion': "url('./assets/atraccion.jpg')",
+                'bg-objetos': "url('./assets/objetos.jpg')",
                 'bg-confeti': "url('./assets/confeti.jpg')",
                 'bg-olly': "url('./assets/gente.webp')",
+                'bg-pintura': "url('./assets/pintura.jpg')",
             },
             colors: {
                 cream: {
                     bg: "#f0edbb"
                 }
             },
+            maxHeight: {
+                '1/2': '50%',
+                '1/4': '25%',
+                '1/6': '16%'
+            },
             maxWidth: {
-                '1/2': '50%'
+                '3/4': '75%',
+                '1/2': '50%',
+                '1/4': '25%',
+                '1/6': '16%'
             },
         },
 

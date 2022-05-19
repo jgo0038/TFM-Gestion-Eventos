@@ -30,10 +30,14 @@ export class CiudadesMapper {
 
   entityToDto(ciudadEntity: CiudadesEntity): Ciudad {
     const eventos: Evento[] = new Array<Evento>();
+    let categorias: number[] = new Array<number>();
 
     if(ciudadEntity.eventos)
     {
       for (let i = 0; i < ciudadEntity.eventos.length; i++) {
+        for(let i = 0; i < ciudadEntity.eventos[i].categorias.length; i++){
+          categorias.push(ciudadEntity.eventos[i].categorias[i].categoriaID);
+        }
         const evento = new Evento(
           ciudadEntity.eventos[i].eventoID,
           ciudadEntity.eventos[i].nombre,
@@ -47,10 +51,11 @@ export class CiudadesMapper {
           ciudadEntity.eventos[i].duracion,
           ciudadEntity.eventos[i].creador.mail,
           ciudadEntity.eventos[i].ciudad.nombre,
-          ciudadEntity.eventos[i].categorias,
+          categorias,
         );
 
         eventos.push(evento);
+        categorias = [];
     }}
 
     return new Ciudad(

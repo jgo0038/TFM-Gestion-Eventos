@@ -14,6 +14,8 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PublicarEventoComponent } from './components/publicar-evento/publicar-evento.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { EventoDetailsComponent } from './evento-details/evento-details.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     HeaderComponent,
     LoginComponent,
     RegistroComponent,
-    PublicarEventoComponent
+    PublicarEventoComponent,
+    EventosComponent,
+    EventoDetailsComponent
   ],
   imports: [
     BrowserModule,

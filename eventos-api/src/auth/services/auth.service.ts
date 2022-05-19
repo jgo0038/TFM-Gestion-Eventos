@@ -12,10 +12,7 @@ export class AuthService {
       ) {}
     
       async validateUser(email: string, password: string): Promise<boolean> {
-        Logger.log("ValidateUser")
         const user: UsuariosEntity = await this.usuariosService.getUsuarioByEmail(email);
-        Logger.log(user)
-        Logger.log(user.nombre)
         if (user) 
             return await user.validarContraseña(password);
         return null;
@@ -23,7 +20,6 @@ export class AuthService {
 
       async generateAccessToken(email: string): Promise<{ access_token: string }> {
         const user: UsuariosEntity = await this.usuariosService.getUsuarioByEmail(email);
-        Logger.log("El user aqui" + user)
         const payload = { mail: user.mail };
         return {
           access_token: this.jwtService.sign(payload),
