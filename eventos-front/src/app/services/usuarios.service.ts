@@ -14,6 +14,10 @@ export class UsuariosService {
     return this.httpClient.get<any>(this.baseURL + '/mail/'+ email)
   }
   
+  anularInscripcion(eventoID: string, usuarioID: number) {
+    return this.httpClient.delete<any>(this.baseURL + '/borrarInscripcion/'+ eventoID + '/' + usuarioID)
+  }
+  
   inscribirse(eventoID: string, usuarioID: number) {
     return this.httpClient.put<any>(this.baseURL + '/inscribir/'+ eventoID + '/' + usuarioID, {})
   }

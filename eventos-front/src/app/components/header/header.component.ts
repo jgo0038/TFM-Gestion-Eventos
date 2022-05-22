@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   cerrarSesion() {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
     this.logged = false;
     this.router.navigate(['/']);
   }

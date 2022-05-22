@@ -13,6 +13,6 @@ export interface Usuario {
     ubicacion?: string;
     contraseña: string;
     foto?: string;
-    eventosCreados?: string[];
+    eventosCreados?: Evento[];
     eventosInscritos?: Evento[];
 }

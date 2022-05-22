@@ -16,6 +16,7 @@ module.exports = {
                 'bg-confeti': "url('./assets/confeti.jpg')",
                 'bg-olly': "url('./assets/gente.webp')",
                 'bg-pintura': "url('./assets/pintura.jpg')",
+                'bg-fondoPerfil': "url('./assets/fondoPerfil.jpg')",
             },
             colors: {
                 cream: {
@@ -23,6 +24,12 @@ module.exports = {
                 }
             },
             maxHeight: {
+                '1/2': '50%',
+                '1/4': '25%',
+                '1/6': '16%'
+            },
+            minWidth: {
+                '3/4': '75%',
                 '1/2': '50%',
                 '1/4': '25%',
                 '1/6': '16%'

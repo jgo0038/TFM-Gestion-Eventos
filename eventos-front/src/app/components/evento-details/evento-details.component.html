@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full block m-0 p-0 bg-yellow-200">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del evento</title>
+</head>
+
+<body class="h-full min-h-full ">
+    <app-header></app-header>
+
+    <div class="flex flex-col tablet:flex-row justify-center items-center">
+        <div id="eventoContainer" class="w-full text-center flex flex-col justify-center items-center">
+            <p class="text-5xl p-5">{{ evento.nombre }}</p>
+            <img *ngIf="evento.fotoPortada; else noPortada" class="object-cover tablet:max-w-3/4 max-w-full h-auto rounded-t-lg" src='{{evento.fotoPortada}}' alt="">
+            <ng-template #noPortada>
+                <img src="../../../assets/noImage.png" class="object-cover tablet:max-w-3/4 max-w-full h-auto rounded-t-lg" alt="Sin imagen">
+            </ng-template>
+            <p class="p-5">{{evento.descripcion}}</p>
+            <div *ngIf="evento.fotosEvento.length > 0" class="flex flex-col">
+                <span class="text-2xl p-5">Galería del evento</span>
+                <div class="flex flex-row bg-gray-500 rounded columns-3 justify-around flex-wrap">
+                    <div *ngFor="let fotoEvento of evento.fotosEvento" class="p-5 transform transition duration-500 hover:scale-110">
+                        <a target="_blank" href="{{fotoEvento}}">
+                            <img src="{{fotoEvento}}" alt="fotosEvento" class="w-80 h-48 object-cover">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col w-full">
+                <span class="text-2xl p-3">Ubicación del evento</span>
+                <span class="p-5">{{evento.ubicacion}}</span>
+            </div>
+            <span class="p-3 text-2xl w-full">Contacto</span>
+            <div class="flex">
+                <div class='m-0 flex flex-col justify-center items-center text-black rounded tablet:flex-row mobile:max-w-xs'>
+                    <div class='flex justify-center items-center flex-shrink-0'>
+                        <img *ngIf="usuario.foto; else elseBlock" class="w-full h-auto max-w-xs tablet:max-w-xs" src="{{usuario.foto}}" alt="fotoPerfil">
+                        <ng-template #elseBlock class="flex-shrink-0 mx-5 max-w-xs">
+                            <img src="../../../assets/noImage.png" class="w-full h-auto max-w-xs tablet:max-w-xs" alt="sinFotoPerfil">
+                        </ng-template>
+                    </div>
+                    <div class='flex'>
+                        <div class="p-6 h-full flex flex-col justify-center items-center">
+                            <h4 class='font-medium text-2xl pr-5 mb-3'>{{evento.creador}}</h4>
+                            <p class='leading-normal'>{{usuario.nombre}}</p>
+                            <p class="text-sm text-grey block mt-6">{{usuario.telefono}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col p-3 tablet:border-l-2">
+            <span class="text-xl">Detalles del evento</span>
+            <span class="p-2">
+                <img src="../../assets/calendar.png" class="max-w-xs max-h-5 float-left pr-1"
+                    alt="calendario">{{evento.fecha_evento | date:'d-LLL-yy' }}
+            </span>
+            <span class="p-2">
+                <img src="../../assets/reloj.png" class="max-w-xs max-h-5 float-left pr-1" alt="calendario">
+                {{evento.fecha_evento | date:'HH:mm a' }}
+            </span>
+            <span class="p-2">
+                <img src="../../assets/reloj-de-arena.png" class="max-w-xs max-h-5 float-left pr-1" alt="calendario">
+                {{evento.duracion}}mins
+            </span>
+            <span *ngIf="evento.precio !== 0" class="p-2">
+                <img src="../../assets/billete.png" class="max-w-xs max-h-5 float-left pr-1" alt="calendario">
+                {{evento.precio}} €
+            </span>
+            <span *ngIf="evento.precio == 0" class="p-2">
+                <img src="../../assets/billete.png" class="max-w-xs max-h-5 float-left pr-1" alt="calendario">
+                GRATIS
+            </span>
+            <span *ngIf="evento.inscripcion && usuarioEmail && !inscrito" class="p-2">
+                <button type="button" (click)="inscribirse()"
+                    class="bg-green-400 hover:bg-black text-black hover:text-green-400 py-2 px-4 border border-black hover:border-transparent rounded">Inscribirse</button>
+            </span>
+            <span *ngIf="inscrito" class="p-2">
+                <p> ¡Ya estás inscrito al evento. Disfruta! </p>
+                <button (click)="anularInscripcion()" class="bg-red-400 hover:bg-black text-black hover:text-red-400 py-2 px-4 border border-black hover:border-transparent rounded">Anular inscripción</button>
+            </span>
+        </div>
+    </div>
+</body>
+
+</html>

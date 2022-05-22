@@ -38,7 +38,7 @@
 
     <div id="eventosContainer" *ngIf="eventosEncontrados">
         <div class="flex flex-col justify-center items-center">
-            <a *ngFor="let evento of listaEventos" (click)="showEventoDetail(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:max-w-1/2 bg-white rounded-lg border shadow-xl hover:bg-gray-300">
+            <a *ngFor="let evento of listaEventos" (click)="showEventoDetail(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:min-w-1/2 tablet:max-w-1/2 bg-white rounded-lg border shadow-xl hover:bg-gray-300">
                 <img *ngIf="evento.fotoPortada; else elseBlock" class="object-cover max-w-full max-h-full rounded-t-lg" src='{{evento.fotoPortada}}' alt="fotoPortada">
                 <ng-template #elseBlock>
                     <img src="../../../assets/noImage.png" alt="Sin imagen">
