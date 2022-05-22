@@ -35,7 +35,7 @@ export class EventoDetailsComponent implements OnInit {
   inscrito: boolean = false;
   usuarioEmail: string | null = '';
   usuarioID: number | undefined = 0;
-  usuario: Usuario = {
+  usuarioCreador: Usuario = {
     mail: '',
     nombre: '',
     apellidos: '',
@@ -60,20 +60,25 @@ export class EventoDetailsComponent implements OnInit {
       this.eventoService.getEventosByID(this.eventoID).subscribe((evento: Evento) => {
         this.evento = evento
         this.usuariosService.getUserByMail(this.evento.creador).subscribe((user: Usuario) => {
-          this.usuario = user;
-          this.usuarioID = user.usuarioID;
-          this.usuarioEmail = user.mail;
-          for(let i = 0; i< this.usuario.eventosInscritos!.length; i++){
-            if(this.usuario.eventosInscritos![i].eventoID === this.eventoID!){
-              this.inscrito = true;
-            }
-          }
+          this.usuarioCreador = user;
+          
         })
       })
     }
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('email')) {
+      this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
+        this.usuarioID = user.usuarioID;
+        this.usuarioEmail = user.mail;
+        for(let i = 0; i< user.eventosInscritos!.length; i++){
+          if(user.eventosInscritos![i].eventoID === this.eventoID!){
+            this.inscrito = true;
+          }
+        }
+      });
+    }
   }
 
   anularInscripcion() {
@@ -89,7 +94,7 @@ export class EventoDetailsComponent implements OnInit {
   }
 
   inscribirse() {
-    this.usuariosService.inscribirse(this.eventoID!, this.usuario.usuarioID!).subscribe((res) => {
+    this.usuariosService.inscribirse(this.eventoID!, this.usuarioID!).subscribe((res) => {
       if(!res.error){
         this.inscrito = true;
         this.toastr.success("Inscripción realizada")

@@ -12,6 +12,10 @@ export class EventosService {
 
   constructor(private httpClient: HttpClient) { }
   
+  borrarEvento(eventoID: string){
+    return this.httpClient.delete<any>(this.baseURL + '/' + eventoID);
+  }
+  
   getAllEventos(){
     return this.httpClient.get<any>(this.baseURL);
   }

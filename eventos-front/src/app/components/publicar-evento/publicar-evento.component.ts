@@ -48,10 +48,12 @@ export class PublicarEventoComponent implements OnInit {
       fotoPortada: [''],
       categorias: ['', [Validators.required]]
     })
-    if (localStorage.getItem('email') !== null) {
+    if (localStorage.getItem('email')) {
       this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((usuario) => {
         this.userID = usuario.usuarioID;
       });
+    } else {
+      this.router.navigate(['/'])
     }
   }
 
@@ -137,7 +139,6 @@ export class PublicarEventoComponent implements OnInit {
           this.toastr.success('Imagen subida correctamente');
         }
       }, error => {
-        console.log(error);
         this.toastr.error('No se pudo subir la imagen')
       });
     }
@@ -158,7 +159,6 @@ export class PublicarEventoComponent implements OnInit {
         this.toastr.success('Imagen subida correctamente');
       }
     }, error => {
-      console.log(error);
       this.toastr.error('No se pudo subir la imagen')
     });
   }

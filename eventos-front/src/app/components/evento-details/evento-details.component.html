@@ -37,7 +37,7 @@
             <div class="flex">
                 <div class='m-0 flex flex-col justify-center items-center text-black rounded tablet:flex-row mobile:max-w-xs'>
                     <div class='flex justify-center items-center flex-shrink-0'>
-                        <img *ngIf="usuario.foto; else elseBlock" class="w-full h-auto max-w-xs tablet:max-w-xs" src="{{usuario.foto}}" alt="fotoPerfil">
+                        <img *ngIf="usuarioCreador.foto; else elseBlock" class="w-full h-auto max-w-xs tablet:max-w-xs" src="{{usuarioCreador.foto}}" alt="fotoPerfil">
                         <ng-template #elseBlock class="flex-shrink-0 mx-5 max-w-xs">
                             <img src="../../../assets/noImage.png" class="w-full h-auto max-w-xs tablet:max-w-xs" alt="sinFotoPerfil">
                         </ng-template>
@@ -45,8 +45,8 @@
                     <div class='flex'>
                         <div class="p-6 h-full flex flex-col justify-center items-center">
                             <h4 class='font-medium text-2xl pr-5 mb-3'>{{evento.creador}}</h4>
-                            <p class='leading-normal'>{{usuario.nombre}}</p>
-                            <p class="text-sm text-grey block mt-6">{{usuario.telefono}}</p>
+                            <p class='leading-normal'>{{usuarioCreador.nombre}}</p>
+                            <p class="text-sm text-grey block mt-6">{{usuarioCreador.telefono}}</p>
                         </div>
                     </div>
                 </div>

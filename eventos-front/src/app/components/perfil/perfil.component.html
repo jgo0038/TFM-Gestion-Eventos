@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-blue-300 to-blue-600">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+</head>
+
+<body class="h-full min-h-full ">
+    <app-header></app-header>
+
+    <div class="flex flex-col justify-center items-center">
+        <span class="text-xl mt-5">Perfil de {{usuario.nombre}}</span>
+
+        <div class="flex flex-col tablet:max-w-1/2 tablet:flex-row">
+            <img *ngIf="usuario.foto; else noFotoPerfil" class="mx-5" src="{{usuario.foto}}" alt="fotoPerfil">
+            <ng-template #noFotoPerfil class="flex-shrink-0 mx-5">
+                <img src="../../../assets/noImage.png" class="w-full h-full mobile:h-auto mobile:max-w-full" alt="sinFotoPerfil">
+            </ng-template>
+            <div class="flex flex-col justify-center items-center mx-5">
+                <p class="text-white">Email</p>
+                <span class="text-xl">{{usuario.mail}}</span>
+                <p class="text-white">Nombre</p>
+                <span class="text-xl">{{usuario.nombre}}</span>
+                <span class="text-xl">{{usuario.apellidos}}</span>
+                <p *ngIf="usuario.fecha_nac && usuario.particular" class="text-white">Edad</p>
+                <p *ngIf="usuario.fecha_nac && usuario.negocio" class="text-white">Desde</p>
+                <span *ngIf="usuario.fecha_nac && usuario.particular" class="text-xl">{{usuario.fecha_nac | edad}}</span>
+                <span *ngIf="usuario.fecha_nac && usuario.negocio" class="text-xl">{{usuario.fecha_nac | date:'yyyy' }}</span>
+                <p class="text-white">Teléfono</p>
+                <span class="text-xl">{{usuario.telefono}}</span>
+                <p *ngIf="usuario.ubicacion" class="text-white">Ubicación</p>
+                <span class="text-xl">{{usuario.ubicacion}}</span>
+                <p *ngIf="usuario.descripcion" class="text-white">Descripción</p>
+                <span class="text-xl">{{usuario.descripcion}}</span>
+            </div>
+        </div>
+        <span class="text-xl border-t-2 p-2">Eventos asociados</span>
+        <div>
+
+            <div class="flex flex-row justify-center items-center p-3">
+                <span (click)="eventosCreados()" class="text-sm p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos creados</span>
+                <span (click)="eventosInscritos()" class="text-sm p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos inscritos</span>
+            </div>
+            <div *ngIf="showEventosCreados" class="m-10">
+                <div *ngIf="listEventosCreados.length > 0; else noEventosCreados" class="flex flex-col justify-center items-center">
+                    <div *ngFor="let evento of listEventosCreados" class="mb-3">
+                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-3/4 tablet:max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300">
+                            <img *ngIf="evento.fotoPortada; else noFotoEvento" class="flex flex-col justify-center items-center p-4 leading-normal" src='{{evento.fotoPortada}}' alt="fotoPortada">
+                            <ng-template #noFotoEvento>
+                                <img src="../../../assets/noImage.png" alt="Sin imagen">
+                            </ng-template>
+                            <div class="flex flex-col justify-center items-center p-4 leading-normal">
+                                <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
+                                </h5>
+                                <span>{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
+                            </div>
+
+                        </a>
+                        <div class="flex flex-row justify-between bg-white">
+                            <button (click)="editarEvento(evento.eventoID)" class="bg-green-400 p-2 hover:bg-black hover:text-green-700">EDITAR</button>
+                            <button (click)="borrarEvento(evento.eventoID)" class="bg-red-400 p-2 hover:bg-black hover:text-red-700">BORRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noEventosCreados>
+                    <div class="flex flex-col justify-center items-center">
+                        <span>No se han creado eventos aún</span>
+                        <span>Aprovecha y crea tu propio evento</span>
+                        <a routerLink="/publicar" class="m-3 p-2 bg-black text-white rounded border-transparent hover:text-black hover:bg-yellow-500 hover:border-black">Publicar</a>
+                    </div>
+                </ng-template>
+            </div>
+            <div *ngIf="showEventosInscritos">
+                <div class="flex flex-col justify-center items-center" *ngIf="listEventosInscritos.length > 0; else noEventosInscritos">
+                    <a *ngFor="let evento of listEventosInscritos" (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:max-w-xs bg-white rounded-lg border shadow-xl hover:bg-gray-300">
+                        <img *ngIf="evento.fotoPortada; else noFotoEventoI" class="flex flex-col justify-center items-center p-4 leading-normal" src='{{evento.fotoPortada}}' alt="fotoPortada">
+                        <ng-template #noFotoEventoI>
+                            <img src="../../../assets/noImage.png" alt="Sin imagen">
+                        </ng-template>
+                        <div class="flex flex-col justify-center items-center p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
+                            </h5>
+                            <span>{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
+                        </div>
+                    </a>
+                </div>
+                <ng-template #noEventosInscritos>
+                    <div class="flex flex-col justify-center items-center">
+                        <span>No se ha inscrito en ningún evento aún</span>
+                        <span>Aprovecha y busca eventos</span>
+                        <button routerLink="/eventos" class="m-3 p-2 bg-black text-white rounded border-transparent hover:text-black hover:bg-yellow-500 hover:border-black">Ver eventos</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

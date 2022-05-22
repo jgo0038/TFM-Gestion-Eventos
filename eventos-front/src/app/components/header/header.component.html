@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
 <body>
-    <div class=" w-full flex ">
+    <div class=" w-full flex bg-white">
         <div class="w-full flex items-center justify-start">
             <a routerLink="/"> Aqui el logo</a></div>
-        <div class="w-full flex items-center justify-center">Aqui el titulo</div>
+        <div class="w-full flex items-center justify-center mobile:hidden">Aqui el titulo</div>
         <div class="w-full max-h-80px flex items-center justify-end">
             <div class="px-5 py-3">
-                <a routerLink="eventos">Eventos</a>
+                <a routerLink="/eventos" routerLinkActive="active-link">Eventos</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
                 <a routerLink="/publicar" routerLinkActive="active-link">Publicar</a>
@@ -16,7 +16,7 @@
                 <a routerLink="/login" routerLinkActive="active-link">Inicio sesión</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
-                <a>Perfil</a>
+                <a routerLink="/perfil" routerLinkActive="active-link">Perfil</a>
             </div>
             <div *ngIf="logged" class="px-5 py-3">
                 <a (click)="cerrarSesion()" routerLink="">Cerrar sesión</a>

@@ -17,6 +17,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { EventoDetailsComponent } from './components/evento-details/evento-details.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { EdadPipe } from './pipes/edad.pipe';
+import { EditarEventoComponent } from './components/editar-evento/editar-evento.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     PublicarEventoComponent,
     EventosComponent,
     EventoDetailsComponent,
-    PerfilComponent
+    PerfilComponent,
+    EdadPipe,
+    EditarEventoComponent
   ],
   imports: [
     BrowserModule,
