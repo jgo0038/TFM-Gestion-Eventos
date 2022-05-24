@@ -19,6 +19,7 @@ export class RegistroComponent implements OnInit {
   negocio: boolean = false;
   particular: boolean = false;
   foto: string = '';
+  fotosUploaded: boolean = false;
   files: File[] = [];
   reader = new FileReader();
 
@@ -57,6 +58,7 @@ export class RegistroComponent implements OnInit {
   }
 
   onUploadImage() {
+    this.fotosUploaded = true;
     // Error subida sin imagenes
     if(!this.files[0]){
       this.toastr.error('Añade una imagen primero :)')
@@ -109,14 +111,22 @@ export class RegistroComponent implements OnInit {
     const ubicacion = this.registerFormNegocio.get('ubicacion')?.value;
     const descripcion = this.registerFormNegocio.get('descripcion')?.value;
 
-    this.authService.registerNegocio(
-      nombre, mail, telefono, fecha_nac, contraseña, ubicacion, descripcion, this.foto).subscribe((res) => {
-        this.toastr.success('Usuario creado correctamente');
-        this.router.navigate(['/login']);
-      },
-      error => {
-        console.log(error.statusText)
-      })
+    if(this.registerFormNegocio.valid){
+      let confirm: boolean = true;
+      if(!this.fotosUploaded){
+        confirm = window.confirm('Si no ha seleccionado los botones para subir las imágenes no serán actualizadas.¿Desea continuar?')
+      }
+      if(confirm){
+        this.authService.registerNegocio(
+          nombre, mail, telefono, fecha_nac, contraseña, ubicacion, descripcion, this.foto).subscribe((res) => {
+            this.toastr.success('Usuario creado correctamente');
+            this.router.navigate(['/login']);
+          },
+          error => {
+            console.log(error.statusText)
+          })
+      }
+    }
   }
 
   registerParticular() {
@@ -131,15 +141,23 @@ export class RegistroComponent implements OnInit {
 
     (genero === 'H') ? genero = 'hombre' : genero = 'mujer'
 
-    this.authService.registerParticular(
-      nombre, apellidos, mail, telefono, fecha_nac, genero, contraseña, descripcion, this.foto).subscribe((res) => {
-        this.toastr.success('Usuario creado correctamente');
-        this.router.navigate(['/login']);
-      },
-      error => {
-        console.log(error.statusText);
-        this.toastr.error(this.errorService.errorCodes(error.statusText), 'Error');
-      })
+    if(this.registerFormParticular.valid){
+      let confirm: boolean = true;
+      if(!this.fotosUploaded){
+        confirm = window.confirm('Si no ha seleccionado los botones para subir las imágenes no serán actualizadas.¿Desea continuar?')
+      }
+      if(confirm){
+        this.authService.registerParticular(
+          nombre, apellidos, mail, telefono, fecha_nac, genero, contraseña, descripcion, this.foto).subscribe((res) => {
+            this.toastr.success('Usuario creado correctamente');
+            this.router.navigate(['/login']);
+          },
+          error => {
+            console.log(error.statusText);
+            this.toastr.error(this.errorService.errorCodes(error.statusText), 'Error');
+          })
+      }
+    }
   }
 
   verPassword() {

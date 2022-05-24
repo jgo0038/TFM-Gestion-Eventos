@@ -51,4 +51,24 @@ export class EventosService {
         fotosEvento: fotosEvento
       })
   }
+
+  updateEvento(eventoID: string, nombre: String, descripcion: string, ubicacion: string, fecha_evento: Date, fecha_pub: Date, precio: number,
+    inscripcion: boolean, duracion: number, creador: number, ciudad: number, categorias: number[], fotoPortada?: string, fotosEvento?: string[]) {
+      return this.httpClient.put<any>(this.baseURL + '/' + eventoID, {
+        nombre: nombre,
+        descripcion: descripcion,
+        ubicacion: ubicacion,
+        fecha_evento: fecha_evento,
+        fecha_pub: fecha_pub,
+        precio: precio,
+        inscripcion: inscripcion,
+        cancelado: false,
+        duracion: duracion,
+        creador: creador,
+        ciudad: ciudad,
+        categorias: categorias,
+        fotoPortada: fotoPortada,
+        fotosEvento: fotosEvento
+      })
+  }
 }

@@ -63,7 +63,7 @@ export class PerfilComponent implements OnInit {
   }
 
   editarEvento(eventoID: string): void {
-
+    this.router.navigateByUrl('/editarEvento/' + eventoID)
   }
 
   eventosCreados(): void {

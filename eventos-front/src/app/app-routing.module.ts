@@ -7,6 +7,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { PublicarEventoComponent } from './components/publicar-evento/publicar-evento.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { EventoDetailsComponent } from './components/evento-details/evento-details.component';
+import { EditarEventoComponent } from './components/editar-evento/editar-evento.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'evento/:eventoID', component: EventoDetailsComponent },
   { path: 'eventos', component: EventosComponent },
+  { path: 'editarEvento/:eventoID', component: EditarEventoComponent },
   { path: 'perfil', component: PerfilComponent },
 ];
 

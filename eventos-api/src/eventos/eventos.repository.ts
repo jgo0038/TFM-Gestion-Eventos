@@ -109,7 +109,9 @@ export class EventosRepository {
             evento.duracion,
             evento.creador,
             evento.ciudad,
-            evento.categorias
+            evento.categorias,
+            evento.fotoPortada,
+            evento.fotosEvento
         );
 
         const updEvento = await this.mapper.dtoToEntity(updateEventoDto);

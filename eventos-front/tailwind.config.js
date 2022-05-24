@@ -11,7 +11,9 @@ module.exports = {
         },
         extend: {
             backgroundImage: {
+                'bg-amigos': "url('./assets/amigos.jpg')",
                 'bg-atraccion': "url('./assets/atraccion.jpg')",
+                'bg-engranaje': "url('./assets/engranaje.png')",
                 'bg-objetos': "url('./assets/objetos.jpg')",
                 'bg-confeti': "url('./assets/confeti.jpg')",
                 'bg-olly': "url('./assets/gente.webp')",
@@ -38,7 +40,8 @@ module.exports = {
                 '3/4': '75%',
                 '1/2': '50%',
                 '1/4': '25%',
-                '1/6': '16%'
+                '1/6': '16%',
+                'fit-content': 'fit-content'
             },
         },
 

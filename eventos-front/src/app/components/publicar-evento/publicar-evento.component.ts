@@ -24,6 +24,7 @@ export class PublicarEventoComponent implements OnInit {
   files: File[] = [];
   fotoPortada: string = '';
   fotosEvento: string[] = [];
+  fotosUploaded: boolean = false;
   publicarEventoForm: FormGroup;
   userID: number = 0;
 
@@ -94,16 +95,23 @@ export class PublicarEventoComponent implements OnInit {
     let fecha_pub = new Date();
     duracion = Number(duracion.split(':')[0]) * 60 + Number(duracion.split(':')[1])
 
-    this.eventosService.publicarEvento(nombre, descripcion, ubicacion, fecha_evento, fecha_pub, precio, inscripcion, duracion, this.userID, ciudad, categorias, this.fotoPortada, this.fotosEvento)
-    .subscribe((res: any) => {
-      if (res) {
-        this.toastr.success('Evento creado correctamente')
-        this.router.navigate(['/eventos'])
-      } else {
-        this.toastr.error('Error al crear el evento')
+    if(this.publicarEventoForm.valid){
+      let confirm: boolean = true;
+      if(!this.fotosUploaded){
+        confirm = window.confirm('Si no ha seleccionado los botones para subir las imágenes no serán actualizadas.¿Desea continuar?')
       }
-    })
-
+      if(confirm){
+        this.eventosService.publicarEvento(nombre, descripcion, ubicacion, fecha_evento, fecha_pub, precio, inscripcion, duracion, this.userID, ciudad, categorias, this.fotoPortada, this.fotosEvento)
+        .subscribe((res: any) => {
+          if (res) {
+            this.toastr.success('Evento creado correctamente')
+            this.router.navigate(['/eventos'])
+          } else {
+            this.toastr.error('Error al crear el evento')
+          }
+        })
+      }
+    }
   }
 
   onSelect(event: any) {
@@ -123,6 +131,7 @@ export class PublicarEventoComponent implements OnInit {
   }
 
   onUploadEventImages() {
+    this.fotosUploaded = true;
     // Fotos evento
     for (let i = 0; i < this.files.length; i++) {
       const file_data = this.files[i];
@@ -145,6 +154,7 @@ export class PublicarEventoComponent implements OnInit {
   }
 
   onUploadFrontImage() {
+    this.fotosUploaded = true;
     // Foto portada
     const file_data = this.frontFile[0];
     const data = new FormData();
