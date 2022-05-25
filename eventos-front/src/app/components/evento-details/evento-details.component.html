@@ -21,7 +21,7 @@
             <p class="p-5">{{evento.descripcion}}</p>
             <div *ngIf="evento.fotosEvento.length > 0" class="flex flex-col">
                 <span class="text-2xl p-5">Galería del evento</span>
-                <div class="flex flex-row bg-gray-500 rounded columns-3 justify-around flex-wrap">
+                <div class="flex flex-row bg-gray-500 m-2 rounded columns-3 justify-around flex-wrap">
                     <div *ngFor="let fotoEvento of evento.fotosEvento" class="p-5 transform transition duration-500 hover:scale-110">
                         <a target="_blank" href="{{fotoEvento}}">
                             <img src="{{fotoEvento}}" alt="fotosEvento" class="w-80 h-48 object-fit">

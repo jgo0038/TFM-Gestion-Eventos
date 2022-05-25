@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Evento } from 'src/app/models/evento';
 import { EventosService } from 'src/app/services/eventos.service';
 
@@ -9,14 +10,12 @@ import { EventosService } from 'src/app/services/eventos.service';
 })
 export class HomeComponent implements OnInit {
 
-  eventos: Evento[] = [];
-
-  constructor(private eventosService: EventosService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.eventosService.getAllEventos().subscribe((res) => {
-      console.log(res)
-    })
   }
 
+  searchCiudad(ciudadID: number) {
+    this.router.navigateByUrl('/eventos/' + ciudadID)
+  }
 }

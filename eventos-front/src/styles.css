@@ -7,7 +7,7 @@
 
 @layer base {
   html {
-    font-family: Stencil Std, fantasy;
+    font-family: Impact, fantasy;
   }
 }
 
@@ -27,9 +27,12 @@
   .active-link {
     text-decoration-thickness: 3px;
     color: white;
-    border-radius: 50%;
-    background: repeating-radial-gradient(black, transparent 100px);
-    padding: 10px;
+    background-color: black;
+  }
+
+  .active-link-hamburguer {
+    color: white;
+    background-color: black;
   }
 }
 

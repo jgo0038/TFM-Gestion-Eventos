@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Categoria } from 'src/app/models/categoria';
 import { Ciudad } from 'src/app/models/ciudad';
@@ -31,14 +31,23 @@ export class EventosComponent implements OnInit {
               private eventosService: EventosService,
               private ciudadesService: CiudadesService,
               private fb: FormBuilder,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private activatedRoute: ActivatedRoute) {
     this.formCiudad = this.fb.group({
       ciudad: ['', [Validators.required]]
     })
                }
 
   ngOnInit(): void {
-
+    if(this.activatedRoute.snapshot.paramMap.get('ciudadID')){
+      this.formCiudad.setValue({
+        ciudad: this.activatedRoute.snapshot.paramMap.get('ciudadID')
+      })
+      if(this.formCiudad.get('ciudad')?.value){
+        this.showEventos();
+      }
+    }
+    
     this.ciudadesService.getAllCiudades().subscribe((ciudades) => {
       for (let i = 0; i < ciudades.length; i++) {
         let ciudad: Ciudad = {
@@ -85,11 +94,12 @@ export class EventosComponent implements OnInit {
   showEventos(): void {
     const eventos = document.getElementById('eventosContainer');
     const selectCiudadValue = this.formCiudad.get('ciudad')?.value;
-    var selCiudad = document.getElementById("selectCiudad") as HTMLSelectElement | null;
     var selCiudadText = '';
-    if(selCiudad != null) {
-      selCiudadText = selCiudad.options[selCiudad.selectedIndex].text;
-    }
+    
+    this.ciudadesService.getCiudadByID(selectCiudadValue).subscribe((ciudad: Ciudad) => {
+      selCiudadText = ciudad.nombre
+    })
+
     this.listaEventos = []
     if (selectCiudadValue !== ''){
       this.busquedaTouched = true;

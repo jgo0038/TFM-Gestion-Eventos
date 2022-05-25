@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   logged: boolean = false;
+  showMenu: boolean = false;
 
   constructor(private router: Router) { }
 
@@ -22,5 +23,9 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('email');
     this.logged = false;
     this.router.navigate(['/']);
+  }
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
   }
 }

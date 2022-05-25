@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'evento/:eventoID', component: EventoDetailsComponent },
   { path: 'eventos', component: EventosComponent },
+  { path: 'eventos/:ciudadID', component: EventosComponent },
   { path: 'editarEvento/:eventoID', component: EditarEventoComponent },
   { path: 'perfil', component: PerfilComponent },
 ];

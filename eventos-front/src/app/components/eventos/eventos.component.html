@@ -9,13 +9,13 @@
 </head>
 
 
-<body class="h-full min-h-full ">
+<body class="h-full min-h-full">
     <app-header></app-header>
 
     <div class="flex flex-col flex-wrap justify-center items-center my-3 py-5">
         <form [formGroup]="formCiudad">
             <div class="flex flex-col flex-wrap justify-center items-center my-3 py-5">
-                <span class="text-white text-center text-2xl tablet:text-3xl">Busca eventos según tu ciudad</span>
+                <span class="text-white text-center text-2xl m-1 tablet:text-3xl">Busca eventos según tu ciudad</span>
                 <select formControlName="ciudad" id="selectCiudad" class="text-center bg-gray-200 mx-2 p-2 rounded tablet:p-4">
                     <option disabled selected value>----------</option>
                     <option *ngFor="let ciudad of ciudades" [value]="ciudad.ciudadID">{{ ciudad.nombre }}</option>
@@ -23,13 +23,14 @@
             </div>
         </form>
     </div>
-    <div class="flex flex-col justify-center items-center">
-        <div class="text-center"><span class="text-white text-2xl tablet:text-3xl laptop:text-4xl"> Selecciona las categorías para
+    <div class="flex flex-wrap flex-col justify-center items-center">
+        <div class="text-center"><span class="text-white text-2xl m-1 tablet:text-3xl laptop:text-4xl"> Selecciona las categorías para
                 filtrar</span></div>
-        <div class="grid grid-cols-2 auto-cols-auto my-8 mr-20 mobile:grid-cols-2 tablet:grid-cols-4">
+        <!-- <div class="grid grid-cols-2 auto-cols-auto my-8 mr-24 mobile:grid-cols-2 tablet:grid-cols-4"> -->
+        <div class="flex flex-wrap justify-center items-center">
             <span *ngFor="let categoria of categorias" class="cursor-pointer m-5">
                 <span (click)="addCategoria($event)" id="{{categoria.categoriaID}}"
-                    class="bg-gray-300 rounded-full text-xl mx-4 p-5 whitespace-nowrap">{{ categoria.nombre }}</span>
+                    class="bg-gray-300 rounded-full text-2xl mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre }}</span>
             </span>
 
         </div>

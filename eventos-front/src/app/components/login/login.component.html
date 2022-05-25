@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full min-h-full block">
+<html lang="en" class="h-full min-h-full block bg-bg-amigos bg-cover bg-center bg-no-repeat">
 
 <head>
     <meta charset="UTF-8">
@@ -8,44 +8,46 @@
     <title>Iniciar sesión</title>
 </head>
 
-<body class="h-full min-h-full bg-gradient-to-b from-white to-blue-300">
+<body class="h-full min-h-full">
     <app-header></app-header>
 
-    <div class="bg-blue-400 shadow-md rounded px-8 pt-6 pb-8 mx-40 mt-20 flex flex-col">
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="mb-4">
-                <label class="block text-grey text-sm mb-2" for="usuario">
+    <div class="flex justify-center items-center">
+        <div class="bg-gray-400 bg-opacity-70 shadow-md rounded px-8 pt-6 pb-8 tablet:mx-40 mt-20 flex flex-col">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="mb-4">
+                    <label class="block text-grey text-sm mb-2" for="usuario">
                 Usuario
                 </label>
-                <input formControlName="usuario" id="usuario" type="text" placeholder="Usuario" email class="shadow appearance-none border rounded w-full py-2 px-3 text-grey">
-                <span class="text-red-700" *ngIf="loginForm.get('usuario')?.hasError('required') && loginForm.get('usuario')?.touched">
+                    <input formControlName="usuario" id="usuario" type="text" placeholder="Usuario" email class="shadow appearance-none border rounded w-full py-2 px-3 text-grey">
+                    <span class="text-red-700" *ngIf="loginForm.get('usuario')?.hasError('required') && loginForm.get('usuario')?.touched">
                     El correo es requerido
                 </span>
-                <span class="text-red-700" *ngIf="loginForm.get('usuario')?.hasError('email') && loginForm.get('usuario')?.touched">
+                    <span class="text-red-700" *ngIf="loginForm.get('usuario')?.hasError('email') && loginForm.get('usuario')?.touched">
                     El correo es inválido
                 </span>
-            </div>
-            <div class="mb-6">
-                <label class="block text-grey text-sm mb-2" for="contraseña">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-grey text-sm mb-2" for="contraseña">
                 Contraseña
                 </label>
-                <input formControlName="contraseña" id="contraseña" type="password" placeholder="************" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey mb-3">
-                <span class="text-red-700" *ngIf="loginForm.get('contraseña')?.hasError('required') && loginForm.get('contraseña')?.touched">
+                    <input formControlName="contraseña" id="contraseña" type="password" placeholder="************" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey mb-3">
+                    <span class="text-red-700" *ngIf="loginForm.get('contraseña')?.hasError('required') && loginForm.get('contraseña')?.touched">
                     Introduce una contraseña
                 </span>
-            </div>
-            <span class="text-red-700" *ngIf="">
+                </div>
+                <span class="text-red-700" *ngIf="">
                 Cuenta o contraseña incorrectas
             </span>
-            <div class="flex items-center justify-between">
-                <button class="bg-black hover:bg-blue-dark text-white py-2 px-4 rounded" type="submit">
+                <div class="flex items-center tablet:justify-between">
+                    <button class="bg-black mr-1 hover:bg-blue-dark text-white py-2 px-4 rounded" type="submit">
                     Iniciar sesión
                   </button>
-                <button class="bg-black hover:bg-blue-dark text-white py-2 px-4 rounded" routerLink="/registro">
+                    <button class="bg-black hover:bg-blue-dark text-white py-2 px-4 rounded" routerLink="/registro">
                     Registrarse
                 </button>
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     </div>
 
 </body>

@@ -13,4 +13,8 @@ export class CiudadesService {
   getAllCiudades() {
     return this.httpClient.get<any>(this.baseURL + '/ciudades')
   }
+
+  getCiudadByID(ciudadID: number) {
+    return this.httpClient.get<any>(this.baseURL + '/ciudades/' + ciudadID)
+  }
 }

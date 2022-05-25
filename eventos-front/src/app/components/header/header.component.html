@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 
 <body>
-    <div class=" w-full flex bg-white">
+    <div class="w-full flex bg-white ">
         <div class="w-full flex items-center justify-start">
             <a routerLink="/"> Aqui el logo</a></div>
-        <div class="w-full flex items-center justify-center mobile:hidden">Aqui el titulo</div>
-        <div class="w-full max-h-80px flex items-center justify-end">
-            <div class="px-5 py-3">
-                <a routerLink="/eventos" routerLinkActive="active-link">Eventos</a>
-            </div>
-            <div *ngIf="logged" class="px-5 py-3">
-                <a routerLink="/publicar" routerLinkActive="active-link">Publicar</a>
-            </div>
-            <div *ngIf="!logged" class="px-5 py-3">
-                <a routerLink="/login" routerLinkActive="active-link">Inicio sesión</a>
-            </div>
-            <div *ngIf="logged" class="px-5 py-3">
-                <a routerLink="/perfil" routerLinkActive="active-link">Perfil</a>
-            </div>
-            <div *ngIf="logged" class="px-5 py-3">
-                <a (click)="cerrarSesion()" routerLink="">Cerrar sesión</a>
-            </div>
+        <div class="w-full hidden items-center justify-center bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-pink-700 text-2xl tablet:flex">CiudActive</div>
+        <div class="flex justify-end items-center mobile:hidden">
+            <img (click)="toggleMenu()" src="../../../assets/menu.png" class="max-w-1/6 mr-2" alt="menu">
         </div>
+        <div class="w-full max-h-80px items-center justify-end hidden mobile:flex mobile:visible">
+            <a routerLink="/eventos" routerLinkActive="active-link" class="px-3 py-3">
+                <span>Eventos</span>
+            </a>
+            <a routerLink="/publicar" routerLinkActive="active-link" *ngIf="logged" class="px-3 py-3">
+                <span>Publicar</span>
+            </a>
+            <a routerLink="/login" routerLinkActive="active-link" *ngIf="!logged" class="px-3 py-3">
+                <span>Inicio sesión</span>
+            </a>
+            <a routerLink="/perfil" routerLinkActive="active-link" *ngIf="logged" class="px-3 py-3">
+                <span>Perfil</span>
+            </a>
+            <a (click)="cerrarSesion()" routerLink="" *ngIf="logged" class="px-3 py-3">
+                <span>Cerrar sesión</span>
+            </a>
+        </div>
+    </div>
+    <div [ngClass]="{'hidden': !showMenu, 'flex': showMenu, 'flex-col': showMenu}" class="w-full max-h-80px items-center justify-center mobile:hidden">
+        <a routerLink="/eventos" routerLinkActive="active-link-hamburguer" class="px-3 py-3 w-full text-center bg-gray-200 cursor-pointer hover:bg-gray-400">
+            <span>Eventos</span>
+        </a>
+        <a routerLink="/publicar" routerLinkActive="active-link-hamburguer" *ngIf="logged" class="px-3 py-3 w-full text-center cursor-pointer bg-gray-200 hover:bg-gray-400">
+            <span>Publicar</span>
+        </a>
+        <a routerLink="/login" routerLinkActive="active-link-hamburguer" *ngIf="!logged" class="px-3 py-3 w-full text-center cursor-pointer bg-gray-200 hover:bg-gray-400">
+            <span>Inicio sesión</span>
+        </a>
+        <a routerLink="/perfil" routerLinkActive="active-link-hamburguer" *ngIf="logged" class="px-3 py-3 w-full text-center cursor-pointer bg-gray-200 hover:bg-gray-400">
+            <span>Perfil</span>
+        </a>
+        <a (click)="cerrarSesion()" routerLink="/" *ngIf="logged" class="px-3 py-3 w-full text-center cursor-pointer bg-gray-200 hover:bg-gray-400">
+            <span>Cerrar sesión</span>
+        </a>
     </div>
 </body>

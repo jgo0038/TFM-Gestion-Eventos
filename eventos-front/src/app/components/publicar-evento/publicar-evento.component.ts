@@ -132,45 +132,53 @@ export class PublicarEventoComponent implements OnInit {
 
   onUploadEventImages() {
     this.fotosUploaded = true;
-    // Fotos evento
-    for (let i = 0; i < this.files.length; i++) {
-      const file_data = this.files[i];
+    if(this.files.length === 0){
+      this.toastr.error('Adjunta alguna imagen primero')
+    }else {
+      // Fotos evento
+      for (let i = 0; i < this.files.length; i++) {
+        const file_data = this.files[i];
+        const data = new FormData();
+        let fotoEvento = '';
+        data.append('file', file_data);
+        data.append('upload_preset', 'eventos_cloudinary');
+        data.append('cloud_name', 'dopt5keee');
+
+        this.imagenesService.uploadImagen(data).subscribe((res: any) => {
+          if (res) {
+            fotoEvento = res.secure_url;
+            this.fotosEvento.push(fotoEvento);
+            this.toastr.success('Imagen subida correctamente');
+          }
+        }, error => {
+          this.toastr.error('No se pudo subir la imagen')
+        });
+      }
+    }
+  }
+
+  onUploadFrontImage() {
+    this.fotosUploaded = true;
+    if(!this.frontFile[0])
+      this.toastr.error('Adjunta alguna imagen primero')
+    else{
+      // Foto portada
+      const file_data = this.frontFile[0];
       const data = new FormData();
-      let fotoEvento = '';
       data.append('file', file_data);
       data.append('upload_preset', 'eventos_cloudinary');
       data.append('cloud_name', 'dopt5keee');
 
       this.imagenesService.uploadImagen(data).subscribe((res: any) => {
         if (res) {
-          fotoEvento = res.secure_url;
-          this.fotosEvento.push(fotoEvento);
+          this.fotoPortada = res.secure_url;
+          this.fotosEvento.push(this.fotoPortada);
           this.toastr.success('Imagen subida correctamente');
         }
       }, error => {
         this.toastr.error('No se pudo subir la imagen')
       });
-    }
-  }
-
-  onUploadFrontImage() {
-    this.fotosUploaded = true;
-    // Foto portada
-    const file_data = this.frontFile[0];
-    const data = new FormData();
-    data.append('file', file_data);
-    data.append('upload_preset', 'eventos_cloudinary');
-    data.append('cloud_name', 'dopt5keee');
-
-    this.imagenesService.uploadImagen(data).subscribe((res: any) => {
-      if (res) {
-        this.fotoPortada = res.secure_url;
-        this.fotosEvento.push(this.fotoPortada);
-        this.toastr.success('Imagen subida correctamente');
-      }
-    }, error => {
-      this.toastr.error('No se pudo subir la imagen')
-    });
+    } 
   }
 
   showFullForm() {

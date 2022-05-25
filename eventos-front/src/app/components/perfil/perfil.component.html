@@ -8,7 +8,7 @@
     <title>Perfil</title>
 </head>
 
-<body class="h-full min-h-full ">
+<body class="h-full min-h-full w-auto">
     <app-header></app-header>
 
     <div class="flex flex-col justify-center items-center">
@@ -41,14 +41,14 @@
         <div>
 
             <div class="flex flex-row justify-center items-center p-3">
-                <span (click)="eventosCreados()" class="text-sm p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos creados</span>
-                <span (click)="eventosInscritos()" class="text-sm p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos inscritos</span>
+                <span [ngClass]="{'bg-gray-600': showEventosCreados, 'bg-yellow-400': !showEventosCreados, 'text-yellow-500': showEventosCreados, 'text-black': !showEventosCreados}" (click)="eventosCreados()" class="text-sm p-1 mobile:p-2 mx-2 border rounded border-black  cursor-pointer">Eventos creados</span>
+                <span [ngClass]="{'bg-gray-600': showEventosInscritos, 'bg-yellow-400': !showEventosInscritos, 'text-yellow-500': showEventosInscritos, 'text-black': !showEventosInscritos}" (click)="eventosInscritos()" class="text-sm p-1 mobile:p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos inscritos</span>
             </div>
-            <div *ngIf="showEventosCreados" class="m-10">
+            <div *ngIf="showEventosCreados" class="m-3">
                 <div *ngIf="listEventosCreados.length > 0; else noEventosCreados" class="flex flex-col justify-center items-center">
                     <div *ngFor="let evento of listEventosCreados" class="mb-3">
-                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-3/4 tablet:max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300">
-                            <img *ngIf="evento.fotoPortada; else noFotoEvento" class="flex flex-col justify-center items-center p-4 leading-normal" src='{{evento.fotoPortada}}' alt="fotoPortada">
+                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300">
+                            <img *ngIf="evento.fotoPortada; else noFotoEvento" class="flex flex-col justify-center items-center p-4 max-h-1/2" src='{{evento.fotoPortada}}' alt="fotoPortada">
                             <ng-template #noFotoEvento>
                                 <img src="../../../assets/noImage.png" alt="Sin imagen">
                             </ng-template>
@@ -59,9 +59,9 @@
                             </div>
 
                         </a>
-                        <div class="flex flex-row justify-between bg-white">
-                            <button (click)="editarEvento(evento.eventoID)" class="bg-green-400 p-2 hover:bg-black hover:text-green-700">EDITAR</button>
-                            <button (click)="borrarEvento(evento.eventoID)" class="bg-red-400 p-2 hover:bg-black hover:text-red-700">BORRAR</button>
+                        <div class="flex flex-row justify-between bg-white w-full tablet:max-w-xs">
+                            <button (click)="editarEvento(evento.eventoID)" class="bg-green-400 text-xs mobile:text-base p-1 mobile:p-2 hover:bg-black hover:text-green-700">EDITAR</button>
+                            <button (click)="borrarEvento(evento.eventoID)" class="bg-red-400 text-xs mobile:text-base p-1 mobile:p-2 hover:bg-black hover:text-red-700">BORRAR</button>
                         </div>
                     </div>
                 </div>
@@ -73,19 +73,23 @@
                     </div>
                 </ng-template>
             </div>
-            <div *ngIf="showEventosInscritos">
+
+
+            <div *ngIf="showEventosInscritos" class="m-3">
                 <div class="flex flex-col justify-center items-center" *ngIf="listEventosInscritos.length > 0; else noEventosInscritos">
-                    <a *ngFor="let evento of listEventosInscritos" (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:max-w-xs bg-white rounded-lg border shadow-xl hover:bg-gray-300">
-                        <img *ngIf="evento.fotoPortada; else noFotoEventoI" class="flex flex-col justify-center items-center p-4 leading-normal" src='{{evento.fotoPortada}}' alt="fotoPortada">
-                        <ng-template #noFotoEventoI>
-                            <img src="../../../assets/noImage.png" alt="Sin imagen">
-                        </ng-template>
-                        <div class="flex flex-col justify-center items-center p-4 leading-normal">
-                            <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
-                            </h5>
-                            <span>{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
-                        </div>
-                    </a>
+                    <div *ngFor="let evento of listEventosInscritos" class="mb-3">
+                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300">
+                            <img *ngIf="evento.fotoPortada; else noFotoEvento" class="flex flex-col justify-center items-center p-4 max-h-1/2" src='{{evento.fotoPortada}}' alt="fotoPortada">
+                            <ng-template #noFotoEvento>
+                                <img src="../../../assets/noImage.png" alt="Sin imagen">
+                            </ng-template>
+                            <div class="flex flex-col justify-center items-center p-4 leading-normal">
+                                <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
+                                </h5>
+                                <span>{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
                 <ng-template #noEventosInscritos>
                     <div class="flex flex-col justify-center items-center">

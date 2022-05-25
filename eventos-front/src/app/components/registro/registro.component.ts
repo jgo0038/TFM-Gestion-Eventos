@@ -78,7 +78,6 @@ export class RegistroComponent implements OnInit {
           this.foto = res.secure_url;
           this.toastr.success('Imagen subida correctamente');
       }, error => {
-        console.log(error);
         this.toastr.error('No se pudo subir la imagen')
       });
     }
