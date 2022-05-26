@@ -19,6 +19,10 @@ import { EventoDetailsComponent } from './components/evento-details/evento-detai
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { EdadPipe } from './pipes/edad.pipe';
 import { EditarEventoComponent } from './components/editar-evento/editar-evento.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PrivacidadComponent } from './components/privacidad/privacidad.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { EditarEventoComponent } from './components/editar-evento/editar-evento.
     EventoDetailsComponent,
     PerfilComponent,
     EdadPipe,
-    EditarEventoComponent
+    EditarEventoComponent,
+    FooterComponent,
+    PrivacidadComponent,
+    FaqComponent,
+    EditarPerfilComponent
   ],
   imports: [
     BrowserModule,

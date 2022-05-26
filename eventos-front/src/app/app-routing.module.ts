@@ -8,6 +8,8 @@ import { PublicarEventoComponent } from './components/publicar-evento/publicar-e
 import { RegistroComponent } from './components/registro/registro.component';
 import { EventoDetailsComponent } from './components/evento-details/evento-details.component';
 import { EditarEventoComponent } from './components/editar-evento/editar-evento.component';
+import { PrivacidadComponent } from './components/privacidad/privacidad.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'eventos/:ciudadID', component: EventosComponent },
   { path: 'editarEvento/:eventoID', component: EditarEventoComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'privacidad', component: PrivacidadComponent },
+  { path: 'faq', component: FaqComponent },
 ];
 
 @NgModule({

@@ -19,6 +19,7 @@ module.exports = {
                 'bg-olly': "url('./assets/gente.webp')",
                 'bg-pintura': "url('./assets/pintura.jpg')",
                 'bg-fondoPerfil': "url('./assets/fondoPerfil.jpg')",
+                'bg-fondoQuestion': "url('./assets/question.png')",
             },
             colors: {
                 cream: {
