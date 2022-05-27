@@ -27,7 +27,9 @@ export class PerfilComponent implements OnInit {
     ubicacion: '',
     contraseña: '',
     foto: '',
+    genero: ''
   }
+  usuarioID: number = 0;
   showEventosCreados: boolean = true;
   showEventosInscritos: boolean = false;
 
@@ -40,6 +42,7 @@ export class PerfilComponent implements OnInit {
     if (localStorage.getItem('email')) {
       this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((usuario: Usuario) => {
         this.usuario = usuario;
+        this.usuarioID = usuario.usuarioID!;
         if(usuario.eventosCreados)
           this.listEventosCreados = usuario.eventosCreados
         if(usuario.eventosInscritos)
@@ -60,6 +63,10 @@ export class PerfilComponent implements OnInit {
         }
       })
     }
+  }
+
+  editarPerfil(usuarioID: number) {
+    this.router.navigateByUrl('/editarPerfil/' + usuarioID)
   }
 
   editarEvento(eventoID: string): void {

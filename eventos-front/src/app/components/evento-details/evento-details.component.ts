@@ -47,6 +47,7 @@ export class EventoDetailsComponent implements OnInit {
     ubicacion: '',
     contraseña: '',
     foto: '',
+    genero: ''
   }
 
   constructor(private activatedRoute: ActivatedRoute,

@@ -10,6 +10,10 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
   
+  checkContraseña(usuario: string, contraseña: string){
+    return this.httpClient.post<any>(this.baseURL + '/auth/check', {email: usuario, password: contraseña});
+  }
+  
   login(usuario: string, contraseña: string){
     return this.httpClient.post<any>(this.baseURL + '/auth', {email: usuario, password: contraseña});
   }

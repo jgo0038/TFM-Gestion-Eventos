@@ -10,6 +10,7 @@ import { EventoDetailsComponent } from './components/evento-details/evento-detai
 import { EditarEventoComponent } from './components/editar-evento/editar-evento.component';
 import { PrivacidadComponent } from './components/privacidad/privacidad.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'privacidad', component: PrivacidadComponent },
   { path: 'faq', component: FaqComponent },
+  { path: 'editarPerfil/:usuarioID', component: EditarPerfilComponent },
 ];
 
 @NgModule({

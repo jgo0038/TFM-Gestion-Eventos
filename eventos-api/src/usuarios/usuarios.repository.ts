@@ -80,6 +80,7 @@ export class UsuariosRepository {
           negocio: usuario.negocio,
           ubicacion: usuario.ubicacion,
           descripcion: usuario.descripcion,
+          foto: usuario.foto,
           contraseña: contraseña
         })
         .where('usuarioID = :usuarioID', { usuarioID: usuarioID })

@@ -13,11 +13,12 @@
 
     <div class="flex flex-col justify-center items-center">
         <span class="text-xl mt-5">Perfil de {{usuario.nombre}}</span>
+        <div class="w-full flex justify-end mr-10"><button class="bg-yellow-500 p-2 rounded" (click)="editarPerfil(usuarioID)">Editar</button></div>
 
-        <div class="flex flex-col tablet:max-w-1/2 tablet:flex-row">
-            <img *ngIf="usuario.foto; else noFotoPerfil" class="mx-5" src="{{usuario.foto}}" alt="fotoPerfil">
+        <div class="flex flex-col justify-center items-center tablet:max-w-1/2 tablet:flex-row">
+            <img *ngIf="usuario.foto; else noFotoPerfil" class="mx-5 max-w-1/2 h-full mobile:h-auto" src="{{usuario.foto}}" alt="fotoPerfil">
             <ng-template #noFotoPerfil class="flex-shrink-0 mx-5">
-                <img src="../../../assets/noImage.png" class="w-full h-full mobile:h-auto mobile:max-w-full" alt="sinFotoPerfil">
+                <img src="../../../assets/noImage.png" class="mx-5 max-w-1/2 h-full mobile:h-auto" alt="sinFotoPerfil">
             </ng-template>
             <div class="flex flex-col justify-center items-center mx-5">
                 <p class="text-white">Email</p>
@@ -37,7 +38,7 @@
                 <span class="text-xl">{{usuario.descripcion}}</span>
             </div>
         </div>
-        <span class="text-xl border-t-2 p-2">Eventos asociados</span>
+        <span class="text-xl border-t-2 mt-5 p-2">Eventos asociados</span>
         <div>
 
             <div class="flex flex-row justify-center items-center p-3">

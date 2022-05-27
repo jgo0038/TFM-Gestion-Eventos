@@ -126,7 +126,7 @@
                 <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadEventImages()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadEventImages()">Selecciona para subir las imagenes al evento</button></div>
             </div>
             <div class="text-center mb-6">
-                <button class="bg-red-400 mb-3 mx-5 text-black py-2 px-4 rounded hover:bg-black hover:text-red-600" type="button">Cancelar</button>
+                <button routerLink="/perfil" class="bg-red-400 mb-3 mx-5 text-black py-2 px-4 rounded hover:bg-black hover:text-red-600" type="button">Cancelar</button>
                 <!-- <button *ngIf="editarEventoForm.invalid" class="bg-gray-400 mb-3 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled type="button">Actualizar</button> -->
                 <button class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 hover:border-transparent rounded" type="submit">Actualizar</button>
             </div>
