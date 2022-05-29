@@ -24,6 +24,12 @@ export class EventosComponent implements OnInit {
   eventosEncontrados: boolean = false;
   formCiudad: FormGroup;
   listaEventos: Evento[] = [];
+  listaEventosPasados: Evento[] = [];
+  listaEventosFuturos: Evento[] = [];
+  listaEventosID: string[] = [];
+  toggleDuracion: boolean = false;
+  toggleFecha: boolean = true;
+  togglePrecio: boolean = false;
   verEventos: boolean = false;
 
   constructor(private router: Router,
@@ -80,6 +86,50 @@ export class EventosComponent implements OnInit {
     }
   }
 
+  getEventosCatOrdered(eventosCat: Evento[], ciudadName: string) {
+    eventosCat.map((eventoCat: Evento) => {
+      if(eventoCat.ciudad === ciudadName && !this.listaEventosID.includes(eventoCat.eventoID)){
+        this.listaEventosID.push(eventoCat.eventoID)
+        this.listaEventosPasados.push(eventoCat)
+        if(new Date(eventoCat.fecha_evento) > new Date()){
+          this.listaEventosFuturos.push(eventoCat)
+        }
+      }
+    })
+    this.listaEventosFuturos.sort((a,b) => (a.fecha_evento > b.fecha_evento) ? 1 : ((b.fecha_evento > a.fecha_evento) ? -1 : 0))
+    this.listaEventosPasados.sort((a,b) => (a.fecha_evento > b.fecha_evento) ? 1 : ((b.fecha_evento > a.fecha_evento) ? -1 : 0))
+    this.listaEventos = this.listaEventosFuturos
+  }
+
+  mostrarEventosPasados() {
+    this.listaEventos = this.listaEventosPasados
+  }
+
+  ocultarEventosPasados(){
+    this.listaEventos = this.listaEventosFuturos
+  }
+
+  orderDuracion() {
+    this.toggleFecha = false;
+    this.togglePrecio = false;
+    this.toggleDuracion = !this.toggleDuracion
+    this.listaEventos.sort((a,b) => (a.duracion > b.duracion) ? 1 : ((b.duracion > a.duracion) ? -1 : 0))
+  }
+
+  orderFecha() {
+    this.toggleDuracion = false;
+    this.togglePrecio = false;
+    this.toggleFecha = !this.toggleFecha
+    this.listaEventos.sort((a,b) => (a.fecha_evento > b.fecha_evento) ? 1 : ((b.fecha_evento > a.fecha_evento) ? -1 : 0))
+  }
+
+  orderPrecio() {
+    this.toggleDuracion = false;
+    this.toggleFecha = false;
+    this.togglePrecio = !this.togglePrecio
+    this.listaEventos.sort((a,b) => (a.precio > b.precio) ? 1 : ((b.precio > a.precio) ? -1 : 0))
+  }
+
   notEvents() {
     if(this.listaEventos.length > 0)
         this.eventosEncontrados = true
@@ -101,27 +151,33 @@ export class EventosComponent implements OnInit {
     })
 
     this.listaEventos = []
+    this.listaEventosID = []
+    this.listaEventosFuturos = []
+    this.listaEventosPasados = []
     if (selectCiudadValue !== ''){
       this.busquedaTouched = true;
       if(this.categoriasSelected.length > 0){
         for(let i = 0; i < this.categoriasSelected.length; i++){
           this.eventosService.getEventosCategorias(this.categoriasSelected[i]).subscribe((eventosCat: Evento[]) => {
             if(eventosCat){
-                eventosCat.map((eventoCat: Evento) => {
-                  if(eventoCat.ciudad === selCiudadText)
-                    this.listaEventos.push(eventoCat)
-              })}
+              this.getEventosCatOrdered(eventosCat, selCiudadText)
+            }
             this.notEvents()
           })
         }
       } else {
         this.eventosService.getEventosCiudad(selectCiudadValue).subscribe((eventos) => {
-          this.listaEventos = eventos;
+          this.listaEventosPasados = eventos;
+          eventos.map((evento: Evento) => {
+            if(new Date(evento.fecha_evento) > new Date()){
+              this.listaEventosFuturos.push(evento)
+            }
+          })
+          this.listaEventos = this.listaEventosFuturos
           this.notEvents()
         })
-      }
+      }      
     }
-      
     else
       this.toastr.error('Selecciona una ciudad')
   }

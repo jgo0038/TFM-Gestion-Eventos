@@ -14,7 +14,7 @@ export class EventosRepository {
     ) {}
 
     async getAllEventos(): Promise<EventosEntity[]> {
-        return this.eventosRepository.find({ relations: ['creador', 'categorias', 'ciudad'] });
+        return this.eventosRepository.find({ relations: ['creador', 'categorias', 'ciudad'], order: {fecha_evento: "DESC"}});
     }
 
     async getEventosByCategoria(categoriaID: number): Promise<EventosEntity[]> {
@@ -43,6 +43,7 @@ export class EventosRepository {
         const eventos: EventosEntity[] = await this.eventosRepository.find({
             where: { ciudad: ciudadID },
             relations: ['creador', 'categorias', 'ciudad'],
+            order: {fecha_evento: "ASC"}
           });
         return eventos;
     }
@@ -54,11 +55,6 @@ export class EventosRepository {
         .leftJoin('eventos','eventos')
         .where('eventosCategorias.categoriasCategoriaID = :categoriasCategoriaID AND eventos.ciudadID = :ciudadID', { categoriasCategoriaID: categoriaID, ciudadID: ciudadID })
         .execute();
-        // let eventos: EventosEntity[] = await getRepository(EventosEntity)
-        // .createQueryBuilder('eventos')
-        // .leftJoin('eventos.eventoID','categorias.eventosEventoID')
-        // .where('eventosCategorias.categoriasCategoriaID = :categoriasCategoriaID AND eventos.ciudadID = :ciudadID', { categoriasCategoriaID: categoriaID, ciudadID: ciudadID })
-        // .execute();
         return eventos;
     }
 

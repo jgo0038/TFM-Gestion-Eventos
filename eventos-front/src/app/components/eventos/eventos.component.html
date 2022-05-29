@@ -39,6 +39,16 @@
 
     <div id="eventosContainer" *ngIf="eventosEncontrados">
         <div class="flex flex-col justify-center items-center">
+            <div class="w-1/2 flex flex-row justify-between content-between m-2">
+                <span class="text-white">Ordenar por:</span>
+                <button [ngClass]="{'bg-green-500' : toggleFecha, 'bg-gray-300': !toggleFecha}" class=" p-1 rounded" (click)="orderFecha()">Fecha</button>
+                <button [ngClass]="{'bg-green-500' : togglePrecio, 'bg-gray-300': !togglePrecio}" class=" p-1 rounded" (click)="orderPrecio()">Precio</button>
+                <button [ngClass]="{'bg-green-500' : toggleDuracion, 'bg-gray-300': !toggleDuracion}" class=" p-1 rounded" (click)="orderDuracion()">Duración</button>
+            </div>
+            <div class="w-1/2 flex flex-row justify-between content-between m-2">
+                <button class="bg-yellow-400 p-1 rounded" (click)="mostrarEventosPasados()">Mostrar eventos pasados</button>
+                <button class="bg-yellow-400 p-1 rounded" (click)="ocultarEventosPasados()">Ocultar eventos pasados</button>
+            </div>
             <a *ngFor="let evento of listaEventos" (click)="showEventoDetail(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:min-w-1/2 tablet:max-w-1/2 bg-white rounded-lg border shadow-xl hover:bg-gray-300">
                 <img *ngIf="evento.fotoPortada; else elseBlock" class="object-cover max-w-full max-h-full rounded-t-lg" src='{{evento.fotoPortada}}' alt="fotoPortada">
                 <ng-template #elseBlock>

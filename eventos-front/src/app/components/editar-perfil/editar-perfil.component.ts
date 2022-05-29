@@ -75,7 +75,6 @@ export class EditarPerfilComponent implements OnInit {
             ubicacion: user.ubicacion
           })
           this.editarPerfilForm.updateValueAndValidity();
-          console.log(this.editarPerfilForm.get('apellidos')?.value)
         } else {
           this.router.navigate(['/'])
         }
