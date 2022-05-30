@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'eventos/:ciudadID', component: EventosComponent },
   { path: 'editarEvento/:eventoID', component: EditarEventoComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'perfil/:usuarioID', component: PerfilComponent },
   { path: 'privacidad', component: PrivacidadComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'editarPerfil/:usuarioID', component: EditarPerfilComponent },

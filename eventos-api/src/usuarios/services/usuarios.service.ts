@@ -34,10 +34,12 @@ export class UsuariosService {
         return await this.usuariosRepository.getInscripcionesByID(id)
     }
 
-    async getUsuarioByID(id: number): Promise<Usuario>{
-        return this.mapper.entityToDto(await this.usuariosDefaultRepository.findOneOrFail(
-            id,
-            { relations: ['eventosCreados', 'eventosInscritos'] }));
+    async getUsuarioByID(id: number): Promise<UsuariosEntity>{
+        const usuario = await this.usuariosDefaultRepository.findOne({
+            where: { usuarioID: id},
+            relations: ['eventosCreados', 'eventosInscritos'],
+          })
+        return usuario;
     }
     
     async getUsuarioByEmail(mail: string): Promise<UsuariosEntity>{

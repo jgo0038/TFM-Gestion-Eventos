@@ -60,13 +60,6 @@ export class EventosMapper {
     let fotosEvento = []
 
     for (let i = 0; i < eventosEntity.categorias.length; i++) {
-      // const categoria = new Categoria(
-      //   eventosEntity.categorias[i].categoriaID,
-      //   eventosEntity.categorias[i].nombre,
-      //   eventosEntity.categorias[i].descripcion
-      // );
-
-      // categorias.push(categoria);
       categorias.push(eventosEntity.categorias[i].categoriaID)
     }
 

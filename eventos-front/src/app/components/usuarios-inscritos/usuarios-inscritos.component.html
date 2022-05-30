@@ -1,0 +1,15 @@
+<div class="bg-white p-5 rounded shadow-xl w-full">
+    <p class="text-xl">Usuarios inscritos</p>
+    <div class="p-5 flex flex-row justify-between content-between">
+        <a class="p-2 uppercase border-b-2 border-gray-500"> nombre </a>
+        <a class="p-2 uppercase border-b-2 border-gray-500  hidden laptop:flex"> apellidos </a>
+        <a class="p-2 uppercase border-b-2 border-gray-500"> mail </a>
+        <a class="p-2 uppercase border-b-2 border-gray-500 hidden tablet:flex"> telefono </a>
+    </div>
+    <div *ngFor="let user of usuariosInscritos" (click)="abrirPerfil(user.usuarioID)" class="p-5 cursor-pointer hover:bg-gray-300 m-0 flex flex-row justify-between content-between text-xs">
+        <a class="p-2"> {{user.nombre}} </a>
+        <a class="p-2 hidden laptop:flex"> {{user.apellidos}} </a>
+        <a class="p-2"> {{user.mail}} </a>
+        <a class="p-2 hidden tablet:flex"> {{user.telefono}} </a>
+    </div>
+</div>

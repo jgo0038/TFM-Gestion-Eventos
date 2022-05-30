@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from 'src/app/models/evento';
 import { Usuario } from 'src/app/models/usuario';
@@ -36,10 +36,19 @@ export class PerfilComponent implements OnInit {
   constructor(private usuariosService: UsuariosService,
               private eventosService: EventosService,
               private router: Router,
+              private activatedRoute: ActivatedRoute,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('email')) {
+    if(this.activatedRoute.snapshot.paramMap.get('usuarioID')){
+      this.usuariosService.getUserByID(Number(this.activatedRoute.snapshot.paramMap.get('usuarioID'))!).subscribe((usuario: Usuario) => {
+        this.usuario = usuario;
+        if(usuario.eventosCreados)
+          this.listEventosCreados = usuario.eventosCreados
+        if(usuario.eventosInscritos)
+          this.listEventosInscritos = usuario.eventosInscritos
+      });
+    } else if (localStorage.getItem('email')) {
       this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((usuario: Usuario) => {
         this.usuario = usuario;
         this.usuarioID = usuario.usuarioID!;
@@ -58,6 +67,9 @@ export class PerfilComponent implements OnInit {
       this.eventosService.borrarEvento(eventoID).subscribe((res) => {
         if(!res.error){
           this.toastr.success('Evento borrado correctamente')
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000)
         } else {
           this.toastr.error('El evento no se ha podido borrar, intentélo más tarde')
         }

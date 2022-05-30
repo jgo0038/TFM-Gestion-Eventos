@@ -21,7 +21,7 @@
             <p class="p-5">{{evento.descripcion}}</p>
             <div *ngIf="evento.fotosEvento.length > 0" class="flex flex-col">
                 <span class="text-2xl p-5">Galería del evento</span>
-                <div class="flex flex-row bg-gray-500 m-2 rounded columns-3 justify-around flex-wrap">
+                <div class="flex flex-row bg-gray-300 m-2 rounded columns-3 justify-around flex-wrap">
                     <div *ngFor="let fotoEvento of evento.fotosEvento" class="p-5 transform transition duration-500 hover:scale-110">
                         <a target="_blank" href="{{fotoEvento}}">
                             <img src="{{fotoEvento}}" alt="fotosEvento" class="w-80 h-48 object-fit">
@@ -33,6 +33,7 @@
                 <span class="text-2xl p-3">Ubicación del evento</span>
                 <span class="p-5">{{evento.ubicacion}}</span>
             </div>
+            <app-usuarios-inscritos [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" class="w-full tablet:w-3/4 fixed top-1/2" [usuariosInscritos]="usuariosInscritos"></app-usuarios-inscritos>
             <span class="p-3 text-2xl w-full">Contacto</span>
             <div class="flex">
                 <div class='m-0 flex flex-col justify-center items-center text-black rounded tablet:flex-row mobile:max-w-xs'>
@@ -52,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col p-3 tablet:border-l-2">
+        <div class="flex flex-col p-3 tablet:border-l-2 mx-2">
             <span class="text-xl">Detalles del evento</span>
             <span class="p-2">
                 <img src="../../assets/calendar.png" class="max-w-xs max-h-5 float-left pr-1"
@@ -74,6 +75,9 @@
                 <img src="../../assets/billete.png" class="max-w-xs max-h-5 float-left pr-1" alt="calendario">
                 GRATIS
             </span>
+            <span>{{evento.inscripcion}}</span>
+            <span>{{usuarioEmail}}</span>
+            <span>{{inscrito}}</span>
             <span *ngIf="evento.inscripcion && usuarioEmail && !inscrito" class="p-2">
                 <button type="button" (click)="inscribirse()"
                     class="bg-green-400 hover:bg-black text-black hover:text-green-400 py-2 px-4 border border-black hover:border-transparent rounded">Inscribirse</button>
@@ -82,6 +86,11 @@
                 <p> ¡Ya estás inscrito al evento. Disfruta! </p>
                 <button (click)="anularInscripcion()" class="bg-red-400 hover:bg-black text-black hover:text-red-400 py-2 px-4 border border-black hover:border-transparent rounded">Anular inscripción</button>
             </span>
+            <span *ngIf="creador && evento.inscripcion" class="p-2">
+                <button (click)="verInscripciones()" class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-4 border border-black hover:border-transparent rounded">Ver inscripciones</button>
+                <button [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" (click)="verInscripciones()" class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-2 border border-black hover:border-transparent rounded">Ocultar inscripciones</button>
+            </span>
+
         </div>
     </div>
 </body>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UsuarioInscrito } from 'src/app/models/usuarioInscrito';
 import { Evento } from '../../models/evento';
 import { Usuario } from '../../models/usuario';
 import { EventosService } from '../../services/eventos.service';
@@ -13,6 +14,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class EventoDetailsComponent implements OnInit {
 
+  creador: boolean = false;
   eventoID: string | null;
   evento: Evento = {
     eventoID: '',
@@ -49,6 +51,8 @@ export class EventoDetailsComponent implements OnInit {
     foto: '',
     genero: ''
   }
+  usuariosInscritos: Usuario[] = []
+  verInscritos: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
     private eventoService: EventosService,
@@ -59,36 +63,40 @@ export class EventoDetailsComponent implements OnInit {
 
     if (this.eventoID) {
       this.eventoService.getEventosByID(this.eventoID).subscribe((evento: Evento) => {
+        console.log(evento)
         this.evento = evento
         this.usuariosService.getUserByMail(this.evento.creador).subscribe((user: Usuario) => {
           this.usuarioCreador = user;
-          
+          if (localStorage.getItem('email')) {
+            this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
+              this.usuarioID = user.usuarioID;
+              this.usuarioEmail = user.mail;
+              if (this.usuarioCreador.usuarioID === this.usuarioID) {
+                this.creador = true;
+              }
+              for (let i = 0; i < user.eventosInscritos!.length; i++) {
+                if (user.eventosInscritos![i].eventoID === this.eventoID!) {
+                  this.inscrito = true;
+                }
+              }
+            });
+          }
         })
       })
     }
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('email')) {
-      this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
-        this.usuarioID = user.usuarioID;
-        this.usuarioEmail = user.mail;
-        for(let i = 0; i< user.eventosInscritos!.length; i++){
-          if(user.eventosInscritos![i].eventoID === this.eventoID!){
-            this.inscrito = true;
-          }
-        }
-      });
-    }
+    
   }
 
   anularInscripcion() {
-    if(window.confirm("Deseas anular la inscripcion?")){
+    if (window.confirm("¿Deseas anular la inscripcion?")) {
       this.usuariosService.anularInscripcion(this.eventoID!, this.usuarioID!).subscribe((res) => {
-        if(!res.error){
+        if (!res.error) {
           this.toastr.success("Inscripción anulada");
           window.location.reload();
-        } else 
+        } else
           this.toastr.error("No se ha podido anular la inscripcion")
       })
     }
@@ -96,13 +104,28 @@ export class EventoDetailsComponent implements OnInit {
 
   inscribirse() {
     this.usuariosService.inscribirse(this.eventoID!, this.usuarioID!).subscribe((res) => {
-      if(!res.error){
+      if (!res.error) {
         this.inscrito = true;
         this.toastr.success("Inscripción realizada")
       }
-      else{
+      else {
         this.toastr.error("No se ha podido inscribir al evento")
       }
     })
+  }
+
+  verInscripciones() {
+    this.verInscritos = !this.verInscritos
+    this.usuariosInscritos = []
+    if (this.eventoID) {
+      this.eventoService.getInscripcionesEvento(this.eventoID).subscribe((inscripciones) => {
+        inscripciones.map((usuarioInscrito: UsuarioInscrito) => {
+          let usuarioInscritoID = usuarioInscrito.eventosInscritos_usuariosUsuarioID
+          this.usuariosService.getUserByID(usuarioInscritoID).subscribe((usuario: Usuario) => {
+            this.usuariosInscritos.push(usuario)
+          })
+        })
+      })
+    }
   }
 }

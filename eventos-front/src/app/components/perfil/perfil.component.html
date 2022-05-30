@@ -13,9 +13,9 @@
 
     <div class="flex flex-col justify-center items-center">
         <span class="text-xl mt-5">Perfil de {{usuario.nombre}}</span>
-        <div class="w-full flex justify-end mr-10"><button class="bg-yellow-500 p-2 rounded" (click)="editarPerfil(usuarioID)">Editar</button></div>
+        <div *ngIf="usuarioID" class="w-full flex justify-end mr-10"><button class="bg-yellow-500 p-2 rounded" (click)="editarPerfil(usuarioID)">Editar</button></div>
 
-        <div class="flex flex-col justify-center items-center tablet:max-w-1/2 tablet:flex-row">
+        <div class="flex flex-col justify-center items-center tablet:max-w-1/2 tablet:flex-row mb-5">
             <img *ngIf="usuario.foto; else noFotoPerfil" class="mx-5 max-w-1/2 h-full mobile:h-auto" src="{{usuario.foto}}" alt="fotoPerfil">
             <ng-template #noFotoPerfil class="flex-shrink-0 mx-5">
                 <img src="../../../assets/noImage.png" class="mx-5 max-w-1/2 h-full mobile:h-auto" alt="sinFotoPerfil">
@@ -43,7 +43,7 @@
 
             <div class="flex flex-row justify-center items-center p-3">
                 <span [ngClass]="{'bg-gray-600': showEventosCreados, 'bg-yellow-400': !showEventosCreados, 'text-yellow-500': showEventosCreados, 'text-black': !showEventosCreados}" (click)="eventosCreados()" class="text-sm p-1 mobile:p-2 mx-2 border rounded border-black  cursor-pointer">Eventos creados</span>
-                <span [ngClass]="{'bg-gray-600': showEventosInscritos, 'bg-yellow-400': !showEventosInscritos, 'text-yellow-500': showEventosInscritos, 'text-black': !showEventosInscritos}" (click)="eventosInscritos()" class="text-sm p-1 mobile:p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos inscritos</span>
+                <span *ngIf="usuarioID" [ngClass]="{'bg-gray-600': showEventosInscritos, 'bg-yellow-400': !showEventosInscritos, 'text-yellow-500': showEventosInscritos, 'text-black': !showEventosInscritos}" (click)="eventosInscritos()" class="text-sm p-1 mobile:p-2 mx-2 border rounded border-black bg-yellow-400 cursor-pointer">Eventos inscritos</span>
             </div>
             <div *ngIf="showEventosCreados" class="m-3">
                 <div *ngIf="listEventosCreados.length > 0; else noEventosCreados" class="flex flex-col justify-center items-center">
@@ -67,11 +67,14 @@
                     </div>
                 </div>
                 <ng-template #noEventosCreados>
-                    <div class="flex flex-col justify-center items-center">
+                    <div *ngIf="usuarioID; else noCreador" class="flex flex-col justify-center items-center">
                         <span>No se han creado eventos aún</span>
                         <span>Aprovecha y crea tu propio evento</span>
                         <a routerLink="/publicar" class="m-3 p-2 bg-black text-white rounded border-transparent hover:text-black hover:bg-yellow-500 hover:border-black">Publicar</a>
                     </div>
+                    <ng-template #noCreador>
+                        <span>No ha creado eventos aún</span>
+                    </ng-template>
                 </ng-template>
             </div>
 

@@ -25,7 +25,7 @@ export class UsuariosController {
     }
 
     @Get(':usuarioID')
-    getByID(@Param('usuarioID') id: number): Observable<Usuario>{
+    getByID(@Param('usuarioID') id: number): Observable<UsuariosEntity>{
         return from(this.usuariosService.getUsuarioByID(id));
     }
 

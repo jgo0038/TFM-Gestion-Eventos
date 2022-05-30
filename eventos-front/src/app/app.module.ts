@@ -23,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PrivacidadComponent } from './components/privacidad/privacidad.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
+import { UsuariosInscritosComponent } from './components/usuarios-inscritos/usuarios-inscritos.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.
     FooterComponent,
     PrivacidadComponent,
     FaqComponent,
-    EditarPerfilComponent
+    EditarPerfilComponent,
+    UsuariosInscritosComponent
   ],
   imports: [
     BrowserModule,

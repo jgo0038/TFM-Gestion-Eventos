@@ -61,7 +61,7 @@ export class EditarPerfilComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.usuarioID != ''){
-      this.usuariosService.getUserByID(this.usuarioID).subscribe((user: Usuario) => {
+      this.usuariosService.getUserByID(Number(this.usuarioID)).subscribe((user: Usuario) => {
         this.usuario = user;
         if(user.foto)
           this.foto = user.foto;

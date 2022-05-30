@@ -11,7 +11,7 @@ export class UsuariosService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getUserByID(usuarioID: string) {
+  getUserByID(usuarioID: number) {
     return this.httpClient.get<any>(this.baseURL + '/'+ usuarioID)
   }
   
