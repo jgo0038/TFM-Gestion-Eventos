@@ -33,7 +33,8 @@
                 <span class="text-2xl p-3">Ubicación del evento</span>
                 <span class="p-5">{{evento.ubicacion}}</span>
             </div>
-            <app-usuarios-inscritos [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" class="w-full tablet:w-3/4 fixed top-1/2" [usuariosInscritos]="usuariosInscritos"></app-usuarios-inscritos>
+            <app-usuarios-inscritos [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" class="w-full tablet:w-3/4 fixed top-1/2" [usuariosInscritos]="usuariosInscritos">
+            </app-usuarios-inscritos>
             <span class="p-3 text-2xl w-full">Contacto</span>
             <div class="flex">
                 <div class='m-0 flex flex-col justify-center items-center text-black rounded tablet:flex-row mobile:max-w-xs'>
@@ -75,22 +76,41 @@
                 <img src="../../assets/billete.png" class="max-w-xs max-h-5 float-left pr-1" alt="calendario">
                 GRATIS
             </span>
-            <span>{{evento.inscripcion}}</span>
-            <span>{{usuarioEmail}}</span>
-            <span>{{inscrito}}</span>
             <span *ngIf="evento.inscripcion && usuarioEmail && !inscrito" class="p-2">
                 <button type="button" (click)="inscribirse()"
                     class="bg-green-400 hover:bg-black text-black hover:text-green-400 py-2 px-4 border border-black hover:border-transparent rounded">Inscribirse</button>
             </span>
             <span *ngIf="inscrito" class="p-2">
                 <p> ¡Ya estás inscrito al evento. Disfruta! </p>
-                <button (click)="anularInscripcion()" class="bg-red-400 hover:bg-black text-black hover:text-red-400 py-2 px-4 border border-black hover:border-transparent rounded">Anular inscripción</button>
+                <button (click)="anularInscripcion()"
+                    class="bg-red-400 hover:bg-black text-black hover:text-red-400 py-2 px-4 border border-black hover:border-transparent rounded">Anular
+                    inscripción</button>
             </span>
             <span *ngIf="creador && evento.inscripcion" class="p-2">
-                <button (click)="verInscripciones()" class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-4 border border-black hover:border-transparent rounded">Ver inscripciones</button>
-                <button [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" (click)="verInscripciones()" class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-2 border border-black hover:border-transparent rounded">Ocultar inscripciones</button>
+                <button (click)="verInscripciones()"
+                    class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-4 border border-black hover:border-transparent rounded">Ver
+                    inscripciones</button>
+                <button [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" (click)="verInscripciones()"
+                    class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-2 border border-black hover:border-transparent rounded">Ocultar
+                    inscripciones</button>
             </span>
 
+        </div>
+    </div>
+    <div id="comentarios" class="flex flex-col justify-center items-center p-2 font-sans">
+        <div><span class="uppercase text-xl font-bold">Comentarios</span><img src="../../assets/comentario.png" class="max-w-xs max-h-5 m-1 float-right pr-1" alt="calendario"></div>
+        <form *ngIf="usuarioID" [formGroup]="comentarioForm" class="w-full text-center flex flex-col justify-center items-center">
+            <input formControlName="titulo" class="w-3/4 tablet:w-1/2 m-1" type="text" placeholder="Título">
+            <textarea formControlName="comentario" class="w-3/4 tablet:w-1/2 m-1" placeholder="Escriba aquí su comentario..."></textarea>
+            <button (click)="publicarComentario()" class="p-2 bg-gray-400 hover:bg-yellow-600 hover:text-white rounded" type="submit">Comentar</button>
+        </form>
+        <div *ngFor="let comen of comentarios" class="flex flex-col border-2 border-gray-400 p-2 w-3/4 tablet:w-1/2 my-2">
+            <span class="float-left font-bold">{{comen.titulo}}</span>
+            <span class="float-left text-sm text-gray-700">{{comen.texto}}</span>
+            <div class="flex flex-row justify-between content-between">
+                <span class="float-left text-xs text-gray-700">{{comen.creador}}</span>
+                <span class="float-left text-xs text-gray-700">{{comen.fecha | date:'dd-LL-yy'}}</span>
+            </div>
         </div>
     </div>
 </body>

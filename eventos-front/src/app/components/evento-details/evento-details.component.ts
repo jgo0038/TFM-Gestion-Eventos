@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Comentario } from 'src/app/models/comentario';
 import { UsuarioInscrito } from 'src/app/models/usuarioInscrito';
+import { ComentariosService } from 'src/app/services/comentarios.service';
 import { Evento } from '../../models/evento';
 import { Usuario } from '../../models/usuario';
 import { EventosService } from '../../services/eventos.service';
@@ -14,6 +17,8 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class EventoDetailsComponent implements OnInit {
 
+  comentarios: Comentario[] = [];
+  comentarioForm: FormGroup;
   creador: boolean = false;
   eventoID: string | null;
   evento: Evento = {
@@ -57,13 +62,19 @@ export class EventoDetailsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private eventoService: EventosService,
     private usuariosService: UsuariosService,
+    private comentariosService: ComentariosService,
     private router: Router,
+    private fb: FormBuilder,
     private toastr: ToastrService) {
     this.eventoID = this.activatedRoute.snapshot.paramMap.get('eventoID');
 
+    this.comentarioForm = this.fb.group({
+      titulo: ['', [Validators.required]],
+      comentario: ['', [Validators.required]]
+    })
+
     if (this.eventoID) {
       this.eventoService.getEventosByID(this.eventoID).subscribe((evento: Evento) => {
-        console.log(evento)
         this.evento = evento
         this.usuariosService.getUserByMail(this.evento.creador).subscribe((user: Usuario) => {
           this.usuarioCreador = user;
@@ -82,6 +93,14 @@ export class EventoDetailsComponent implements OnInit {
             });
           }
         })
+      })
+      this.comentariosService.getComentariosEvento(this.eventoID).subscribe((comentarios: Comentario[]) => {
+        comentarios.map((coment: Comentario) => {
+          this.usuariosService.getUserByID(Number(coment.creador)).subscribe((userCreador: Usuario) => {
+            coment.creador = userCreador.mail
+          })
+        })
+        this.comentarios = comentarios
       })
     }
   }
@@ -102,7 +121,7 @@ export class EventoDetailsComponent implements OnInit {
     }
   }
 
-  inscribirse() {
+  inscribirse(): void {
     this.usuariosService.inscribirse(this.eventoID!, this.usuarioID!).subscribe((res) => {
       if (!res.error) {
         this.inscrito = true;
@@ -114,7 +133,17 @@ export class EventoDetailsComponent implements OnInit {
     })
   }
 
-  verInscripciones() {
+  publicarComentario(): void {
+    let tituloComentario = this.comentarioForm.get('titulo')?.value;
+    let textoComentario = this.comentarioForm.get('comentario')?.value;
+    console.log(tituloComentario)
+    console.log(textoComentario)
+    this.comentariosService.publicarComentario(tituloComentario, textoComentario, new Date(), Number(this.usuarioID), this.eventoID!).subscribe((res) => {
+      window.location.reload();
+    })
+  }
+
+  verInscripciones(): void {
     this.verInscritos = !this.verInscritos
     this.usuariosInscritos = []
     if (this.eventoID) {

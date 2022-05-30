@@ -85,6 +85,7 @@ export class EditarEventoComponent implements OnInit {
           this.router.navigate(['/'])
         } else {
           this.evento = evento
+          this.fotoPortada = evento.fotoPortada
           this.editarEventoForm.patchValue({
             nombre: evento.nombre,
             descripcion: evento.descripcion,
