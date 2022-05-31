@@ -11,24 +11,29 @@
 
 <body class="h-full min-h-full">
     <app-header></app-header>
+    <app-spinner></app-spinner>
 
     <form action="POST" [formGroup]="editarPerfilForm" (ngSubmit)="guardarPerfil()">
         <div id="perfilForm">
-            <div class="flex flex-wrap mx-10 mb-2 flex-col justify-center items-center tablet:justify-start tablet:items-start mobile:flex-row">
-                <div class="w-3/4 tablet:w-1/2 mb-6 px-3 tablet:mb-0">
-                    <label class="block tracking-wide text-s mb-2" for="fotoPortada">
-                            Foto de perfil
-                        </label>
-                    <img *ngIf="usuario.foto" src="{{usuario.foto}}" alt="fotoPortada">
-                    <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelect($event)">
-                        <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)</ngx-dropzone-label>
-                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f">
-                            <ngx-dropzone-label>({{ f.type }})</ngx-dropzone-label>
-                        </ngx-dropzone-image-preview>
-                    </ngx-dropzone>
-                    <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadImage()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadImage()">Selecciona para subir la imagen de portada (sólo se subirá la primera)</button></div>
-                </div>
 
+            <div class="flex flex-wrap w-3/4 mx-10 mb-2 flex-col justify-center items-center tablet:justify-start tablet:items-start mobile:flex-row">
+                <label class="block tracking-wide text-s mb-2" for="fotoPortada">
+                    Foto de perfil
+                </label>
+                <div class="w-full tablet:w-full mb-6 px-3 tablet:mb-0 flex flex-col tablet:flex-row">
+                    <img *ngIf="usuario.foto" class="max-w-1/2 tablet:max-w-1/4" src="{{usuario.foto}}" alt="fotoPortada">
+                    <div>
+                        <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelect($event)">
+                            <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]="f">
+                                <ngx-dropzone-label>({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-image-preview>
+                        </ngx-dropzone>
+                        <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadImage()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadImage()">Selecciona para subir la
+                                imagen de portada (sólo se subirá la primera)</button></div>
+                    </div>
+                </div>
             </div>
             <div class="flex flex-wrap mx-10 mb-2 flex-col justify-center items-center tablet:justify-start tablet:items-start mobile:flex-row">
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
@@ -37,8 +42,8 @@
                     </label>
                     <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" value="{{usuario.nombre}}">
                     <span class=" text-red-700" *ngIf="editarPerfilForm.get('nombre')?.hasError('required') && editarPerfilForm.get('nombre')?.touched">
-                            El nombre es obligatorio 
-                        </span>
+                        El nombre es obligatorio
+                    </span>
                 </div>
                 <div *ngIf="usuario.particular" class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="apellidos">
@@ -48,8 +53,8 @@
                 </div>
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="tfno">
-                            Teléfono *
-                        </label>
+                        Teléfono *
+                    </label>
                     <input formControlName="telefono" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="telefono
                       " type="text" value="{{usuario.telefono}}">
                     <span class="text-red-700" *ngIf="editarPerfilForm.get('telefono')?.hasError('required') && editarPerfilForm.get('telefono')?.touched">
@@ -61,8 +66,8 @@
                 </div>
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="fecha">
-                            Fecha nacimiento
-                        </label>
+                        Fecha nacimiento
+                    </label>
                     <input formControlName="fecha_nac" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="fecha_nac
                       " type="datetime-local" value="{{usuario.fecha_nac}}">
                     <span class="text-red-700" *ngIf="editarPerfilForm.get('fecha_nac')?.hasError('required') && editarPerfilForm.get('fecha_nac')?.touched">
@@ -71,15 +76,15 @@
                 </div>
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="fecha">
-                            Descripción
-                        </label>
+                        Descripción
+                    </label>
                     <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descripcion
                       " type="text" value="{{usuario.descripcion}}"></textarea>
                 </div>
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="fecha">
-                            Ubicación
-                        </label>
+                        Ubicación
+                    </label>
                     <input formControlName="ubicacion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="ubicacion
                       " type="text" value="{{usuario.ubicacion}}">
                 </div>
@@ -87,8 +92,8 @@
             <div class="flex flex-wrap mx-10 mb-2 flex-col justify-center items-center">
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="contraseña">
-                            Contraseña actual *
-                        </label>
+                        Contraseña actual *
+                    </label>
                     <input formControlName="contraseñaActual" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contraseñaActual" type="password">
                     <span class="text-red-700" *ngIf="editarPerfilForm.get('contraseñaActual')?.hasError('required') && editarPerfilForm.get('contraseñaActual')?.touched">
                         La contraseña es obligatoria
@@ -96,8 +101,8 @@
                 </div>
                 <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
                     <label class="block tracking-wide text-s mb-2" for="contraseña">
-                            Contraseña nueva
-                        </label>
+                        Contraseña nueva
+                    </label>
                     <input formControlName="contraseñaNueva" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contraseñaNueva
                       " type="password">
                 </div>

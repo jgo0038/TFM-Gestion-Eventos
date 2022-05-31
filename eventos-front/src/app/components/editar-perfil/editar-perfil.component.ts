@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ErrorsService } from 'src/app/services/errors.service';
 import { ImagesService } from 'src/app/services/images.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -43,7 +44,8 @@ export class EditarPerfilComponent implements OnInit {
               private fb: FormBuilder,
               private imagenesService: ImagesService,
               private router: Router,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private spinnerService: SpinnerService) {
 
     this.usuarioID = this.activatedRoute.snapshot.paramMap.get('usuarioID')!;   
 
@@ -65,7 +67,7 @@ export class EditarPerfilComponent implements OnInit {
         this.usuario = user;
         if(user.foto)
           this.foto = user.foto;
-        if(user.mail === localStorage.getItem('email')){
+        if(user.mail === sessionStorage.getItem('email')){
           this.editarPerfilForm.patchValue({
             nombre: user.nombre,
             apellidos: user.apellidos,
@@ -119,6 +121,7 @@ export class EditarPerfilComponent implements OnInit {
   }
 
   onUploadImage() {
+    this.spinnerService.show()
     this.fotoUploaded = true;
     // Error subida sin imagenes
     if(!this.files[0]){
@@ -137,6 +140,7 @@ export class EditarPerfilComponent implements OnInit {
       this.imagenesService.uploadImagen(data).subscribe((res: any)=>{
         if(res)
           this.foto = res.secure_url;
+          this.spinnerService.hide()
           this.toastr.success('Imagen subida correctamente');
       }, error => {
         this.toastr.error('No se pudo subir la imagen')

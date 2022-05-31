@@ -78,8 +78,8 @@ export class EventoDetailsComponent implements OnInit {
         this.evento = evento
         this.usuariosService.getUserByMail(this.evento.creador).subscribe((user: Usuario) => {
           this.usuarioCreador = user;
-          if (localStorage.getItem('email')) {
-            this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
+          if (sessionStorage.getItem('email')) {
+            this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((user: Usuario) => {
               this.usuarioID = user.usuarioID;
               this.usuarioEmail = user.mail;
               if (this.usuarioCreador.usuarioID === this.usuarioID) {
@@ -109,6 +109,14 @@ export class EventoDetailsComponent implements OnInit {
     
   }
 
+  abrirPerfil(usuarioID: number): void {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([`/perfil/${usuarioID}`])
+    );
+  
+    window.open(url, '_blank');
+  }
+
   anularInscripcion() {
     if (window.confirm("¿Deseas anular la inscripcion?")) {
       this.usuariosService.anularInscripcion(this.eventoID!, this.usuarioID!).subscribe((res) => {
@@ -136,8 +144,6 @@ export class EventoDetailsComponent implements OnInit {
   publicarComentario(): void {
     let tituloComentario = this.comentarioForm.get('titulo')?.value;
     let textoComentario = this.comentarioForm.get('comentario')?.value;
-    console.log(tituloComentario)
-    console.log(textoComentario)
     this.comentariosService.publicarComentario(tituloComentario, textoComentario, new Date(), Number(this.usuarioID), this.eventoID!).subscribe((res) => {
       window.location.reload();
     })

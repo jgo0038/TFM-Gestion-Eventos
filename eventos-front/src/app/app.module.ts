@@ -24,6 +24,7 @@ import { PrivacidadComponent } from './components/privacidad/privacidad.componen
 import { FaqComponent } from './components/faq/faq.component';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 import { UsuariosInscritosComponent } from './components/usuarios-inscritos/usuarios-inscritos.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UsuariosInscritosComponent } from './components/usuarios-inscritos/usua
     PrivacidadComponent,
     FaqComponent,
     EditarPerfilComponent,
-    UsuariosInscritosComponent
+    UsuariosInscritosComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

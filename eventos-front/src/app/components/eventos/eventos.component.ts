@@ -76,7 +76,7 @@ export class EventosComponent implements OnInit {
     var divClicked = document.getElementById(idDiv);
     if(!this.categoriasSelected.includes(idDiv)){
       this.categoriasSelected.push(idDiv);
-      divClicked!.style.background = 'green'
+      divClicked!.style.backgroundImage = 'linear-gradient(to bottom, purple, #46a0fa)'
       divClicked!.style.color = 'white'
     }
     else{

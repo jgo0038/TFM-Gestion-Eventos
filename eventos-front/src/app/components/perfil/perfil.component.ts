@@ -15,6 +15,7 @@ export class PerfilComponent implements OnInit {
 
   listEventosCreados: Evento[] = []
   listEventosInscritos: Evento[] = []
+  perfilPropio: boolean = false;
   usuario: Usuario = {
     mail: '',
     nombre: '',
@@ -48,10 +49,12 @@ export class PerfilComponent implements OnInit {
         if(usuario.eventosInscritos)
           this.listEventosInscritos = usuario.eventosInscritos
       });
-    } else if (localStorage.getItem('email')) {
-      this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((usuario: Usuario) => {
+    } else if (sessionStorage.getItem('email')) {
+      this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((usuario: Usuario) => {
         this.usuario = usuario;
         this.usuarioID = usuario.usuarioID!;
+        if(usuario.mail === sessionStorage.getItem('email'))
+          this.perfilPropio = true
         if(usuario.eventosCreados)
           this.listEventosCreados = usuario.eventosCreados
         if(usuario.eventosInscritos)

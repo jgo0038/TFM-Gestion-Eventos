@@ -8,6 +8,7 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { CiudadesService } from 'src/app/services/ciudades.service';
 import { EventosService } from 'src/app/services/eventos.service';
 import { ImagesService } from 'src/app/services/images.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -35,7 +36,8 @@ export class PublicarEventoComponent implements OnInit {
     private eventosService: EventosService,
     private imagenesService: ImagesService,
     private usuariosService: UsuariosService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinnerService: SpinnerService
   ) {
     this.publicarEventoForm = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -49,8 +51,8 @@ export class PublicarEventoComponent implements OnInit {
       fotoPortada: [''],
       categorias: ['', [Validators.required]]
     })
-    if (localStorage.getItem('email')) {
-      this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((usuario) => {
+    if (sessionStorage.getItem('email')) {
+      this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((usuario) => {
         this.userID = usuario.usuarioID;
       });
     } else {
@@ -89,19 +91,23 @@ export class PublicarEventoComponent implements OnInit {
     const fecha_evento = this.publicarEventoForm.get('fecha_evento')?.value;
     const precio = this.publicarEventoForm.get('precio')?.value;
     const inscripcion = this.publicarEventoForm.get('inscripcion')?.value;
+    let inscripcionBoolean: boolean = false
     let duracion = this.publicarEventoForm.get('duracion')?.value;
     const ciudad = this.publicarEventoForm.get('ciudad')?.value;
     const categorias = this.publicarEventoForm.get('categorias')?.value;
     let fecha_pub = new Date();
     duracion = Number(duracion.split(':')[0]) * 60 + Number(duracion.split(':')[1])
-
+    if(inscripcion === 'true'){
+      inscripcionBoolean = true
+    }
+    
     if(this.publicarEventoForm.valid){
       let confirm: boolean = true;
       if(!this.fotosUploaded){
         confirm = window.confirm('Si no ha seleccionado los botones para subir las imágenes no serán actualizadas.¿Desea continuar?')
       }
       if(confirm){
-        this.eventosService.publicarEvento(nombre, descripcion, ubicacion, fecha_evento, fecha_pub, precio, inscripcion, duracion, this.userID, ciudad, categorias, this.fotoPortada, this.fotosEvento)
+        this.eventosService.publicarEvento(nombre, descripcion, ubicacion, fecha_evento, fecha_pub, precio, inscripcionBoolean, duracion, this.userID, ciudad, categorias, this.fotoPortada, this.fotosEvento)
         .subscribe((res: any) => {
           if (res) {
             this.toastr.success('Evento creado correctamente')
@@ -131,6 +137,7 @@ export class PublicarEventoComponent implements OnInit {
   }
 
   onUploadEventImages() {
+    this.spinnerService.show()
     this.fotosUploaded = true;
     if(this.files.length === 0){
       this.toastr.error('Adjunta alguna imagen primero')
@@ -148,6 +155,7 @@ export class PublicarEventoComponent implements OnInit {
           if (res) {
             fotoEvento = res.secure_url;
             this.fotosEvento.push(fotoEvento);
+            this.spinnerService.hide()
             this.toastr.success('Imagen subida correctamente');
           }
         }, error => {
@@ -158,6 +166,7 @@ export class PublicarEventoComponent implements OnInit {
   }
 
   onUploadFrontImage() {
+    this.spinnerService.show()
     this.fotosUploaded = true;
     if(!this.frontFile[0])
       this.toastr.error('Adjunta alguna imagen primero')
@@ -173,6 +182,7 @@ export class PublicarEventoComponent implements OnInit {
         if (res) {
           this.fotoPortada = res.secure_url;
           this.fotosEvento.push(this.fotoPortada);
+          this.spinnerService.hide()
           this.toastr.success('Imagen subida correctamente');
         }
       }, error => {

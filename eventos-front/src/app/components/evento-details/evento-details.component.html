@@ -10,6 +10,7 @@
 
 <body class="h-full min-h-full ">
     <app-header></app-header>
+    <app-spinner></app-spinner>
 
     <div class="flex flex-col tablet:flex-row justify-center items-center">
         <div id="eventoContainer" class="w-full text-center flex flex-col justify-center items-center">
@@ -38,10 +39,11 @@
             <span class="p-3 text-2xl w-full">Contacto</span>
             <div class="flex">
                 <div class='m-0 flex flex-col justify-center items-center text-black rounded tablet:flex-row mobile:max-w-xs'>
-                    <div class='flex justify-center items-center flex-shrink-0'>
+                    <div (click)="abrirPerfil(usuarioCreador.usuarioID!)" class='flex justify-center items-center flex-shrink-0 cursor-pointer'>
                         <img *ngIf="usuarioCreador.foto; else elseBlock" class="w-full h-auto max-w-xs tablet:max-w-xs" src="{{usuarioCreador.foto}}" alt="fotoPerfil">
                         <ng-template #elseBlock class="flex-shrink-0 mx-5 max-w-xs">
-                            <img src="../../../assets/noImage.png" class="w-full h-auto max-w-xs tablet:max-w-xs" alt="sinFotoPerfil">
+                            <img *ngIf="usuarioCreador.particular" src="../../../assets/user.png" class="w-full h-auto max-w-xs tablet:max-w-xs" alt="sinFotoPerfil">
+                            <img *ngIf="usuarioCreador.negocio" src="../../../assets/tienda.png" class="w-full h-auto max-w-xs tablet:max-w-xs" alt="sinFotoPerfil">
                         </ng-template>
                     </div>
                     <div class='flex'>
@@ -83,16 +85,13 @@
             <span *ngIf="inscrito" class="p-2">
                 <p> ¡Ya estás inscrito al evento. Disfruta! </p>
                 <button (click)="anularInscripcion()"
-                    class="bg-red-400 hover:bg-black text-black hover:text-red-400 py-2 px-4 border border-black hover:border-transparent rounded">Anular
-                    inscripción</button>
+                    class="bg-red-400 hover:bg-black text-black hover:text-red-400 py-2 px-4 border border-black hover:border-transparent rounded">Anular inscripción</button>
             </span>
             <span *ngIf="creador && evento.inscripcion" class="p-2">
-                <button (click)="verInscripciones()"
-                    class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-4 border border-black hover:border-transparent rounded">Ver
-                    inscripciones</button>
+                <button *ngIf="!verInscritos" (click)="verInscripciones()"
+                    class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-4 border border-black hover:border-transparent rounded">Ver inscripciones</button>
                 <button [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" (click)="verInscripciones()"
-                    class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-2 border border-black hover:border-transparent rounded">Ocultar
-                    inscripciones</button>
+                    class="bg-blue-400 hover:bg-black text-black hover:text-blue-400 py-2 px-2 border border-black hover:border-transparent rounded">Ocultar inscripciones</button>
             </span>
 
         </div>
@@ -116,3 +115,7 @@
 </body>
 
 </html>
+<a class="hidden" href="https://www.flaticon.es/iconos-gratis/comentario" title="comentario iconos">Comentario iconos creados por Freepik - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.com/free-icons/calendar" title="comentario iconos">Comentario iconos creados por Freepik - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.es/iconos-gratis/reloj" title="comentario iconos">Comentario iconos creados por Freepik - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.es/iconos-gratis/billete-de-banco" title="billete de banco iconos">Billete de banco iconos creados por Talha Dogar - Flaticon</a>

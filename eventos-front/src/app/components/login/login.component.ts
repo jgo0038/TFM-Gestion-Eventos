@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(usuario, contraseña).subscribe((res) => {
       if(res.access_token){
         authToken = res.access_token;
-        localStorage.setItem("email", usuario);
-        localStorage.setItem("token", authToken);
+        sessionStorage.setItem("email", usuario);
+        sessionStorage.setItem("token", authToken);
         // sessionStorage.setItem("authHttp", )
         this.router.navigate(['/'])
       }

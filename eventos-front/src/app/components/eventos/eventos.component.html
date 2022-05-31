@@ -11,12 +11,13 @@
 
 <body class="h-full min-h-full">
     <app-header></app-header>
+    <app-spinner></app-spinner>
 
     <div class="flex flex-col flex-wrap justify-center items-center my-3 py-5">
         <form [formGroup]="formCiudad">
             <div class="flex flex-col flex-wrap justify-center items-center my-3 py-5">
                 <span class="text-white text-center text-2xl m-1 tablet:text-3xl">Busca eventos según tu ciudad</span>
-                <select formControlName="ciudad" id="selectCiudad" class="text-center bg-gray-200 mx-2 p-2 rounded tablet:p-4">
+                <select formControlName="ciudad" id="selectCiudad" class="text-center bg-gradient-to-b from-purple-600 to-blue-400 mx-2 p-2 rounded tablet:p-4">
                     <option disabled selected value>----------</option>
                     <option *ngFor="let ciudad of ciudades" [value]="ciudad.ciudadID">{{ ciudad.nombre }}</option>
                 </select>
@@ -30,7 +31,7 @@
         <div class="flex flex-wrap justify-center items-center">
             <span *ngFor="let categoria of categorias" class="cursor-pointer m-5">
                 <span (click)="addCategoria($event)" id="{{categoria.categoriaID}}"
-                    class="bg-gray-300 rounded-full text-2xl mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre }}</span>
+                    class="bg-gray-400 rounded-full text-2xl mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre }}</span>
             </span>
 
         </div>
@@ -40,10 +41,10 @@
     <div id="eventosContainer" *ngIf="eventosEncontrados">
         <div class="flex flex-col justify-center items-center">
             <div class="w-3/4 tablet:w-1/2 flex flex-col tablet:flex-row tablet:justify-between tablet:content-between m-2">
-                <span class="text-white">Ordenar por:</span>
-                <button [ngClass]="{'bg-green-500' : toggleFecha, 'bg-gray-300': !toggleFecha}" class="p-1 m-1 rounded" (click)="orderFecha()">Fecha</button>
-                <button [ngClass]="{'bg-green-500' : togglePrecio, 'bg-gray-300': !togglePrecio}" class="p-1 m-1 rounded" (click)="orderPrecio()">Precio</button>
-                <button [ngClass]="{'bg-green-500' : toggleDuracion, 'bg-gray-300': !toggleDuracion}" class="p-1 m-1 rounded" (click)="orderDuracion()">Duración</button>
+                <span class="text-white mt-2">Ordenar por:</span>
+                <button [ngClass]="{'bg-gradient-to-b from-purple-900 to-blue-400' : toggleFecha, 'bg-gray-300': !toggleFecha}" class="p-2 m-1 rounded" (click)="orderFecha()">Fecha</button>
+                <button [ngClass]="{'bg-gradient-to-b from-purple-900 to-blue-400' : togglePrecio, 'bg-gray-300': !togglePrecio}" class="p-2 m-1 rounded" (click)="orderPrecio()">Precio</button>
+                <button [ngClass]="{'bg-gradient-to-b from-purple-900 to-blue-400' : toggleDuracion, 'bg-gray-300': !toggleDuracion}" class="p-2 m-1 rounded" (click)="orderDuracion()">Duración</button>
             </div>
             <div class="w-1/2 flex flex-col tablet:flex-row justify-between content-between m-2">
                 <button class="bg-yellow-400 m-1 p-1 rounded" (click)="mostrarEventosPasados()">Mostrar eventos pasados</button>

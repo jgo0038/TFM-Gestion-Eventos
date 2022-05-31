@@ -10,6 +10,8 @@
 
 <body class="m-0 p-0">
     <app-header></app-header>
+    <app-spinner></app-spinner>
+
     <div>
         <form [formGroup]="registerForm">
 
@@ -19,11 +21,11 @@
         <span class="text-2xl">Elige tu tipo de perfil</span>
     </div>
     <div class="rounded px-8 pt-6 pb-8 mx-40 my-5 flex flex-row justify-between">
-        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl">
+        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
             <span class="text-white bg-black h-auto rounded-xl p-2">PARTICULAR</span>
             <img (click)="selectParticular()" class="circle" src="../../../assets/ancestors.png" alt="gente">
         </div>
-        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl">
+        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
             <span class="text-white bg-black h-auto rounded-xl p-2">NEGOCIO</span>
             <img (click)="selectNegocio()" class="circle" src="../../../assets/tienda.png" alt="tienda">
         </div>
@@ -251,8 +253,8 @@
                 </div>
             </div>
             <div class="text-center mb-3 ">
-                <button *ngIf="registerFormNegocio.invalid " class="bg-gray-400 text-black font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed ">Enviar</button>
-                <button *ngIf="registerFormNegocio.valid " class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded " type="submit ">Enviar</button>
+                <button *ngIf="registerFormNegocio.invalid " class="bg-gray-400 text-black font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed ">Registrar</button>
+                <button *ngIf="registerFormNegocio.valid " class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded " type="submit ">Registrar</button>
             </div>
         </form>
     </div>
@@ -262,3 +264,5 @@
 
 </html>
 <app-footer></app-footer>
+<a class="hidden" href="https://www.flaticon.com/free-icons/shop" title="shop icons">Shop icons created by Freepik - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Eucalyp - Flaticon</a>

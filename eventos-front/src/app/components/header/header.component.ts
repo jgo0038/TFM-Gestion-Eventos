@@ -14,13 +14,13 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token'))
+    if(sessionStorage.getItem('token'))
       this.logged = true;
   }
 
   cerrarSesion() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('email');
     this.logged = false;
     this.router.navigate(['/']);
   }

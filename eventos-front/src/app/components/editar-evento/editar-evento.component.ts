@@ -10,6 +10,7 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { CiudadesService } from 'src/app/services/ciudades.service';
 import { EventosService } from 'src/app/services/eventos.service';
 import { ImagesService } from 'src/app/services/images.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -56,10 +57,11 @@ export class EditarEventoComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private imagenesService: ImagesService,
               private router: Router,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private spinnerService: SpinnerService) {
 
     this.eventoID = this.activatedRoute.snapshot.paramMap.get('eventoID')!;   
-    this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
+    this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((user: Usuario) => {
       this.usuarioID = user.usuarioID
     })
 
@@ -81,7 +83,7 @@ export class EditarEventoComponent implements OnInit {
 
     this.eventosService.getEventosByID(this.eventoID).subscribe((evento: Evento) => {
       if(evento){
-        if(localStorage.getItem('email') !== evento.creador){
+        if(sessionStorage.getItem('email') !== evento.creador){
           this.router.navigate(['/'])
         } else {
           this.evento = evento
@@ -175,6 +177,7 @@ export class EditarEventoComponent implements OnInit {
   }
 
   onUploadEventImages(): void {
+    this.spinnerService.show()
     this.fotosUploaded = true;
     // Fotos evento
     for (let i = 0; i < this.files.length; i++) {
@@ -189,6 +192,7 @@ export class EditarEventoComponent implements OnInit {
         if (res) {
           fotoEvento = res.secure_url;
           this.fotosEvento.push(fotoEvento);
+          this.spinnerService.hide()
           this.toastr.success('Imagen subida correctamente');
         }
       }, error => {
@@ -198,6 +202,7 @@ export class EditarEventoComponent implements OnInit {
   }
 
   onUploadFrontImage(): void {
+    this.spinnerService.show()
     this.fotosUploaded = true;
     // Foto portada
     const file_data = this.frontFile[0];
@@ -210,6 +215,7 @@ export class EditarEventoComponent implements OnInit {
       if (res) {
         this.fotoPortada = res.secure_url;
         this.fotosEvento.push(this.fotoPortada);
+        this.spinnerService.hide()
         this.toastr.success('Imagen subida correctamente');
       }
     }, error => {
