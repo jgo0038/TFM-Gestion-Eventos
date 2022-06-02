@@ -76,12 +76,12 @@ export class EventosComponent implements OnInit {
     var divClicked = document.getElementById(idDiv);
     if(!this.categoriasSelected.includes(idDiv)){
       this.categoriasSelected.push(idDiv);
-      divClicked!.style.backgroundImage = 'linear-gradient(to bottom, purple, #46a0fa)'
+      divClicked!.style.backgroundImage = 'linear-gradient(to bottom, #ccb3ff, #46a0fa)'
       divClicked!.style.color = 'white'
     }
     else{
       this.categoriasSelected = this.categoriasSelected.filter((cat) => {return cat !== idDiv})
-      divClicked!.style.background = 'rgba(209, 213, 219)'
+      divClicked!.style.background = 'rgba(156, 163, 175, var(--tw-bg-opacity)'
       divClicked!.style.color = 'black'
     }
   }
@@ -142,6 +142,9 @@ export class EventosComponent implements OnInit {
   }
 
   showEventos(): void {
+    this.toggleFecha = true;
+    this.togglePrecio = false;
+    this.toggleDuracion = false;
     const eventos = document.getElementById('eventosContainer');
     const selectCiudadValue = this.formCiudad.get('ciudad')?.value;
     var selCiudadText = '';

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Ciudad } from 'src/app/models/ciudad';
+import { CiudadesService } from 'src/app/services/ciudades.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  ciudades: Ciudad[] = []
+  constructor(private ciudadesService: CiudadesService) { }
 
   ngOnInit(): void {
+    this.ciudadesService.getAllCiudades().subscribe((ciudades) => {
+      this.ciudades = ciudades
+    })
   }
 
 }

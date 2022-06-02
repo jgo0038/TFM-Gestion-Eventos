@@ -46,6 +46,9 @@ module.exports = {
                 '1/6': '16%',
                 'fit-content': 'fit-content'
             },
+            width: {
+                '1/8': '10.5%'
+            }
         },
 
     },

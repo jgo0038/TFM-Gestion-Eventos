@@ -132,7 +132,10 @@ export class EditarEventoComponent implements OnInit {
     const inscripcion = this.editarEventoForm.get('inscripcion')?.value;
     const duracion = this.editarEventoForm.get('duracion')?.value;
     const categorias = this.editarEventoForm.get('categorias')?.value;
-
+    let inscripcionBoolean: boolean = false;
+    if(inscripcion === 'true'){
+      inscripcionBoolean = true
+    }
     if(this.editarEventoForm.valid){
       let confirm: boolean = true;
       if(!this.fotosUploaded){
@@ -140,7 +143,7 @@ export class EditarEventoComponent implements OnInit {
       }
       if(confirm){
         this.eventosService.updateEvento(this.eventoID, nombre, descripcion, ubicacion,
-          fecha_evento, this.evento.fecha_pub, precio, inscripcion, duracion,
+          fecha_evento, this.evento.fecha_pub, precio, inscripcionBoolean, duracion,
           this.usuarioID!, this.ciudadID!, categorias, this.fotoPortada, this.fotosEvento).subscribe((res) => {
             this.router.navigate(['/perfil'])
             this.toastr.success('El evento se ha actualizado correctamente')

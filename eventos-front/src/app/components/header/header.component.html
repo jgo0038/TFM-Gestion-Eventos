@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
 <body>
-    <div class="w-full flex bg-white ">
+    <div class="w-full flex bg-white h-auto">
         <div class="w-full flex items-center justify-start">
-            <a routerLink="/"> Aqui el logo</a></div>
+            <a routerLink="/"> <img class="w-1/2 mobile:w-1/6 tablet:w-1/6 laptop:w-1/8 desktop:w-1/12" src="../../../assets/logo.png" alt=""></a>
+        </div>
         <div class="w-full hidden items-center justify-center bg-clip-text text-transparent bg-gradient-to-r from-purple-900 to-blue-400 text-2xl tablet:flex">CiudActive</div>
         <div class="flex justify-end items-center mobile:hidden">
             <img (click)="toggleMenu()" src="../../../assets/menu.png" class="max-w-1/6 mr-2" alt="menu">

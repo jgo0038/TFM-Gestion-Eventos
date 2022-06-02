@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-white to-blue-300">
+<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-purple-100 to-blue-300">
 
 <head>
     <meta charset="UTF-8">
@@ -20,12 +20,12 @@
     <div class="text-center">
         <span class="text-2xl">Elige tu tipo de perfil</span>
     </div>
-    <div class="rounded px-8 pt-6 pb-8 mx-40 my-5 flex flex-row justify-between">
-        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
+    <div class="rounded px-8 pt-6 pb-8 mx-15 tablet:mx-40 my-5 flex flex-row justify-between">
+        <div class="flex flex-col justify-center items-center mx-2 shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
             <span class="text-white bg-black h-auto rounded-xl p-2">PARTICULAR</span>
             <img (click)="selectParticular()" class="circle" src="../../../assets/ancestors.png" alt="gente">
         </div>
-        <div class="flex flex-col justify-center items-center shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
+        <div class="flex flex-col justify-center items-center mx-2 shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
             <span class="text-white bg-black h-auto rounded-xl p-2">NEGOCIO</span>
             <img (click)="selectNegocio()" class="circle" src="../../../assets/tienda.png" alt="tienda">
         </div>
@@ -37,11 +37,11 @@
         Introduce los datos para crear un perfil de tu negocio
     </div>
 
-    <div class="flex  justify-center items-center">
+    <div class="flex p-7 justify-center items-center">
         <form *ngIf="particular" [formGroup]="registerFormParticular" (ngSubmit)="registerParticular()" class="w-full max-w-lg">
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="nombreParticular">
+                    <label class="block tracking-wide text-s mb-2" for="nombreParticular">
                         Nombre*
                     </label>
                     <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreParticular" type="text" placeholder="Nombre">
@@ -50,7 +50,7 @@
                     </span>
                 </div>
                 <div class="w-full tablet:w-1/2 px-3">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="apellidosParticular">
+                    <label class="block tracking-wide text-s mb-2" for="apellidosParticular">
                         Apellidos*
                     </label>
                     <input formControlName="apellidos" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="apellidosParticular" type="text" placeholder="Apellidos">
@@ -61,7 +61,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="emailParticular">
+                    <label class="block tracking-wide text-s mb-2" for="emailParticular">
                         Email*
                     </label>
                     <input formControlName="mail" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="emailParticular" type="email" placeholder="Email@email.com">
@@ -75,7 +75,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-2">
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="tfnoParticular">
+                    <label class="block tracking-wide text-s mb-2" for="tfnoParticular">
                         Telefono*
                     </label>
                     <input formControlName="telefono" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tfnoParticular" type="text" placeholder="Telefono">
@@ -87,7 +87,7 @@
                     </span>
                 </div>
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="fechaNacParticular">
+                    <label class="block tracking-wide text-s mb-2" for="fechaNacParticular">
                         Fecha de nacimiento*
                     </label>
                     <input formControlName="fecha_nac" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="fechaNacParticular" type="date" placeholder="Fecha nacimiento">
@@ -98,7 +98,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-2">
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="generoParticular">
+                    <label class="block tracking-wide text-s mb-2" for="generoParticular">
                         Genero*
                     </label>
                     <input formControlName="genero" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="generoParticular" type="text" placeholder="H/M">
@@ -110,7 +110,7 @@
                     </span>
                 </div>
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="contraseñaParticular">
+                    <label class="block tracking-wide text-s mb-2" for="contraseñaParticular">
                         Contraseña*
                     </label>
                     <input formControlName="contraseña" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contraseñaInput" type="password" placeholder="****************">
@@ -125,7 +125,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
-                    <label class="block tracking-wide text-s font-bold mb-2">Imagen de perfil</label>
+                    <label class="block tracking-wide text-s mb-2">Imagen de perfil</label>
                     <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelect($event)" [multiple]="false">
                         <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)</ngx-dropzone-label>
                         <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]=" f ">
@@ -135,7 +135,7 @@
                     <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadImage()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadImage()">Selecciona para subir la imagen al perfil</button></div>
                 </div>
                 <div class="w-full px-3">
-                    <label class="block tracking-wide text-s font-bold mb-2" for="descripcionParticular">
+                    <label class="block tracking-wide text-s mb-2" for="descripcionParticular">
                         Descripcion
                     </label>
                     <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descripcionParticular" placeholder="Escriba una descripción opcional para dar mas información sobre su perfil.">
@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="text-center mb-3">
-                <button *ngIf="registerFormParticular.invalid" class="bg-gray-400 text-black font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed" type="submit">Enviar</button>
+                <button *ngIf="registerFormParticular.invalid" class="bg-gray-400 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed" type="submit">Enviar</button>
                 <button *ngIf="registerFormParticular.valid" class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type=" submit ">Enviar</button>
             </div>
         </form>
@@ -155,7 +155,7 @@
         <form *ngIf="negocio " [formGroup]="registerFormNegocio " (ngSubmit)="registerNegocio() " class="w-full max-w-lg ">
             <div class="flex flex-wrap -mx-3 mb-6 ">
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="nombreNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="nombreNegocio ">
                         Nombre*
                     </label>
                     <input formControlName="nombre " class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white " id="nombreNegocio " type="text " placeholder="Nombre ">
@@ -166,7 +166,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-6 ">
                 <div class="w-full px-3 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="emailNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="emailNegocio ">
                         Email*
                     </label>
                     <input formControlName="mail " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="emailNegocio
@@ -181,7 +181,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-2 ">
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="tfnoNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="tfnoNegocio ">
                         Telefono*
                     </label>
                     <input formControlName="telefono " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="tfnoNegocio
@@ -194,7 +194,7 @@
                     </span>
                 </div>
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="fecha_nacNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="fecha_nacNegocio ">
                         Fundación*
                     </label>
                     <input formControlName="fecha_nac " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="fecha_nacNegocio
@@ -206,7 +206,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-2 ">
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="ubicacionNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="ubicacionNegocio ">
                         Ubicación*
                     </label>
                     <input formControlName="ubicacion " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="ubicacionNegocio
@@ -216,7 +216,7 @@
                     </span>
                 </div>
                 <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="contraseñaNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="contraseñaNegocio ">
                         Contraseña*
                     </label>
                     <input formControlName="contraseña " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="contraseñaInput
@@ -232,7 +232,7 @@
             </div>
             <div class="flex flex-wrap -mx-3 mb-6 ">
                 <div class="w-full px-3 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 " for="descripcionNegocio ">
+                    <label class="block tracking-wide text-s mb-2 " for="descripcionNegocio ">
                         Descripcion
                     </label>
                     <textarea formControlName="descripcion " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="descripcionNegocio
@@ -241,7 +241,7 @@
                     </textarea>
                 </div>
                 <div class="w-full px-3 ">
-                    <label class="block tracking-wide text-s font-bold mb-2 ">Imagen de perfil</label>
+                    <label class="block tracking-wide text-s mb-2 ">Imagen de perfil</label>
                     <ngx-dropzone accept="image/jpeg,image/jpg,image/png " (change)="onSelect($event) " [multiple]="false ">
                         <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)</ngx-dropzone-label>
                         <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview " *ngFor="let f of files " [removable]="true " (removed)="onRemove(f) " [file]=" f ">
@@ -253,7 +253,7 @@
                 </div>
             </div>
             <div class="text-center mb-3 ">
-                <button *ngIf="registerFormNegocio.invalid " class="bg-gray-400 text-black font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed ">Registrar</button>
+                <button *ngIf="registerFormNegocio.invalid " class="bg-gray-400 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed ">Registrar</button>
                 <button *ngIf="registerFormNegocio.valid " class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded " type="submit ">Registrar</button>
             </div>
         </form>
