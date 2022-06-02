@@ -11,21 +11,23 @@ import { EditarEventoComponent } from './components/editar-evento/editar-evento.
 import { PrivacidadComponent } from './components/privacidad/privacidad.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
+import { AuthGuardService as AuthGuard} from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'publicar', component: PublicarEventoComponent },
+  { path: 'publicar', component: PublicarEventoComponent, canActivate: [AuthGuard] },
   { path: 'registro', component: RegistroComponent },
   { path: 'evento/:eventoID', component: EventoDetailsComponent },
   { path: 'eventos', component: EventosComponent },
   { path: 'eventos/:ciudadID', component: EventosComponent },
-  { path: 'editarEvento/:eventoID', component: EditarEventoComponent },
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'perfil/:usuarioID', component: PerfilComponent },
+  { path: 'editarEvento/:eventoID', component: EditarEventoComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  { path: 'perfil/:usuarioID', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'privacidad', component: PrivacidadComponent },
   { path: 'faq', component: FaqComponent },
-  { path: 'editarPerfil/:usuarioID', component: EditarPerfilComponent },
+  { path: 'editarPerfil/:usuarioID', component: EditarPerfilComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

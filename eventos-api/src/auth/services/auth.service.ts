@@ -6,6 +6,8 @@ import { UsuariosService } from 'src/usuarios/services/usuarios.service';
 @Injectable()
 export class AuthService {
 
+  access_token: string = ''
+
     constructor(
         private usuariosService: UsuariosService,
         private jwtService: JwtService,
@@ -21,8 +23,24 @@ export class AuthService {
       async generateAccessToken(email: string): Promise<{ access_token: string }> {
         const user: UsuariosEntity = await this.usuariosService.getUsuarioByEmail(email);
         const payload = { mail: user.mail };
+        this.access_token = this.jwtService.sign(payload)
         return {
-          access_token: this.jwtService.sign(payload),
+          access_token: this.access_token,
         };
+      }
+
+      async checkToken(token: any): Promise<boolean> {
+        let user;
+        try{
+          user = await this.jwtService.verify(token.token);
+        } catch(error){
+          return false
+        }
+        if(user){
+          if(user.mail === token.email)
+            return true
+          else
+            return false
+        }
       }
 }

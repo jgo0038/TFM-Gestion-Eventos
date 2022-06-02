@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthToken } from '../models/authToken';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class AuthService {
   
   checkContraseña(usuario: string, contraseña: string){
     return this.httpClient.post<any>(this.baseURL + '/auth/check', {email: usuario, password: contraseña});
+  }
+  
+  checkToken(token: AuthToken){
+    return this.httpClient.post<any>(this.baseURL + '/auth/checkToken', {token: token.token, email: token.email});
   }
   
   login(usuario: string, contraseña: string){

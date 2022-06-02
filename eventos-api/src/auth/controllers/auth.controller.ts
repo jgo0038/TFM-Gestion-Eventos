@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Logger, Post, UnauthorizedException } from '@nestjs/common';
 import { from, Observable } from 'rxjs';
 import { LoginDto } from '../models/login.dto';
 import { AuthService } from '../services/auth.service';
@@ -13,6 +13,13 @@ export class AuthController {
         const valid = await this.authService.validateUser(loginDto.email, loginDto.password);
         return valid;
     }
+    
+    @Post('checkToken')
+    async checkToken(@Body() token: any): Promise<boolean> {
+        const valid = await this.authService.checkToken(token);
+        return valid;
+    }
+
     @Post()
     async login(@Body() loginDto: LoginDto): Promise<Observable<{ access_token: string; }>> {
         const valid = await this.authService.validateUser(loginDto.email, loginDto.password);

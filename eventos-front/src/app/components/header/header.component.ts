@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthToken } from 'src/app/models/authToken';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +13,16 @@ export class HeaderComponent implements OnInit {
   logged: boolean = false;
   showMenu: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('token'))
-      this.logged = true;
+    let tokenAuth: AuthToken = {
+      token: sessionStorage.getItem('token')!,
+      email: sessionStorage.getItem('email')!
+    }
+    this.authService.checkToken(tokenAuth).subscribe((res) => {
+      this.logged = res
+    })
   }
 
   cerrarSesion() {
