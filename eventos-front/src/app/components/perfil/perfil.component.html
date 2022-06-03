@@ -72,7 +72,7 @@
                     <div *ngIf="usuarioID; else noCreador" class="flex flex-col justify-center items-center">
                         <span>No se han creado eventos aún</span>
                         <span>Aprovecha y crea tu propio evento</span>
-                        <a routerLink="/publicar" class="m-3 p-2 bg-black text-white rounded border-transparent hover:text-black hover:bg-yellow-500 hover:border-black">Publicar</a>
+                        <a routerLink="/publicar" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white">Publicar</a>
                     </div>
                     <ng-template #noCreador>
                         <span>No ha creado eventos aún</span>
@@ -101,7 +101,7 @@
                     <div class="flex flex-col justify-center items-center">
                         <span>No se ha inscrito en ningún evento aún</span>
                         <span>Aprovecha y busca eventos</span>
-                        <button routerLink="/eventos" class="m-3 p-2 bg-black text-white rounded border-transparent hover:text-black hover:bg-yellow-500 hover:border-black">Ver eventos</button>
+                        <button routerLink="/eventos" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white">Ver eventos</button>
                     </div>
                 </ng-template>
             </div>

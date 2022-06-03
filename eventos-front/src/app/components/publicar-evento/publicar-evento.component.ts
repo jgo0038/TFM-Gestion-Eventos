@@ -51,6 +51,13 @@ export class PublicarEventoComponent implements OnInit {
       fotoPortada: [''],
       categorias: ['', [Validators.required]]
     })
+    if (sessionStorage.getItem('email')) {
+      this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((usuario) => {
+        this.userID = usuario.usuarioID;
+      });
+    } else {
+      this.router.navigate(['/'])
+    }
   }
 
   ngOnInit(): void {

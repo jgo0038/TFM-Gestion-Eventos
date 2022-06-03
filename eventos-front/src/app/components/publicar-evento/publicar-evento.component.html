@@ -19,7 +19,7 @@
                     <option disabled selected value>----------</option>
                     <option *ngFor="let ciudad of ciudades" [value]="ciudad.ciudadID">{{ ciudad.nombre }}</option>
                 </select>
-            <button (click)="showFullForm()" type="button" class="bg-black text-white my-2 mx-2 py-2 px-4 rounded">Continúa</button>
+            <button (click)="showFullForm()" type="button" class="p-2 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white">Continúa</button>
         </div>
         <div id="eventoForm2" class="hidden">
             <div class="flex flex-wrap mx-10 mb-2 flex-col justify-center items-center tablet:justify-start tablet:items-start mobile:flex-row">

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-purple-200 to-blue-400">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+</head>
+
+<body class="h-full min-h-full ">
+    <app-header></app-header>
+    <app-spinner></app-spinner>
+
+    <form [formGroup]="categoriasForm" (ngSubmit)="guardarcategoria()">
+        <div class="text-center uppercase m-5"><span class="w-full text-2xl m-5">Crear categoria</span></div>
+        <div class="flex flex-wrap mobile:mx-10 mb-2 flex-col justify-center items-center">
+
+            <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                <label class="block tracking-wide text-s mb-2" for="nombre">
+                    Nombre*
+                </label>
+                <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Nombre">
+                <span class="text-red-700" *ngIf="categoriasForm.get('nombre')?.hasError('required') && categoriasForm.get('nombre')?.dirty">
+                    El nombre es obligatorio
+                </span>
+            </div>
+            <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                <label class="block tracking-wide text-s mb-2" for="descripcion">
+                    Descripcion*
+                </label>
+                <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Descripción">
+
+                </textarea>
+                <span class=" text-red-700" *ngIf="categoriasForm.get('descripcion')?.hasError('required') && categoriasForm.get('descripcion')?.dirty">
+                    La descripcion es obligatoria
+                </span>
+            </div>
+            <button *ngIf="categoriasForm.invalid" class="bg-gray-400 m-3 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed" disabled type="button">
+                Crear categoria
+            </button>
+            <button *ngIf="categoriasForm.valid" class="bg-yellow-500 m-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="submit">
+                Crear categoria
+            </button>
+        </div>
+    </form>
+    <div>
+        <div class="text-center uppercase m-5"><span class="w-full text-2xl m-5">Borrar categoria</span></div>
+
+        <form [formGroup]="modificarCategoriaForm">
+            <div class="flex flex-col justify-center items-center">
+                <select class="text-center bg-gray-400 bg-opacity-60 mx-2 p-2 rounded tablet:p-4" formControlName="categoriaID" id="categoriaID">
+                    <option disabled selected value>----------</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria.categoriaID">{{categoria.nombre}}</option>
+                </select>
+                <div id="editcategoria" [ngClass]="{'hidden':!openEdit, 'flex': openEdit }" class="flex flex-col justify-center items-center w-full">
+                    <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                        <label class="block tracking-wide text-s mb-2" for="nombre">
+                        Nombre*
+                    </label>
+                        <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Nombre">
+                        <span class="text-red-700" *ngIf="modificarCategoriaForm.get('nombre')?.hasError('required') && modificarCategoriaForm.get('nombre')?.dirty">
+                        El nombre es obligatorio
+                    </span>
+                    </div>
+                    <div class="w-3/4 tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                        <label class="block tracking-wide text-s mb-2" for="descripcion">
+                        Descripcion*
+                    </label>
+                        <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Descripción">
+    
+                    </textarea>
+                        <span class=" text-red-700" *ngIf="modificarCategoriaForm.get('descripcion')?.hasError('required') && modificarCategoriaForm.get('descripcion')?.dirty">
+                        La descripcion es obligatoria
+                    </span>
+                    </div>
+                </div>
+                <div class="flex flex-col mobile:flex-row">
+                    <button (click)="borrarCategoria()" class="bg-red-500 m-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="submit">
+                        Borrar categoria
+                    </button>
+                    <button (click)="updateCategoria()" [ngClass]="{'hidden':!openEdit, 'flex': openEdit }" class="bg-yellow-500 m-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="button">
+                        Guardar categoria
+                    </button>
+                    <button (click)="editarCategoria()" class="bg-green-500 m-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="submit">
+                        Editar categoria
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>

@@ -10,12 +10,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+  admin: boolean = false;
   logged: boolean = false;
   showMenu: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.checkAdmin()
     let tokenAuth: AuthToken = {
       token: sessionStorage.getItem('token')!,
       email: sessionStorage.getItem('email')!
@@ -30,6 +32,12 @@ export class HeaderComponent implements OnInit {
     sessionStorage.removeItem('email');
     this.logged = false;
     this.router.navigate(['/']);
+  }
+
+  checkAdmin() {
+    if(sessionStorage.getItem('email') === 'ciudActive@gmail.com'){
+      this.admin = true;
+    }
   }
 
   toggleMenu() {

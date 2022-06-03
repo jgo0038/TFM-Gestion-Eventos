@@ -12,6 +12,9 @@ import { PrivacidadComponent } from './components/privacidad/privacidad.componen
 import { FaqComponent } from './components/faq/faq.component';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 import { AuthGuardService as AuthGuard} from './services/auth-guard.service';
+import { CiudadesComponent } from './components/ciudades/ciudades.component';
+import { AdminGuardService as AdminAuth } from './services/admin-guard.service';
+import { CategoriasComponent } from './components/categorias/categorias.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +30,8 @@ const routes: Routes = [
   { path: 'privacidad', component: PrivacidadComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'editarPerfil/:usuarioID', component: EditarPerfilComponent, canActivate: [AuthGuard] },
+  { path: 'categorias', component: CategoriasComponent, canActivate: [AdminAuth] },
+  { path: 'ciudades', component: CiudadesComponent, canActivate: [AdminAuth] },
   { path: '**', redirectTo: '' }
 ];
 

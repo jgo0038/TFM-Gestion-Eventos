@@ -22,11 +22,6 @@ module.exports = {
                 'bg-fondoPerfil': "url('./assets/fondoPerfil.jpg')",
                 'bg-fondoQuestion': "url('./assets/question.png')",
             },
-            colors: {
-                cream: {
-                    bg: "#f0edbb"
-                }
-            },
             maxHeight: {
                 '1/2': '50%',
                 '1/4': '25%',

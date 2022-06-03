@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs/operators';
 import { AuthToken } from '../models/authToken';
+import { AuthGuardService } from './auth-guard.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate{
+export class AdminGuardService implements CanActivate{
 
   constructor(private router: Router,
               private authService: AuthService,
+              private authGuard: AuthGuardService,
               private toastr: ToastrService) { }
+
 
   async canActivate(): Promise<boolean | UrlTree> {
     if(!sessionStorage.getItem('email') || !sessionStorage.getItem('token')){
@@ -20,32 +22,24 @@ export class AuthGuardService implements CanActivate{
       this.toastr.error('Inicia sesión para poder acceder')
       return false;
     } else if(sessionStorage.getItem('email') && sessionStorage.getItem('token')){
-      let tokenAuth: AuthToken = {
-        token: sessionStorage.getItem('token')!,
-        email: sessionStorage.getItem('email')!
-      }
-      let valid = await this.tokenValid(tokenAuth);
-      if(valid)
-        return true
-      else{
-        this.router.navigate(['login']);
-        this.toastr.error('Inicia sesión para poder acceder')
-        return false;
-      }
+      return await this.checkUserAdmin()
     }
     return true
   }
-  
-  tokenValid(token: AuthToken): Promise<boolean> {
-    let valid: boolean = false
-    return new Promise(resolve=>{
-      this.authService.checkToken(token).pipe(
-         take(1)
-       )
-       .subscribe(
-          (res: boolean) => {
-              resolve(res);
-       })
-  })
+
+  async checkUserAdmin(): Promise<boolean> {
+    let tokenAuth: AuthToken = {
+      token: sessionStorage.getItem('token')!,
+      email: 'ciudActive@gmail.com'
+    }
+    let valid = await this.authGuard.tokenValid(tokenAuth);
+
+    if(valid)
+      return true
+    else{
+      this.router.navigate(['/']);
+      this.toastr.error('No tiene permisos para acceder')
+      return false;
+    }
   }
 }

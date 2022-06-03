@@ -25,6 +25,8 @@ import { FaqComponent } from './components/faq/faq.component';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 import { UsuariosInscritosComponent } from './components/usuarios-inscritos/usuarios-inscritos.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CiudadesComponent } from './components/ciudades/ciudades.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     FaqComponent,
     EditarPerfilComponent,
     UsuariosInscritosComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CiudadesComponent,
+    CategoriasComponent
   ],
   imports: [
     BrowserModule,

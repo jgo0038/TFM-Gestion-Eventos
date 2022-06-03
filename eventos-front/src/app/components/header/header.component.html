@@ -10,6 +10,12 @@
             <img (click)="toggleMenu()" src="../../../assets/menu.png" class="max-w-1/6 mr-2" alt="menu">
         </div>
         <div class="w-full max-h-80px items-center justify-end hidden mobile:flex mobile:visible">
+            <a routerLink="/ciudades" routerLinkActive="active-link" *ngIf="admin" class="px-3 py-3">
+                <span>Ciudades</span>
+            </a>
+            <a routerLink="/categorias" routerLinkActive="active-link" *ngIf="admin" class="px-3 py-3">
+                <span>Categorias</span>
+            </a>
             <a routerLink="/eventos" routerLinkActive="active-link" class="px-3 py-3">
                 <span>Eventos</span>
             </a>
@@ -22,12 +28,18 @@
             <a routerLink="/perfil" routerLinkActive="active-link" *ngIf="logged" class="px-3 py-3">
                 <span>Perfil</span>
             </a>
-            <a (click)="cerrarSesion()" routerLink="" *ngIf="logged" class="px-3 py-3">
+            <a (click)="cerrarSesion()" routerLink="" *ngIf="logged" class="px-3 py-3 whitespace-nowrap">
                 <span>Cerrar sesión</span>
             </a>
         </div>
     </div>
     <div [ngClass]="{'hidden': !showMenu, 'flex': showMenu, 'flex-col': showMenu}" class="w-full max-h-80px items-center justify-center mobile:hidden">
+        <a routerLink="/ciudades" routerLinkActive="active-link-hamburguer" *ngIf="admin" class="px-3 py-3 w-full text-center cursor-pointer bg-gray-200 hover:bg-gray-400">
+            <span>Ciudades</span>
+        </a>
+        <a routerLink="/categorias" routerLinkActive="active-link-hamburguer" *ngIf="admin" class="px-3 py-3 w-full text-center cursor-pointer bg-gray-200 hover:bg-gray-400">
+            <span>Categorias</span>
+        </a>
         <a routerLink="/eventos" routerLinkActive="active-link-hamburguer" class="px-3 py-3 w-full text-center bg-gray-200 cursor-pointer hover:bg-gray-400">
             <span>Eventos</span>
         </a>
