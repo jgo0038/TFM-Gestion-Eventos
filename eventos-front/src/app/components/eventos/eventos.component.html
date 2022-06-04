@@ -31,7 +31,7 @@
         <div class="flex flex-wrap justify-center items-center">
             <span *ngFor="let categoria of categorias" class="cursor-pointer m-5">
                 <span (click)="addCategoria($event)" id="{{categoria.categoriaID}}"
-                    class="bg-gray-400 rounded-full text-2xl mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre
+                    class="bg-gray-400 rounded-full text-2xl mobile:mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre
                     }}</span>
             </span>
 
