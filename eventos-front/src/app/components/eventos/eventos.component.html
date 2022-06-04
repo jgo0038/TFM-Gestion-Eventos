@@ -25,12 +25,14 @@
         </form>
     </div>
     <div class="flex flex-wrap flex-col justify-center items-center">
-        <div class="text-center"><span class="text-white text-2xl m-1 tablet:text-3xl laptop:text-4xl"> Selecciona las categorías para
+        <div class="text-center"><span class="text-white text-2xl m-1 tablet:text-3xl laptop:text-4xl"> Selecciona las
+                categorías para
                 filtrar</span></div>
         <div class="flex flex-wrap justify-center items-center">
             <span *ngFor="let categoria of categorias" class="cursor-pointer m-5">
                 <span (click)="addCategoria($event)" id="{{categoria.categoriaID}}"
-                    class="bg-gray-400 rounded-full text-2xl mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre }}</span>
+                    class="bg-gray-400 rounded-full text-2xl mx-4 p-1 mobile:p-5 whitespace-nowrap">{{ categoria.nombre
+                    }}</span>
             </span>
 
         </div>
@@ -46,18 +48,20 @@
                 <button [ngClass]="{'bg-gradient-to-b from-purple-600 to-blue-400' : toggleDuracion, 'bg-gray-300': !toggleDuracion}" class="p-2 m-1 rounded" (click)="orderDuracion()">Duración</button>
             </div>
             <div class="w-1/2 flex flex-col tablet:flex-row justify-between content-between m-2">
-                <button class="bg-yellow-400 m-1 p-1 rounded" (click)="mostrarEventosPasados()">Mostrar eventos pasados</button>
-                <button class="bg-yellow-400 m-1 p-1 rounded" (click)="ocultarEventosPasados()">Ocultar eventos pasados</button>
+                <button class="bg-yellow-400 m-1 p-1 rounded" (click)="mostrarEventosPasados()">Mostrar eventos
+                    pasados</button>
+                <button class="bg-yellow-400 m-1 p-1 rounded" (click)="ocultarEventosPasados()">Ocultar eventos
+                    pasados</button>
             </div>
-            <a *ngFor="let evento of listaEventos" (click)="showEventoDetail(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:min-w-1/2 tablet:max-w-1/2 bg-white rounded-lg border shadow-xl hover:bg-gray-300">
+            <a *ngFor="let evento of listaEventos" (click)="showEventoDetail(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-5 max-w-3/4 tablet:min-w-1/2 tablet:max-w-1/2 bg-white rounded-lg border shadow-xl hover:bg-gray-300 dark:text-white dark:bg-gray-900">
                 <img *ngIf="evento.fotoPortada; else elseBlock" class="object-cover max-w-full max-h-full rounded-t-lg" src='{{evento.fotoPortada}}' alt="fotoPortada">
                 <ng-template #elseBlock>
                     <img src="../../../assets/noImage.png" alt="Sin imagen">
                 </ng-template>
                 <div class="flex flex-col justify-center items-center p-4 leading-normal">
-                    <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
+                    <h5 class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">{{ evento.nombre }}
                     </h5>
-                    <p class="mb-3 font-normal text-gray-700">{{ evento.descripcion | slice:0:80}}...
+                    <p class="mb-3 font-normal text-gray-700 dark:text-white">{{ evento.descripcion | slice:0:80}}...
                     </p>
                     <span> Ubicacion: {{evento.ubicacion}}</span>
                     <span>Precio: {{evento.precio}} €</span>
@@ -68,6 +72,7 @@
                 <div class="flex flex-col justify-center items-center tablet:flex-row tablet:justify-between w-full px-6 rounded-b-lg bg-gray-500 text-white">
                     <span>{{ evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
                     <span>Duración: {{ evento.duracion }} mins</span>
+
                 </div>
             </a>
         </div>

@@ -1,7 +1,7 @@
 module.exports = {
     content: ["./src/**/*.{html,js}"],
     purge: [],
-    darkMode: false, // or 'media' or 'class'
+    darkMode: 'class', // or 'media' or 'class'
     theme: {
         screens: {
             'mobile': '400px',
@@ -10,6 +10,9 @@ module.exports = {
             'desktop': '1280px',
         },
         extend: {
+            animation: {
+                'bounce-short': 'bounce 1s ease-in-out 5'
+            },
             backgroundImage: {
                 'bg-amigos': "url('./assets/amigos.jpg')",
                 'bg-atraccion': "url('./assets/atraccion.jpg')",

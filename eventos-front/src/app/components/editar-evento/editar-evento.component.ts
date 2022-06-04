@@ -61,7 +61,7 @@ export class EditarEventoComponent implements OnInit {
               private spinnerService: SpinnerService) {
 
     this.eventoID = this.activatedRoute.snapshot.paramMap.get('eventoID')!;   
-    this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((user: Usuario) => {
+    this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
       this.usuarioID = user.usuarioID
     })
 
@@ -83,7 +83,7 @@ export class EditarEventoComponent implements OnInit {
 
     this.eventosService.getEventosByID(this.eventoID).subscribe((evento: Evento) => {
       if(evento){
-        if(sessionStorage.getItem('email') !== evento.creador){
+        if(localStorage.getItem('email') !== evento.creador){
           this.router.navigate(['/'])
         } else {
           this.evento = evento

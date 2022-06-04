@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-purple-200 to-blue-400">
+<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-purple-200 to-blue-400 dark:from-gray-900 dark:to-gray-900">
 
 <head>
     <meta charset="UTF-8">
@@ -8,8 +8,8 @@
     <title>Perfil</title>
 </head>
 
-<body class="h-full min-h-full w-auto">
-    <app-header></app-header>
+<body class="h-full min-h-full w-auto dark:bg-gray-900 dark:text-white">
+    <app-header class="text-black"></app-header>
     <app-spinner></app-spinner>
 
     <div class="flex flex-col justify-center items-center">
@@ -23,20 +23,20 @@
                 <img *ngIf="usuario.negocio" src="../../../assets/tienda.png" class="w-full h-auto max-w-xs tablet:max-w-xs" alt="sinFotoPerfil">
             </ng-template>
             <div class="flex flex-col justify-center items-center mx-5">
-                <p class="text-white">Email</p>
+                <p class="text-white dark:text-gray-400">Email</p>
                 <span class="text-xl">{{usuario.mail}}</span>
-                <p class="text-white">Nombre</p>
+                <p class="text-white dark:text-gray-400">Nombre</p>
                 <span class="text-xl">{{usuario.nombre}}</span>
                 <span class="text-xl">{{usuario.apellidos}}</span>
-                <p *ngIf="usuario.fecha_nac && usuario.particular" class="text-white">Edad</p>
-                <p *ngIf="usuario.fecha_nac && usuario.negocio" class="text-white">Desde</p>
+                <p *ngIf="usuario.fecha_nac && usuario.particular" class="text-white dark:text-gray-400">Edad</p>
+                <p *ngIf="usuario.fecha_nac && usuario.negocio" class="text-white dark:text-gray-400">Desde</p>
                 <span *ngIf="usuario.fecha_nac && usuario.particular" class="text-xl">{{usuario.fecha_nac | edad}}</span>
                 <span *ngIf="usuario.fecha_nac && usuario.negocio" class="text-xl">{{usuario.fecha_nac | date:'yyyy' }}</span>
-                <p class="text-white">Teléfono</p>
+                <p class="text-white dark:text-gray-400">Teléfono</p>
                 <span class="text-xl">{{usuario.telefono}}</span>
-                <p *ngIf="usuario.ubicacion" class="text-white">Ubicación</p>
+                <p *ngIf="usuario.ubicacion" class="text-white dark:text-gray-400">Ubicación</p>
                 <span class="text-xl">{{usuario.ubicacion}}</span>
-                <p *ngIf="usuario.descripcion" class="text-white">Descripción</p>
+                <p *ngIf="usuario.descripcion" class="text-white dark:text-gray-400">Descripción</p>
                 <span class="text-xl">{{usuario.descripcion}}</span>
             </div>
         </div>
@@ -50,7 +50,7 @@
             <div *ngIf="showEventosCreados" class="m-3">
                 <div *ngIf="listEventosCreados.length > 0; else noEventosCreados" class="flex flex-col justify-center items-center">
                     <div *ngFor="let evento of listEventosCreados" class="mb-3">
-                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300">
+                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300 dark:bg-gray-400">
                             <img *ngIf="evento.fotoPortada; else noFotoEvento" class="flex flex-col justify-center items-center p-4 max-h-1/2" src='{{evento.fotoPortada}}' alt="fotoPortada">
                             <ng-template #noFotoEvento>
                                 <img src="../../../assets/noImage.png" alt="Sin imagen">
@@ -58,11 +58,11 @@
                             <div class="flex flex-col justify-center items-center p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
                                 </h5>
-                                <span>{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
+                                <span class="text-gray-900">{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
                             </div>
 
                         </a>
-                        <div *ngIf="perfilPropio" class="flex flex-row justify-between bg-white w-full tablet:max-w-xs">
+                        <div *ngIf="perfilPropio" class="flex flex-row justify-between bg-white w-full tablet:max-w-xs dark:bg-gray-400">
                             <button (click)="editarEvento(evento.eventoID)" class="bg-green-400 text-xs mobile:text-base p-1 mobile:p-2 hover:bg-black hover:text-green-700">EDITAR</button>
                             <button (click)="borrarEvento(evento.eventoID)" class="bg-red-400 text-xs mobile:text-base p-1 mobile:p-2 hover:bg-black hover:text-red-700">BORRAR</button>
                         </div>
@@ -72,7 +72,7 @@
                     <div *ngIf="usuarioID; else noCreador" class="flex flex-col justify-center items-center">
                         <span>No se han creado eventos aún</span>
                         <span>Aprovecha y crea tu propio evento</span>
-                        <a routerLink="/publicar" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white">Publicar</a>
+                        <a routerLink="/publicar" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white dark:text-gray-400 animate-bounce-short">Publicar</a>
                     </div>
                     <ng-template #noCreador>
                         <span>No ha creado eventos aún</span>
@@ -83,8 +83,8 @@
 
             <div *ngIf="showEventosInscritos" class="m-3">
                 <div class="flex flex-col justify-center items-center" *ngIf="listEventosInscritos.length > 0; else noEventosInscritos">
-                    <div *ngFor="let evento of listEventosInscritos" class="mb-3">
-                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300">
+                    <div *ngFor="let evento of listEventosInscritos" class="mb-3 dark:bg-gray-300">
+                        <a (click)="showEventoDetails(evento.eventoID)" class="cursor-pointer flex flex-col items-center mb-0 max-w-xs bg-white rounded-tl-lg rounded-tr-lg border shadow-xl hover:bg-gray-300 dark:bg-gray-400">
                             <img *ngIf="evento.fotoPortada; else noFotoEvento" class="flex flex-col justify-center items-center p-4 max-h-1/2" src='{{evento.fotoPortada}}' alt="fotoPortada">
                             <ng-template #noFotoEvento>
                                 <img src="../../../assets/noImage.png" alt="Sin imagen">
@@ -92,7 +92,7 @@
                             <div class="flex flex-col justify-center items-center p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold text-gray-900">{{ evento.nombre }}
                                 </h5>
-                                <span>{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
+                                <span class="text-gray-900">{{evento.fecha_evento | date:'d-LLL-yy HH:mm a' }}</span>
                             </div>
                         </a>
                     </div>
@@ -101,7 +101,7 @@
                     <div class="flex flex-col justify-center items-center">
                         <span>No se ha inscrito en ningún evento aún</span>
                         <span>Aprovecha y busca eventos</span>
-                        <button routerLink="/eventos" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white">Ver eventos</button>
+                        <button routerLink="/eventos" class="p-3 my-3 border border-black bg-gray-300 rounded hover:bg-black hover:text-white dark:text-gray-400">Ver eventos</button>
                     </div>
                 </ng-template>
             </div>

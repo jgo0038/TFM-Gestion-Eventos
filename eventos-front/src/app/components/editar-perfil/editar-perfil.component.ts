@@ -67,7 +67,7 @@ export class EditarPerfilComponent implements OnInit {
         this.usuario = user;
         if(user.foto)
           this.foto = user.foto;
-        if(user.mail === sessionStorage.getItem('email')){
+        if(user.mail === localStorage.getItem('email')){
           this.editarPerfilForm.patchValue({
             nombre: user.nombre,
             apellidos: user.apellidos,

@@ -49,11 +49,11 @@ export class PerfilComponent implements OnInit {
         if(usuario.eventosInscritos)
           this.listEventosInscritos = usuario.eventosInscritos
       });
-    } else if (sessionStorage.getItem('email')) {
-      this.usuariosService.getUserByMail(sessionStorage.getItem('email')!).subscribe((usuario: Usuario) => {
+    } else if (localStorage.getItem('email')) {
+      this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((usuario: Usuario) => {
         this.usuario = usuario;
         this.usuarioID = usuario.usuarioID!;
-        if(usuario.mail === sessionStorage.getItem('email'))
+        if(usuario.mail === localStorage.getItem('email'))
           this.perfilPropio = true
         if(usuario.eventosCreados)
           this.listEventosCreados = usuario.eventosCreados

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from 'src/app/services/auth.service';
 import { ErrorsService } from 'src/app/services/errors.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-registro',
@@ -30,7 +32,8 @@ export class RegistroComponent implements OnInit {
               private toastr: ToastrService,
               private errorService: ErrorsService,
               private imagenesService: ImagesService,
-              private spinnerService: SpinnerService) {
+              private spinnerService: SpinnerService,
+              private usuariosService: UsuariosService) {
     this.registerForm = this.fb.group({
       negocio: ['', [Validators.required]],
       particular: ['', [Validators.required]]
@@ -43,7 +46,8 @@ export class RegistroComponent implements OnInit {
       descripcion: [''],
       fecha_nac: ['', [Validators.required]],
       genero: ['', [Validators.required, Validators.pattern('[H|M|h|m]')]],
-      contraseña: ['', [Validators.required, Validators.pattern('^.{6,}$')]]
+      contraseña: ['', [Validators.required, Validators.pattern('^.{6,}$')]],
+      privacidad: ['', Validators.required]
     }),
     this.registerFormNegocio = this.fb.group({
       mail: ['', [Validators.required, Validators.email]],
@@ -52,7 +56,8 @@ export class RegistroComponent implements OnInit {
       ubicacion: ['', [Validators.required]],
       descripcion: [''],
       fecha_nac: ['', [Validators.required]],
-      contraseña: ['', [Validators.required, Validators.pattern('^.{6,}$')]]
+      contraseña: ['', [Validators.required, Validators.pattern('^.{6,}$')]],
+      privacidad: ['', Validators.required]
     })
    }
 
@@ -113,8 +118,9 @@ export class RegistroComponent implements OnInit {
     const contraseña = this.registerFormNegocio.get('contraseña')?.value;
     const ubicacion = this.registerFormNegocio.get('ubicacion')?.value;
     const descripcion = this.registerFormNegocio.get('descripcion')?.value;
+    const privacidad = this.registerFormNegocio.get('privacidad')?.value;
 
-    if(this.registerFormNegocio.valid){
+    if(this.registerFormNegocio.valid && privacidad){
       let confirm: boolean = true;
       if(!this.fotosUploaded){
         confirm = window.confirm('Si no ha seleccionado los botones para subir las imágenes no serán actualizadas.¿Desea continuar?')
@@ -126,9 +132,15 @@ export class RegistroComponent implements OnInit {
             this.router.navigate(['/login']);
           },
           error => {
-            console.log(error.statusText)
+            this.usuariosService.getUserByMail(mail).subscribe((usuario: Usuario) => {
+              if(usuario.mail === mail)
+                this.toastr.error('El correo introducido ya está en uso');
+            })
+            this.toastr.error('No se ha podido crear el usuario');
           })
       }
+    } else if(!privacidad){
+      this.toastr.error('Es necesario aceptar la política de privacidad')
     }
   }
 
@@ -141,10 +153,11 @@ export class RegistroComponent implements OnInit {
     let genero = this.registerFormParticular.get('genero')?.value;
     const contraseña = this.registerFormParticular.get('contraseña')?.value;
     const descripcion = this.registerFormParticular.get('descripcion')?.value;
+    const privacidad = this.registerFormParticular.get('privacidad')?.value;
 
     (genero === 'H') ? genero = 'hombre' : genero = 'mujer'
 
-    if(this.registerFormParticular.valid){
+    if(this.registerFormParticular.valid && privacidad){
       let confirm: boolean = true;
       if(!this.fotosUploaded){
         confirm = window.confirm('Si no ha seleccionado los botones para subir las imágenes no serán actualizadas.¿Desea continuar?')
@@ -156,10 +169,15 @@ export class RegistroComponent implements OnInit {
             this.router.navigate(['/login']);
           },
           error => {
-            console.log(error.statusText);
-            this.toastr.error(this.errorService.errorCodes(error.statusText), 'Error');
+            this.usuariosService.getUserByMail(mail).subscribe((usuario: Usuario) => {
+              if(usuario.mail === mail)
+                this.toastr.error('El correo introducido ya está en uso');
+            })
+            this.toastr.error('No se ha podido crear el usuario');
           })
       }
+    } else if(!privacidad){
+      this.toastr.error('Es necesario aceptar la política de privacidad')
     }
   }
 

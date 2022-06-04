@@ -14,6 +14,11 @@ export class UsuariosInscritosComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    document.addEventListener('keydown', function(event){
+      if(event.key === "Escape"){
+        document.getElementById('listaInscritos')!.style.visibility = 'hidden'
+      }
+    });
   }
 
   abrirPerfil(usuarioID: number): void {

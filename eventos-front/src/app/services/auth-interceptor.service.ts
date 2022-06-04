@@ -14,7 +14,7 @@ export class AuthInterceptorService implements HttpInterceptor{
               private spinnerService: SpinnerService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
                 
-    const authToken: string = sessionStorage.getItem('token')!;
+    const authToken: string = localStorage.getItem('token')!;
     
     let request = req;
 

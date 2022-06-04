@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-purple-100 to-blue-300">
+<html lang="en" class="min-h-full block m-0 p-0 bg-gradient-to-b from-purple-100 to-blue-300 dark:from-gray-900 dark:to-gray-900">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <title>Registro</title>
 </head>
 
-<body class="m-0 p-0">
+<body class="m-0 p-0 dark:text-white">
     <app-header></app-header>
     <app-spinner></app-spinner>
 
@@ -21,13 +21,13 @@
         <span class="text-2xl">Elige tu tipo de perfil</span>
     </div>
     <div class="rounded px-8 pt-6 pb-8 mx-15 tablet:mx-40 my-5 flex flex-row justify-between">
-        <div class="flex flex-col justify-center items-center mx-2 shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
+        <div (click)="selectParticular()" class="flex flex-col justify-center items-center mx-2 shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110 dark:bg-gray-300">
             <span class="text-white bg-black h-auto rounded-xl p-2">PARTICULAR</span>
-            <img (click)="selectParticular()" class="circle" src="../../../assets/ancestors.png" alt="gente">
+            <img class="circle" src="../../../assets/ancestors.png" alt="gente">
         </div>
-        <div class="flex flex-col justify-center items-center mx-2 shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110">
+        <div (click)="selectNegocio()" class="flex flex-col justify-center items-center mx-2 shadow-2xl rounded-2xl cursor-pointer transform transition duration-500 hover:scale-110 dark:bg-gray-300">
             <span class="text-white bg-black h-auto rounded-xl p-2">NEGOCIO</span>
-            <img (click)="selectNegocio()" class="circle" src="../../../assets/tienda.png" alt="tienda">
+            <img class="circle" src="../../../assets/tienda.png" alt="tienda">
         </div>
     </div>
     <div *ngIf="particular" class="text-center text-2xl">
@@ -127,142 +127,143 @@
                 <div class="w-full px-3">
                     <label class="block tracking-wide text-s mb-2">Imagen de perfil</label>
                     <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelect($event)" [multiple]="false">
-                        <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)</ngx-dropzone-label>
-                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]=" f ">
+                        <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)
+                        </ngx-dropzone-label>
+                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]=" f">
                             <ngx-dropzone-label>({{ f.type }})</ngx-dropzone-label>
                         </ngx-dropzone-image-preview>
                     </ngx-dropzone>
-                    <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadImage()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadImage()">Selecciona para subir la imagen al perfil</button></div>
+                    <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadImage()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadImage()">Selecciona para subir la imagen
+                            al perfil</button></div>
                 </div>
                 <div class="w-full px-3">
                     <label class="block tracking-wide text-s mb-2" for="descripcionParticular">
                         Descripcion
                     </label>
                     <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descripcionParticular" placeholder="Escriba una descripción opcional para dar mas información sobre su perfil.">
-                        
+
                     </textarea>
                 </div>
+                <input formControlName="privacidad" type="checkbox" class="m-1"> He leído y acepto la <a target="_blank" href="/privacidad" class="text-blue-500 underline"> &nbsp; política de privacidad</a>
             </div>
             <div class="text-center mb-3">
                 <button *ngIf="registerFormParticular.invalid" class="bg-gray-400 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed" type="submit">Enviar</button>
-                <button *ngIf="registerFormParticular.valid" class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type=" submit ">Enviar</button>
+                <button *ngIf="registerFormParticular.valid" class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type=" submit">Enviar</button>
             </div>
         </form>
 
 
 
 
-        <form *ngIf="negocio " [formGroup]="registerFormNegocio " (ngSubmit)="registerNegocio() " class="w-full max-w-lg ">
-            <div class="flex flex-wrap -mx-3 mb-6 ">
-                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s mb-2 " for="nombreNegocio ">
+        <form *ngIf="negocio" [formGroup]="registerFormNegocio" (ngSubmit)="registerNegocio()" class="w-full max-w-lg">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s mb-2" for="nombreNegocio">
                         Nombre*
                     </label>
-                    <input formControlName="nombre " class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white " id="nombreNegocio " type="text " placeholder="Nombre ">
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'nombre')?.hasError( 'required') && registerFormNegocio.get( 'nombre')?.touched ">
+                    <input formControlName="nombre" class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="nombreNegocio" type="text" placeholder="Nombre">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'nombre')?.hasError( 'required') && registerFormNegocio.get( 'nombre')?.touched">
                         El nombre es obligatorio
                     </span>
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6 ">
-                <div class="w-full px-3 ">
-                    <label class="block tracking-wide text-s mb-2 " for="emailNegocio ">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s mb-2" for="emailNegocio">
                         Email*
                     </label>
-                    <input formControlName="mail " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="emailNegocio
-                    " type="email " placeholder="Email@email.com ">
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'mail')?.hasError( 'required') && registerFormNegocio.get( 'mail')?.touched ">
+                    <input formControlName="mail" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="emailNegocio" type="email" placeholder="Email@email.com">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'mail')?.hasError( 'required') && registerFormNegocio.get( 'mail')?.touched">
                         El correo es obligatorio
                     </span>
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'mail')?.hasError( 'email') && registerFormNegocio.get( 'mail')?.touched ">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'mail')?.hasError( 'email') && registerFormNegocio.get( 'mail')?.touched">
                         El correo es inválido
                     </span>
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-2 ">
-                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s mb-2 " for="tfnoNegocio ">
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s mb-2" for="tfnoNegocio">
                         Telefono*
                     </label>
-                    <input formControlName="telefono " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="tfnoNegocio
-                    " type="text " placeholder="Telefono ">
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'telefono')?.hasError( 'required') && registerFormNegocio.get( 'telefono')?.touched ">
+                    <input formControlName="telefono" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="tfnoNegocio" type="text" placeholder="Telefono">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'telefono')?.hasError( 'required') && registerFormNegocio.get( 'telefono')?.touched">
                         El teléfono es obligatorio
                     </span>
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'telefono')?.hasError( 'pattern') && registerFormNegocio.get( 'telefono')?.touched ">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'telefono')?.hasError( 'pattern') && registerFormNegocio.get( 'telefono')?.touched">
                         El teléfono no es válido
                     </span>
                 </div>
-                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s mb-2 " for="fecha_nacNegocio ">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s mb-2" for="fecha_nacNegocio">
                         Fundación*
                     </label>
-                    <input formControlName="fecha_nac " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="fecha_nacNegocio
-                    " type="date " placeholder="Fecha de fundacion ">
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'fecha_nac')?.hasError( 'pattern') && registerFormNegocio.get( 'fecha_nac')?.touched ">
+                    <input formControlName="fecha_nac" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="fecha_nacNegocio" type="date" placeholder="Fecha de fundacion">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'fecha_nac')?.hasError( 'pattern') && registerFormNegocio.get( 'fecha_nac')?.touched">
                         La fecha de fundación es obligatoria
                     </span>
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-2 ">
-                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s mb-2 " for="ubicacionNegocio ">
+            <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s mb-2" for="ubicacionNegocio">
                         Ubicación*
                     </label>
-                    <input formControlName="ubicacion " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="ubicacionNegocio
-                    " type="text " placeholder="Ubicacion ">
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'ubicacion')?.hasError( 'required') && registerFormNegocio.get( 'ubicacion')?.touched ">
+                    <input formControlName="ubicacion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="ubicacionNegocio" type="text" placeholder="Ubicacion">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'ubicacion')?.hasError( 'required') && registerFormNegocio.get( 'ubicacion')?.touched">
                         La ubicacion es obligatoria
                     </span>
                 </div>
-                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0 ">
-                    <label class="block tracking-wide text-s mb-2 " for="contraseñaNegocio ">
+                <div class="w-full tablet:w-1/2 px-3 mb-6 tablet:mb-0">
+                    <label class="block tracking-wide text-s mb-2" for="contraseñaNegocio">
                         Contraseña*
                     </label>
-                    <input formControlName="contraseña " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="contraseñaInput
-                    " type="password " placeholder="**************** ">
-                    <input type="checkbox " (click)="verPassword() ">Ver contraseña <br>
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'contraseña')?.hasError( 'required') && registerFormNegocio.get( 'contraseña')?.touched ">
+                    <input formControlName="contraseña" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="contraseñaInput" type="password" placeholder="****************">
+                    <input type="checkbox" (click)="verPassword()">Ver contraseña <br>
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'contraseña')?.hasError( 'required') && registerFormNegocio.get( 'contraseña')?.touched">
                         La contraseña es obligatoria
                     </span>
-                    <span class="text-red-700 " *ngIf="registerFormNegocio.get( 'contraseña')?.hasError( 'pattern') && registerFormNegocio.get( 'contraseña')?.touched ">
+                    <span class="text-red-700" *ngIf="registerFormNegocio.get( 'contraseña')?.hasError( 'pattern') && registerFormNegocio.get( 'contraseña')?.touched">
                         La contraseña tiene que contener al menos 6 carácteres
                     </span>
                 </div>
             </div>
-            <div class="flex flex-wrap -mx-3 mb-6 ">
-                <div class="w-full px-3 ">
-                    <label class="block tracking-wide text-s mb-2 " for="descripcionNegocio ">
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s mb-2" for="descripcionNegocio">
                         Descripcion
                     </label>
-                    <textarea formControlName="descripcion " class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 " id="descripcionNegocio
-                    " placeholder="Escriba una descripción opcional para dar mas información sobre su perfil. ">
-                        
+                    <textarea formControlName="descripcion" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="descripcionNegocio" placeholder="Escriba una descripción opcional para dar mas información sobre su perfil.">
+
                     </textarea>
                 </div>
-                <div class="w-full px-3 ">
-                    <label class="block tracking-wide text-s mb-2 ">Imagen de perfil</label>
-                    <ngx-dropzone accept="image/jpeg,image/jpg,image/png " (change)="onSelect($event) " [multiple]="false ">
-                        <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)</ngx-dropzone-label>
-                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview " *ngFor="let f of files " [removable]="true " (removed)="onRemove(f) " [file]=" f ">
+                <div class="w-full px-3">
+                    <label class="block tracking-wide text-s mb-2">Imagen de perfil</label>
+                    <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelect($event)" [multiple]="false">
+                        <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)
+                        </ngx-dropzone-label>
+                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)" [file]=" f">
                             <ngx-dropzone-label>({{ f.type }})</ngx-dropzone-label>
                         </ngx-dropzone-image-preview>
                     </ngx-dropzone>
-                    <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded "><img src="../../../assets/upload.svg " (click)="onUploadImage() " class="w-5 cursor-pointer " alt="Upload "><button type="button
-                    " (click)="onUploadImage() ">Selecciona para subir la imagen al perfil</button></div>
+                    <div class="flex flex-row bg-gray-500 max-w-fit-content p-1 mt-2 cursor-pointer rounded"><img src="../../../assets/upload.svg" (click)="onUploadImage()" class="w-5 cursor-pointer" alt="Upload"><button type="button" (click)="onUploadImage()">Selecciona para subir la imagen
+                            al perfil</button></div>
                 </div>
+                <input formControlName="privacidad" type="checkbox" class="m-1"> He leído y acepto la <a target="_blank" href="/privacidad" class="text-blue-500 underline"> &nbsp; política de privacidad</a>
             </div>
-            <div class="text-center mb-3 ">
-                <button *ngIf="registerFormNegocio.invalid " class="bg-gray-400 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed ">Registrar</button>
-                <button *ngIf="registerFormNegocio.valid " class="bg-blue-700 mb-3 hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent rounded " type="submit ">Registrar</button>
+            <div class="text-center mb-3">
+                <button *ngIf="registerFormNegocio.invalid" class="bg-gray-400 text-black py-2 px-4 rounded opacity-50 cursor-not-allowed">Registrar</button>
+                <button *ngIf="registerFormNegocio.valid" class="bg-blue-700 mb-3 hover:bg-black text-black dark:text-white hover:text-white py-2 px-4 border border-black hover:border-transparent rounded" type="submit">Registrar</button>
             </div>
         </form>
     </div>
 
 </body>
-<a href="https://www.flaticon.com/free-icons/people " title="people icons "></a>
+<a href="https://www.flaticon.com/free-icons/people" title="people icons"></a>
 
 </html>
 <app-footer></app-footer>
-<a class="hidden" href="https://www.flaticon.com/free-icons/shop" title="shop icons">Shop icons created by Freepik - Flaticon</a>
-<a class="hidden" href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Eucalyp - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.com/free-icons/shop" title="shop icons">Shop icons created by Freepik -
+    Flaticon</a>
+<a class="hidden" href="https://www.flaticon.com/free-icons/people" title="people icons">People icons created by Eucalyp
+    - Flaticon</a>

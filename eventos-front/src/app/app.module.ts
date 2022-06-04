@@ -27,6 +27,7 @@ import { UsuariosInscritosComponent } from './components/usuarios-inscritos/usua
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CiudadesComponent } from './components/ciudades/ciudades.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
     ReactiveFormsModule ,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    CommonModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

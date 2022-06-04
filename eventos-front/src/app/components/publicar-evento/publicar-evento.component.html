@@ -8,7 +8,7 @@
     <title>Publicar evento</title>
 </head>
 
-<body class="h-full min-h-full m-0">
+<body class="h-full min-h-full">
     <app-header></app-header>
     <app-spinner></app-spinner>
 
@@ -70,7 +70,7 @@
                     <label class="block tracking-wide text-s mb-2" for="fotoPortada">
                             Foto de portada
                         </label>
-                    <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelectFront($event)">
+                    <ngx-dropzone accept="image/jpeg,image/jpg,image/png" (change)="onSelectFront($event)" class="bg-black">
                         <ngx-dropzone-label>Click para seleccionar imagen o arrastrala (jpg,jpeg,png)</ngx-dropzone-label>
                         <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of frontFile" [removable]="true" (removed)="onRemoveFront(f)" [file]="f">
                             <ngx-dropzone-label>({{ f.type }})</ngx-dropzone-label>

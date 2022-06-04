@@ -15,14 +15,14 @@ export class AuthGuardService implements CanActivate{
               private toastr: ToastrService) { }
 
   async canActivate(): Promise<boolean | UrlTree> {
-    if(!sessionStorage.getItem('email') || !sessionStorage.getItem('token')){
+    if(!localStorage.getItem('email') || !localStorage.getItem('token')){
       this.router.navigate(['login']);
       this.toastr.error('Inicia sesión para poder acceder')
       return false;
-    } else if(sessionStorage.getItem('email') && sessionStorage.getItem('token')){
+    } else if(localStorage.getItem('email') && localStorage.getItem('token')){
       let tokenAuth: AuthToken = {
-        token: sessionStorage.getItem('token')!,
-        email: sessionStorage.getItem('email')!
+        token: localStorage.getItem('token')!,
+        email: localStorage.getItem('email')!
       }
       let valid = await this.tokenValid(tokenAuth);
       if(valid)

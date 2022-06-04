@@ -17,11 +17,11 @@ export class AdminGuardService implements CanActivate{
 
 
   async canActivate(): Promise<boolean | UrlTree> {
-    if(!sessionStorage.getItem('email') || !sessionStorage.getItem('token')){
+    if(!localStorage.getItem('email') || !localStorage.getItem('token')){
       this.router.navigate(['login']);
       this.toastr.error('Inicia sesión para poder acceder')
       return false;
-    } else if(sessionStorage.getItem('email') && sessionStorage.getItem('token')){
+    } else if(localStorage.getItem('email') && localStorage.getItem('token')){
       return await this.checkUserAdmin()
     }
     return true
@@ -29,7 +29,7 @@ export class AdminGuardService implements CanActivate{
 
   async checkUserAdmin(): Promise<boolean> {
     let tokenAuth: AuthToken = {
-      token: sessionStorage.getItem('token')!,
+      token: localStorage.getItem('token')!,
       email: 'ciudActive@gmail.com'
     }
     let valid = await this.authGuard.tokenValid(tokenAuth);
