@@ -15,14 +15,12 @@ module.exports = {
             },
             backgroundImage: {
                 'bg-amigos': "url('./assets/amigos.jpg')",
-                'bg-atraccion': "url('./assets/atraccion.jpg')",
                 'bg-cervezas': "url('./assets/cervezas.jpg')",
                 'bg-engranaje': "url('./assets/engranaje.png')",
                 'bg-objetos': "url('./assets/objetos.jpg')",
                 'bg-confeti': "url('./assets/confeti.jpg')",
                 'bg-olly': "url('./assets/gente.webp')",
                 'bg-pintura': "url('./assets/pintura.jpg')",
-                'bg-fondoPerfil': "url('./assets/fondoPerfil.jpg')",
                 'bg-fondoQuestion': "url('./assets/question.png')",
             },
             maxHeight: {

@@ -126,6 +126,7 @@ export class EditarPerfilComponent implements OnInit {
     // Error subida sin imagenes
     if(!this.files[0]){
       this.toastr.error('Añade una imagen primero')
+      this.spinnerService.hide()
     }
     // Subida a cloudinary
     const file_data = this.files[0];
@@ -136,6 +137,7 @@ export class EditarPerfilComponent implements OnInit {
 
     if(this.files.length > 1){
       this.toastr.error('Suba una única foto de perfil')
+      this.spinnerService.hide()
     } else {
       this.imagenesService.uploadImagen(data).subscribe((res: any)=>{
         if(res)

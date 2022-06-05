@@ -20,7 +20,7 @@
             </ng-template>
             <p class="p-5">{{evento.descripcion}}</p>
             <div id="containerFoto" *ngIf="evento.fotosEvento.length > 0" class="flex flex-col">
-                <span class="text-2xl p-5">Galería del evento</span>
+                <span class="text-2xl p-5 uppercase">Galería del evento</span>
                 <div class="flex flex-row bg-gray-300 m-2 rounded columns-3 justify-around flex-wrap">
                     <div *ngFor="let fotoEvento of evento.fotosEvento" class="p-5 transform transition duration-500 hover:scale-110">
                         <a target="_blank" href="{{fotoEvento}}">
@@ -30,14 +30,16 @@
                 </div>
             </div>
             <div class="flex flex-col w-full">
-                <span class="text-2xl p-3">Ubicación del evento</span>
-                <span class="p-5">{{evento.ubicacion}}</span>
+                <!-- <span class="text-2xl p-3">Ubicación del evento</span> -->
+                <div class="flex flex-row justify-center items-center"><img src="../../../assets/ubicacion.png" class="max-w-xs max-h-5 m-1 float-left pr-1" alt="ubicacion"><span class="uppercase text-xl">Ubicación</span></div>
+                <span class="p-5 text-gray-500 dark:text-white">{{evento.ubicacion}}</span>
             </div>
             <app-usuarios-inscritos [ngClass]="{'hidden':!verInscritos, 'flex': verInscritos }" class="w-full tablet:w-3/4 fixed top-1/2" [usuariosInscritos]="usuariosInscritos">
             </app-usuarios-inscritos>
-            <span class="p-3 text-2xl w-full">Contacto</span>
+            <!-- <span class="p-3 text-2xl w-full uppercase">Contacto</span> -->
+            <div class="flex flex-row justify-center items-center"><img src="../../../assets/contacto.png" class="max-w-xs max-h-5 m-1 float-left pr-1" alt="contacto"><span class="uppercase text-xl">Contacto</span></div>
             <div class="flex">
-                <div class='m-0 flex flex-col justify-center items-center text-black dark:text-white rounded tablet:flex-row mobile:max-w-xs'>
+                <div class='m-0 flex flex-col justify-center items-center rounded tablet:flex-row mobile:max-w-xs text-gray-500 dark:text-white'>
                     <div (click)="abrirPerfil(usuarioCreador.usuarioID!)" class='flex justify-center items-center flex-shrink-0 cursor-pointer'>
                         <img *ngIf="usuarioCreador.foto; else elseBlock" class="w-full h-auto max-w-xs tablet:max-w-xs" src="{{usuarioCreador.foto}}" alt="fotoPerfil">
                         <ng-template #elseBlock class="flex-shrink-0 mx-5 max-w-xs">
@@ -114,7 +116,10 @@
 </body>
 
 </html>
+<app-footer></app-footer>
 <a class="hidden" href="https://www.flaticon.es/iconos-gratis/comentario" title="comentario iconos">Comentario iconos creados por Freepik - Flaticon</a>
 <a class="hidden" href="https://www.flaticon.com/free-icons/calendar" title="comentario iconos">Comentario iconos creados por Freepik - Flaticon</a>
 <a class="hidden" href="https://www.flaticon.es/iconos-gratis/reloj" title="comentario iconos">Comentario iconos creados por Freepik - Flaticon</a>
 <a class="hidden" href="https://www.flaticon.es/iconos-gratis/billete-de-banco" title="billete de banco iconos">Billete de banco iconos creados por Talha Dogar - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.es/iconos-gratis/ubicacion" title="ubicación iconos">Ubicación iconos creados por apien - Flaticon</a>
+<a class="hidden" href="https://www.flaticon.es/iconos-gratis/contacto" title="contacto iconos">Contacto iconos creados por Cuputo - Flaticon</a>

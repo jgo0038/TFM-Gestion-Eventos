@@ -78,7 +78,7 @@ export class EventoDetailsComponent implements OnInit {
         this.evento = evento
         this.usuariosService.getUserByMail(this.evento.creador).subscribe((user: Usuario) => {
           this.usuarioCreador = user;
-          if (localStorage.getItem('email') === this.evento.creador) {
+          if (localStorage.getItem('email')) {
             this.usuariosService.getUserByMail(localStorage.getItem('email')!).subscribe((user: Usuario) => {
               this.usuarioID = user.usuarioID;
               this.usuarioEmail = user.mail;
