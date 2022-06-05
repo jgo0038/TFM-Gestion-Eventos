@@ -8,6 +8,9 @@ API REST creada mediante Nest.js para el manejo de la base de datos del TFM.
 $ npm install
 ```
 
+## Configuration
+Antes de poder ejecutar la API, se necesita crear un fichero .env en la raiz del proyecto, a la altura de la carpeta src y el package.json. Este fichero contendrá las variables necesarias para realizar la conexión con la base de datos, esto se proporciona en la entrega del proyecto, en el fichero environment. Copiar el contenido de ese fichero dentro de nuestro .env que acabamos de crear.
+
 ## Running the app
 
 ```bash
